@@ -54,7 +54,7 @@ const supabaseUrl = "https://nvunvfuliztilbzbydqs.supabase.co";
       const { data, error } = await supabase
         .from("Imagenes")  // ¡Asegúrate de que coincida con el nombre real!
         .select("id")
-        .limit(/*--Poner un limite de datos obtenidos--*/);
+        .limit(1/*--Poner un limite de datos obtenidos--*/);
       
       if (error) {
         console.error("Error de Supabase:", error.message);
