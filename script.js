@@ -2,7 +2,7 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
 const supabaseUrl = "https://nvunvfuliztilbzbydqs.supabase.co";
-  const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im52dW52ZnVsaXp0aWxiemJ5ZHFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc4ODg5OTYsImV4cCI6MjA2MzQ2NDk5Nn0.pBp5CkGva3Y_2xBP9BVq-qnHng6M_1rikTalGHRGfd8";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im52dW52ZnVsaXp0aWxiemJ5ZHFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc4ODg5OTYsImV4cCI6MjA2MzQ2NDk5Nn0.pBp5CkGva3Y_2xBP9BVq-qnHng6M_1rikTalGHRGfd8";
 
   const supabase = createClient(supabaseUrl, supabaseKey);
 
@@ -15,16 +15,16 @@ const supabaseUrl = "https://nvunvfuliztilbzbydqs.supabase.co";
       return;
     }
 
-    // Convertir la imagen a Base64
+  
     const base64Data = await toBase64(file);
 
-    // Insertar en Supabase
+    
     const { data, error } = await supabase
       .from('Imagenes')
       .insert([
         { 
           name: file.name,
-          data: base64Data  // Guardamos el Base64 en la columna 'data'
+          data: base64Data  
         }
       ]);
 
@@ -61,7 +61,7 @@ const supabaseUrl = "https://nvunvfuliztilbzbydqs.supabase.co";
         console.error("Detalles:", error.details);
       } else {
         console.log("¡Conexión exitosa! Datos:", data);
-        console.log("Tarea 1" , data[0])
+        
       }
       CargarImagenes(data)
     } catch (err) {
@@ -127,7 +127,7 @@ function CargarImagenes(data){
   divImg.appendChild(img)
   
   });
-  console.log("Todas Cargaron Exitosamente")
+  
 }
 
 
