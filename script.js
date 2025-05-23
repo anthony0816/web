@@ -87,8 +87,8 @@ async function generate_low_quatity_version(base64, maxWidth = 300, quality = 0.
       const { data, error } = await supabase
         .from("Imagenes")  // ¡Asegúrate de que coincida con el nombre real!
         .select("id")
-        .limit(/*--Poner un limite de datos obtenidos--*/);
-      
+        .limit(/*--Poner un limite de datos obtenidos--*/)
+        .order('id', { ascending: true });
       if (error) {
         console.error("Error de Supabase:", error.message);
         console.error("Detalles:", error.details);
@@ -154,14 +154,14 @@ function CargarImagenes(data){
     
     const { data, error } = await supabase
     .from('Imagenes')
-    .select('data') 
+    .select('datalow') 
     .eq('id', id)
     .single();
   
     if (error) console.error("Error fetching image:", error);
   
-  const base64Img = data.data
-  const low_quality_img = await generate_low_quatity_version(base64Img)
+  const base64Img = data.datalow
+  /*const low_quality_img = await generate_low_quatity_version(base64Img)
   
   const { datalow, errorr } = await supabase
   .from('Imagenes')
@@ -169,7 +169,7 @@ function CargarImagenes(data){
     datalow: low_quality_img,
   })
   .eq('id', id); 
-  console.log("Datos de asignación de low quality",datalow,errorr)
+  console.log("Datos de asignación de low quality",datalow,errorr)*/
 
   const imgFormat = detectImageFormatFromBase64(base64Img)
   const img = displayBase64Image(base64Img,imgFormat)
