@@ -18,8 +18,8 @@
 
   <nav class="nav">
   
-  <i class="fas fa-bars icono"></i>   
-  <i class="fas fa-file-upload icono"></i>     
+  <i class="fa-solid fa-rotate icono" id="actualizar"></i>   
+  <i class="fas fa-file-upload icono" id="subir"></i>     
 
   </nav>
 
@@ -30,10 +30,14 @@
   
   
 
-  
-    <input type="file" id="imageInput">
-  <button id="GuardarImagen">Guardar imagen</button>
-  
+  <div class="panel_insertar" id="panel_insertar">
+    <input type="file" id="imageInput" class="inputfile">
+    <label for="imageInput" class="file_input_label">Aqui sube una foto bb </label>
+  <div class="contenedor_botones">
+    <button id="GuardarImagen" class=" GuardarImagen ">Aceptar</button>
+    <button id="Cancelar" class=" GuardarImagen ">Cancelar</button>
+  </div>
+  </div>
 
 
 
@@ -41,7 +45,7 @@
 
 
   <footer>
-    &copy; Hecho con ❤️ para ti.
+    &copy; Hecho con 🤍 para ti.
   </footer>
 
 

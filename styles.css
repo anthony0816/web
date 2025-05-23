@@ -30,21 +30,21 @@ p {
   display: flex;
   position: sticky;
   justify-content: space-around;
-  top: 0;
-  min-width: 300px;
+  top: 15px;
+  min-width: 100px;
   max-width: 700px;
-  width: 80%;
-  height: 2.5rem;
+  width: 50%;
+  height: 1.9rem;
   align-items: center;
   border: 2px solid black;
   margin: auto;
   padding: 10px;
-  border-radius: 13px;
-  z-index: 20;
+  border-radius: 25px;
+  z-index: 10;
   background-color: white;
 }
 .icono{
-  scale: 2.5;
+  scale: 2;
   margin-left: 10px;
   transition: scale 0.2s;
 }
@@ -103,10 +103,42 @@ footer {
   color: #aaa;
 }
 
-.barra_lateral{
-  background-color: red;
+.panel_insertar{
+  display: none;
+  flex-direction: column;
+  background-color: #444;
+  border: 2px solid black;
   position: absolute;
   height: 100vh;
-  top: 0;
-  left: -400px;
+  width: 95%;
+  height: 60%;
+  top: 50%;          /* 1. Lo posiciona al 50% del viewport */
+  left: 50%;
+  transform: translate(-50%, -40%);
+  z-index: 20;
+  border-radius: 13px;
+}
+.inputfile{
+display: none;
+
+}
+.file_input_label{
+max-width: 80%;
+margin: auto;
+padding: 20px;
+border: 2px solid black;
+border-radius: 13px;
+background-color: #d81b60;
+}
+.contenedor_botones{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.GuardarImagen{
+max-width: 80%;
+margin: auto;
+padding: 20px;
+border-radius: 13px;
+background-color: #d81b60;
 }

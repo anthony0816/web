@@ -187,10 +187,23 @@ GuardarImagen.addEventListener('click',function(){
     uploadImage()
 })
 
+const Cancelar = document.getElementById("Cancelar")
+Cancelar.addEventListener('click', function(){
+  let modal = document.getElementById("panel_insertar")
+  modal.style.display="none";
+})
 
+const subir = document.getElementById("subir")
+subir.addEventListener('click', function(){
+  let modal = document.getElementById("panel_insertar")
+  modal.style.display="flex";
+})
 
-
-
+const actualizar = document.getElementById("actualizar")
+actualizar.addEventListener('click', function(){
+  window.location.reload();
+  modal.style.display="flex";
+})
 
 
 
