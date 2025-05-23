@@ -29,16 +29,31 @@ p {
 .nav{
   display: flex;
   position: sticky;
+  justify-content: space-around;
   top: 0;
-  
   min-width: 300px;
+  max-width: 700px;
+  width: 80%;
   height: 2.5rem;
   align-items: center;
   border: 2px solid black;
+  margin: auto;
+  padding: 10px;
+  border-radius: 13px;
+  z-index: 20;
+  background-color: white;
+}
+.icono{
+  scale: 2.5;
+  margin-left: 10px;
+  transition: scale 0.2s;
+}
+.icono:hover{
+  scale: 2.6;
 }
 #gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(90px, 120px));
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
   gap: 0.5rem;
   padding: 0.8rem;
   max-width: 900px;
@@ -88,3 +103,10 @@ footer {
   color: #aaa;
 }
 
+.barra_lateral{
+  background-color: red;
+  position: absolute;
+  height: 100vh;
+  top: 0;
+  left: -400px;
+}
