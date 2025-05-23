@@ -118,6 +118,9 @@ footer {
   z-index: 20;
   border-radius: 13px;
 }
+.Cargando{
+margin: auto;
+}
 .inputfile{
 display: none;
 

@@ -1,6 +1,7 @@
 
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
+
 const supabaseUrl = "https://nvunvfuliztilbzbydqs.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im52dW52ZnVsaXp0aWxiemJ5ZHFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc4ODg5OTYsImV4cCI6MjA2MzQ2NDk5Nn0.pBp5CkGva3Y_2xBP9BVq-qnHng6M_1rikTalGHRGfd8";
 const supabase = createClient(supabaseUrl, supabaseKey);
@@ -35,12 +36,20 @@ async function generate_low_quatity_version(base64, maxWidth = 300, quality = 0.
   async function uploadImage() {
     const fileInput = document.getElementById('imageInput');
     const file = fileInput.files[0];
-    
+    const modal = document.getElementById("panel_insertar")
+    const Cargando = document.createElement('div')
+
     if (!file) {
       alert("¡Selecciona una imagen primero!");
       return;
     }
-
+    const elementos = modal.querySelectorAll('*');
+    elementos.forEach(elemento=>{
+      elemento.style.display="none"
+    })
+    Cargando.textContent = "Cargando..."
+    Cargando.classList.add('Cargando')
+    modal.appendChild(Cargando)
   
     const base64Data = await toBase64(file);
     const low_quality_version = await generate_low_quatity_version(base64Data)
@@ -61,6 +70,7 @@ async function generate_low_quatity_version(base64, maxWidth = 300, quality = 0.
       console.log("Imagen guardada en Base64:", data);
       console.log("¡Imagen subida con éxito!");
     }
+    modal.style.display="none"
   }
 
 
