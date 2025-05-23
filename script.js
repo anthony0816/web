@@ -9,7 +9,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 
 // Obtener version de baja calidad de la foto 
-async function generate_low_quatity_version(base64, maxWidth = 300, quality = 0.5) {
+async function generate_low_quatity_version(base64, maxWidth = 300, quality = 0.3) {
   return new Promise((resolve) => {
     const img = new Image();
     img.onload = () => {
