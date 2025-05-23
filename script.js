@@ -36,10 +36,11 @@ async function CargarImagenAltaCalidad (id){
   if(error){
     console.log("error al recargar la imagen")
   }
-  const newsrc = data.data
-  img.src = newsrc
+  const newsrc = `data:image/jpeg;base64,${data.data}`;
+  
+  return newsrc
   }
-  CargarImagenAltaCalidad(id_original)
+  img.src = await CargarImagenAltaCalidad(id_original)
 }
 
 // Obtener version de baja calidad de la foto 
