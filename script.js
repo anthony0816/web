@@ -6,8 +6,22 @@ const supabaseUrl = "https://nvunvfuliztilbzbydqs.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im52dW52ZnVsaXp0aWxiemJ5ZHFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc4ODg5OTYsImV4cCI6MjA2MzQ2NDk5Nn0.pBp5CkGva3Y_2xBP9BVq-qnHng6M_1rikTalGHRGfd8";
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-async function ExpandirImagen(id){
-console.log("id de la imagen " ,id)
+async function ExpandirImagen(id,src){
+const body = document.getElementsByTagName('body')[0]
+const modal = document.getElementById('contenedor_botones_expandir_imagen')
+const imgDiv = document.createElement('div')
+const imagenes = modal.querySelectorAll('img')
+imagenes.forEach(img=>{img.remove()})
+body.appendChild(modal)
+modal.classList.add('modal_mostrarImg')
+modal.style.display="flex"
+imgDiv.classList.add("imgDiv")
+const img = document.createElement('img')
+img.classList.add('img_mostrar_modal')
+img.src = src
+
+modal.insertBefore(imgDiv, modal.firstChild)
+imgDiv.appendChild(img)
 }
 
 
@@ -189,7 +203,7 @@ async function CargarImagenes(data) {
       Galeria.appendChild(divImg);
       
       img.addEventListener('click', function(){
-        ExpandirImagen(img.id);
+        ExpandirImagen(img.id, img.src);
       })
     }
   }
@@ -230,7 +244,12 @@ actualizar.addEventListener('click', function(){
   modal.style.display="flex";
 })
 
-
+const CerrarExpandirImg = document.getElementById("CerrarExpandirImg")
+CerrarExpandirImg.addEventListener('click',function(){
+  const modal_mostrarImg = document.getElementsByClassName("modal_mostrarImg")[0]
+  
+  modal_mostrarImg.style.display="none"
+})
 
 
 
