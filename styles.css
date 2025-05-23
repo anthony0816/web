@@ -106,14 +106,15 @@ footer {
 .panel_insertar{
   display: none;
   flex-direction: column;
-  background-color: #444;
+  background-color: wheat;
   border: 2px solid black;
-  position: absolute;
-  width: 95%;
-  height: 60%;
+  position: fixed;
+  width: 95vw;
+  height: 60vh;
+  max-width: 600px;
   top: 50%;          /* 1. Lo posiciona al 50% del viewport */
   left: 50%;
-  transform: translate(-50%, -40%);
+  transform: translate(-50%, -50%);
   z-index: 20;
   border-radius: 13px;
 }
