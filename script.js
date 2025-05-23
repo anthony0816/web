@@ -38,6 +38,7 @@ async function generate_low_quatity_version(base64, maxWidth = 300, quality = 0.
     const file = fileInput.files[0];
     const modal = document.getElementById("panel_insertar")
     const Cargando = document.createElement('div')
+    const inputFile = document.getElementById("imageInput")
 
     if (!file) {
       alert("¡Selecciona una imagen primero!");
@@ -71,6 +72,11 @@ async function generate_low_quatity_version(base64, maxWidth = 300, quality = 0.
       console.log("¡Imagen subida con éxito!");
     }
     modal.style.display="none"
+    Cargando.style.display="none"
+    elementos.forEach(elemento=>{
+    elemento.style.display="flex"
+    })
+    inputFile.style.display="none"
   }
 
 
