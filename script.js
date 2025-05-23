@@ -81,7 +81,7 @@ async function generate_low_quatity_version(base64, maxWidth = 300, quality = 0.
 
 
 
-  
+  //para obtener los id 
   async function ObtenerIds() {
     try {
       const { data, error } = await supabase
@@ -106,7 +106,7 @@ async function generate_low_quatity_version(base64, maxWidth = 300, quality = 0.
 
 
 
-
+// construir la imagen 
 function displayBase64Image(base64Data, imageType ) {
   // Create the full Base64 URL
   const imageUrl = `data:image/${imageType};base64,${base64Data}`;
@@ -124,7 +124,7 @@ function displayBase64Image(base64Data, imageType ) {
 
 
 
-
+// detectar el formato de la imagen 
 function detectImageFormatFromBase64(base64Data) {
   // Remove the data URL prefix if present
   const cleanBase64 = base64Data.replace(/^data:image\/\w+;base64,/, '');
@@ -144,7 +144,7 @@ function detectImageFormatFromBase64(base64Data) {
 
 
 
-
+// cargar las imagenes desde la base de datos 
 function CargarImagenes(data){
 
   const Galeria = document.getElementById("gallery")
