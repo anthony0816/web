@@ -145,44 +145,29 @@ function detectImageFormatFromBase64(base64Data) {
 
 
 // cargar las imagenes desde la base de datos 
-function CargarImagenes(data){
+async function CargarImagenes(data) {
+  const Galeria = document.getElementById("gallery");
+  Galeria.innerHTML = ""; // Limpiar antes de cargar
 
-  const Galeria = document.getElementById("gallery")
+  
+  for (const element of data) {  
+    const { data: imgData, error } = await supabase
+      .from('Imagenes')
+      .select('datalow')
+      .eq('id', element.id)
+      .single();
 
-  data.forEach(async  element => {
-    const id = element.id
-    
-    const { data, error } = await supabase
-    .from('Imagenes')
-    .select('datalow') 
-    .eq('id', id)
-    .single();
-  
-    if (error) console.error("Error fetching image:", error);
-  
-  const base64Img = data.datalow
-  /*const low_quality_img = await generate_low_quatity_version(base64Img)
-  
-  const { datalow, errorr } = await supabase
-  .from('Imagenes')
-  .update({ 
-    datalow: low_quality_img,
-  })
-  .eq('id', id); 
-  console.log("Datos de asignación de low quality",datalow,errorr)*/
+    if (!error) {
+      const imgFormat = detectImageFormatFromBase64(imgData.datalow);
+      const img = displayBase64Image(imgData.datalow, imgFormat);
+      img.classList = "singleIMG";
 
-  const imgFormat = detectImageFormatFromBase64(base64Img)
-  const img = displayBase64Image(base64Img,imgFormat)
-  
-  let divImg = document.createElement('div')
-  divImg.classList="singleIMG-continer"
-  img.classList ="singleIMG"
-  
-  Galeria.appendChild(divImg)
-  divImg.appendChild(img)
-  
-  });
-  
+      const divImg = document.createElement('div');
+      divImg.classList = "singleIMG-continer";
+      divImg.appendChild(img);
+      Galeria.appendChild(divImg);
+    }
+  }
 }
 
 
