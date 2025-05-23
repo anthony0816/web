@@ -3,9 +3,35 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 
 const supabaseUrl = "https://nvunvfuliztilbzbydqs.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im52dW52ZnVsaXp0aWxiemJ5ZHFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc4ODg5OTYsImV4cCI6MjA2MzQ2NDk5Nn0.pBp5CkGva3Y_2xBP9BVq-qnHng6M_1rikTalGHRGfd8";
+const supabase = createClient(supabaseUrl, supabaseKey);
 
-  const supabase = createClient(supabaseUrl, supabaseKey);
 
+
+
+// Obtener version de baja calidad de la foto 
+async function generate_low_quatity_version(base64, maxWidth = 300, quality = 0.5) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const scale = maxWidth / img.width;
+      canvas.width = maxWidth;
+      canvas.height = img.height * scale;
+      
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      
+      resolve(canvas.toDataURL('image/jpeg', quality).split(',')[1]);
+    };
+    img.src = `data:image/jpeg;base64,${base64}`;
+  });
+  
+}
+
+
+
+
+  // Subir imagenes por el usuario 
   async function uploadImage() {
     const fileInput = document.getElementById('imageInput');
     const file = fileInput.files[0];
@@ -17,14 +43,15 @@ const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 
   
     const base64Data = await toBase64(file);
-
+    const low_quality_version = await generate_low_quatity_version(base64Data)
     
     const { data, error } = await supabase
       .from('Imagenes')
       .insert([
         { 
           name: file.name,
-          data: base64Data  
+          data: base64Data,
+          datalow: low_quality_version  
         }
       ]);
 
@@ -35,6 +62,10 @@ const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
       console.log("¡Imagen subida con éxito!");
     }
   }
+
+
+
+
 
  // Función para convertir File a Base64
   function toBase64(file) {
@@ -48,13 +79,15 @@ const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 
   
 
+
+
   
   async function ObtenerIds() {
     try {
       const { data, error } = await supabase
         .from("Imagenes")  // ¡Asegúrate de que coincida con el nombre real!
         .select("id")
-        .limit(1/*--Poner un limite de datos obtenidos--*/);
+        .limit(/*--Poner un limite de datos obtenidos--*/);
       
       if (error) {
         console.error("Error de Supabase:", error.message);
@@ -70,6 +103,10 @@ const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
   
 }
 
+
+
+
+
 function displayBase64Image(base64Data, imageType ) {
   // Create the full Base64 URL
   const imageUrl = `data:image/${imageType};base64,${base64Data}`;
@@ -83,6 +120,10 @@ function displayBase64Image(base64Data, imageType ) {
 
   return img; 
 }
+
+
+
+
 
 function detectImageFormatFromBase64(base64Data) {
   // Remove the data URL prefix if present
@@ -100,6 +141,10 @@ function detectImageFormatFromBase64(base64Data) {
   return 'unknown';
 }
 
+
+
+
+
 function CargarImagenes(data){
 
   const Galeria = document.getElementById("gallery")
@@ -116,6 +161,16 @@ function CargarImagenes(data){
     if (error) console.error("Error fetching image:", error);
   
   const base64Img = data.data
+  const low_quality_img = await generate_low_quatity_version(base64Img)
+  
+  const { datalow, errorr } = await supabase
+  .from('Imagenes')
+  .update({ 
+    datalow: low_quality_img,
+  })
+  .eq('id', id); 
+  console.log("Datos de asignación de low quality",datalow,errorr)
+
   const imgFormat = detectImageFormatFromBase64(base64Img)
   const img = displayBase64Image(base64Img,imgFormat)
   
