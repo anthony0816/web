@@ -19,6 +19,7 @@ imgDiv.classList.add("imgDiv")
 const img = document.createElement('img')
 img.classList.add('img_mostrar_modal')
 img.src = src
+img.id = id 
 
 
 modal.insertBefore(imgDiv, modal.firstChild)
@@ -88,7 +89,7 @@ async function generate_low_quatity_version(base64, maxWidth = 300, quality = 0.
   
     const base64Data = await toBase64(file);
     const low_quality_version = await generate_low_quatity_version(base64Data)
-    
+    // Insertar la nueva imagen en la tabla 
     const { data, error } = await supabase
       .from('Imagenes')
       .insert([
@@ -97,13 +98,16 @@ async function generate_low_quatity_version(base64, maxWidth = 300, quality = 0.
           data: base64Data,
           datalow: low_quality_version  
         }
-      ]);
+      ])
+      .select('id')
 
     if (error) {
       console.error("Error al insertar:", error);
     } else {
       console.log("Imagen guardada en Base64:", data);
       console.log("¡Imagen subida con éxito!");
+      const info = "Cargada por el usuario"
+      CargarImagenes(data, info)
     }
     modal.style.display="none"
     Cargando.style.display="none"
@@ -111,6 +115,24 @@ async function generate_low_quatity_version(base64, maxWidth = 300, quality = 0.
     elemento.style.display="flex"
     })
     inputFile.style.display="none"
+    
+    //Obtener el id para mostrar el archivo 
+
+    // Cargar la foto en la pagina una vez subida 
+    /* 
+    const nameImgParaCargar = file.name
+    console.log("Este es el nombre del archivo" , nameImgParaCargar)
+    
+    const {data2,error2} = await supabase
+    .from('Imagenes')
+    .select('id')
+    .eq('name', nameImgParaCargar)
+    .single();
+    if(error2){
+      console.log("ha ocurrido un error al actualizar la pagina")
+    }
+    console.log("datos de la imagen a subir", data2)
+    */
   }
 
 
@@ -195,9 +217,12 @@ function detectImageFormatFromBase64(base64Data) {
 
 
 // cargar las imagenes desde la base de datos 
-async function CargarImagenes(data) {
+async function CargarImagenes(data,info) {
   const Galeria = document.getElementById("gallery");
-  Galeria.innerHTML = ""; // Limpiar antes de cargar
+  if(info != "Cargada por el usuario"){
+    Galeria.innerHTML = ""; 
+  }
+  
   
   
   
