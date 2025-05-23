@@ -163,12 +163,17 @@ background-color: #d81b60;
   
 }
 .imgDiv{
+  display: flex;
+  justify-content: center;
   height: 100%;
+  width: 100%;
   margin: auto;
+  
 }
 .img_mostrar_modal{
-  width: auto;
-  height: auto;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
   max-height: 91vh;
   border: 2px solid black;
   border-radius: 20px;
