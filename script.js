@@ -6,7 +6,9 @@ const supabaseUrl = "https://nvunvfuliztilbzbydqs.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im52dW52ZnVsaXp0aWxiemJ5ZHFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc4ODg5OTYsImV4cCI6MjA2MzQ2NDk5Nn0.pBp5CkGva3Y_2xBP9BVq-qnHng6M_1rikTalGHRGfd8";
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-
+async function ExpandirImagen(id){
+console.log("id de la imagen " ,id)
+}
 
 
 // Obtener version de baja calidad de la foto 
@@ -164,7 +166,8 @@ function detectImageFormatFromBase64(base64Data) {
 async function CargarImagenes(data) {
   const Galeria = document.getElementById("gallery");
   Galeria.innerHTML = ""; // Limpiar antes de cargar
-
+  
+  
   
   for (const element of data) {  
     const { data: imgData, error } = await supabase
@@ -176,12 +179,18 @@ async function CargarImagenes(data) {
     if (!error) {
       const imgFormat = detectImageFormatFromBase64(imgData.datalow);
       const img = displayBase64Image(imgData.datalow, imgFormat);
+      const id = element.id
       img.classList = "singleIMG";
+      img.id = "img"+id
 
       const divImg = document.createElement('div');
       divImg.classList = "singleIMG-continer";
       divImg.appendChild(img);
       Galeria.appendChild(divImg);
+      
+      img.addEventListener('click', function(){
+        ExpandirImagen(img.id);
+      })
     }
   }
 }
