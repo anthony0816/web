@@ -6,7 +6,7 @@ const supabaseUrl = "https://nvunvfuliztilbzbydqs.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im52dW52ZnVsaXp0aWxiemJ5ZHFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc4ODg5OTYsImV4cCI6MjA2MzQ2NDk5Nn0.pBp5CkGva3Y_2xBP9BVq-qnHng6M_1rikTalGHRGfd8";
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-async function ExpandirImagen(id,src){
+async function ExpandirImagen(id,src,id_original){
 const body = document.getElementsByTagName('body')[0]
 const modal = document.getElementById('contenedor_botones_expandir_imagen')
 const imgDiv = document.createElement('div')
@@ -14,16 +14,33 @@ const imagenes = modal.querySelectorAll('img')
 imagenes.forEach(img=>{img.remove()})
 body.appendChild(modal)
 modal.classList.add('modal_mostrarImg')
-modal.style.display="flex"
+modal.style.display="flex"  
 imgDiv.classList.add("imgDiv")
 const img = document.createElement('img')
 img.classList.add('img_mostrar_modal')
 img.src = src
 
+
 modal.insertBefore(imgDiv, modal.firstChild)
 imgDiv.appendChild(img)
-}
 
+
+async function CargarImagenAltaCalidad (id){
+  
+  const { data , error } = await supabase
+      .from('Imagenes')
+      .select('data')
+      .eq('id', id)
+      .single();
+
+  if(error){
+    console.log("error al recargar la imagen")
+  }
+  const newsrc = data.data
+  img.src = newsrc
+  }
+  CargarImagenAltaCalidad(id_original)
+}
 
 // Obtener version de baja calidad de la foto 
 async function generate_low_quatity_version(base64, maxWidth = 300, quality = 0.3) {
@@ -203,7 +220,7 @@ async function CargarImagenes(data) {
       Galeria.appendChild(divImg);
       
       img.addEventListener('click', function(){
-        ExpandirImagen(img.id, img.src);
+        ExpandirImagen(img.id, img.src,id);
       })
     }
   }
