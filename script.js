@@ -4,6 +4,7 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 const supabaseUrl = "https://nvunvfuliztilbzbydqs.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im52dW52ZnVsaXp0aWxiemJ5ZHFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc4ODg5OTYsImV4cCI6MjA2MzQ2NDk5Nn0.pBp5CkGva3Y_2xBP9BVq-qnHng6M_1rikTalGHRGfd8";
 const supabase = createClient(supabaseUrl, supabaseKey);
+var ImagenesCargadas = 0;
 
 // Extraer los números de un string
 function extraerNumeros(str) {
@@ -190,13 +191,13 @@ function toBase64(file) {
 }
 
 // Para obtener los ID
-async function ObtenerIds(limit) {
+async function ObtenerIds(k,ImagenesCargadas ) {
     try {
         const { data, error } = await supabase
             .from("Imagenes")  // ¡Asegúrate de que coincida con el nombre real!
             .select("id")
-            .limit(limit /*--Poner un limite de datos obtenidos--*/)
-            .order('id', { ascending: false });
+            .order('id', { ascending: false })
+            .range(ImagenesCargadas,ImagenesCargadas+k);
 
         if (error) {
             console.error("Error de Supabase:", error.message);
@@ -204,8 +205,8 @@ async function ObtenerIds(limit) {
         } else {
             console.log("¡Conexión exitosa! Datos:", data);
         }
-
-        CargarImagenes(data);
+        const info = "Cargar mas"
+        CargarImagenes(data, info);
     } catch (err) {
         console.error("Error inesperado:", err);
     }
@@ -247,7 +248,7 @@ function detectImageFormatFromBase64(base64Data) {
 async function CargarImagenes(data, info) {
     const Galeria = document.getElementById("gallery");
 
-    if (info != "Cargada por el usuario") {
+    if ((info != "Cargada por el usuario" )&&(info != "Cargar mas")) {
         Galeria.innerHTML = "";
     }
 
@@ -270,6 +271,8 @@ async function CargarImagenes(data, info) {
             divImg.classList = "singleIMG-continer";
             divImg.appendChild(img);
             Galeria.appendChild(divImg);
+            ImagenesCargadas ++ ;
+            
 
             if (info == "Cargada por el usuario") {
                 Galeria.insertBefore(divImg, Galeria.firstChild);
@@ -280,6 +283,18 @@ async function CargarImagenes(data, info) {
             });
         }
     }
+    const CargarMas = document.createElement('div')
+    const CargarMasContenedor = document.createElement('div')
+    CargarMas.classList.add("CargarMas")
+    CargarMas.classList.add("fa-solid")
+    CargarMas.classList.add("fa-rotate")
+    CargarMasContenedor.classList.add("CargarMasContenedor")
+    Galeria.appendChild(CargarMasContenedor)
+    CargarMasContenedor.appendChild(CargarMas)
+    CargarMas.addEventListener('click',function(){
+      ObtenerIds(15, ImagenesCargadas);
+      CargarMasContenedor.remove()
+    })
 }
 
 
@@ -293,7 +308,9 @@ async function CargarImagenes(data, info) {
 
 
 
-ObtenerIds(15);
+ObtenerIds(15,ImagenesCargadas);
+
+
 // Cargar la imagen en la base de datos 
 const GuardarImagen = document.getElementById("GuardarImagen");
 GuardarImagen.addEventListener('click', function () {
