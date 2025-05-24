@@ -155,25 +155,6 @@ async function uploadImage() {
     });
     inputFile.style.display = "none";
 
-    // Obtener el ID para mostrar el archivo
-    // Cargar la foto en la página una vez subida
-    /*
-    const nameImgParaCargar = file.name;
-    console.log("Este es el nombre del archivo", nameImgParaCargar);
-      
-    const { data2, error2 } = await supabase
-        .from('Imagenes')
-        .select('id')
-        .eq('name', nameImgParaCargar)
-        .single();
-      
-    if (error2) {
-        console.log("Ha ocurrido un error al actualizar la página");
-    }
-      
-    console.log("Datos de la imagen a subir", data2);
-    */
-
 }
 
 
@@ -334,17 +315,17 @@ const MinimizarAlSubirImagenes = (Cargando)=>{
     const BotonMinimizar = document.getElementById("BotonMinimizar")
     const nav = document.getElementsByClassName("nav")[0]      
     const panel_insertar = document.getElementById("panel_insertar")
-          panel_insertar.classList.add('panel_insertar_minimizado')
-          console.log("panel insertar", panel_insertar)
-          nav.style.top = "32px"
-          if(window.getComputedStyle(BotonMinimizar).display === "block"){
-              Cargando.addEventListener('click', function(){
-                  BotonMinimizar.style.display = "block"
-                  panel_insertar.classList.remove("panel_insertar_minimizado")
-                  nav.style.top = "15px"
-              })
-          }
-          BotonMinimizar.style.display = "none"
+        panel_insertar.classList.add('panel_insertar_minimizado')
+        console.log("panel insertar", panel_insertar)
+        nav.style.top = "32px"
+        if(window.getComputedStyle(BotonMinimizar).display === "block"){
+            Cargando.addEventListener('click', function(){
+                BotonMinimizar.style.display = "block"
+                panel_insertar.classList.remove("panel_insertar_minimizado")
+                nav.style.top = "15px"
+            })
+        }
+        BotonMinimizar.style.display = "none"
 
 }
 
