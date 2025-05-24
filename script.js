@@ -312,7 +312,7 @@ async function CargarImagenes(data, info) {
 
 
 
-ObtenerIds(-1,ImagenesCargadas);
+ObtenerIds(15,ImagenesCargadas);
 
 
 // Cargar la imagen en la base de datos 
