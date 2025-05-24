@@ -7,12 +7,29 @@ const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 async function ExpandirImagen(id,src,id_original){
+
+  const existe = document.getElementById("modal"+id_original)
+  if(existe){
+    existe.style.display="flex"
+    const modalchild = document.getElementsByClassName("modal_expandirImagen_contenedor")[0]
+    existe.appendChild(modalchild)
+    modalchild.id = " "+existe.id
+    return
+  }
+
 const body = document.getElementsByTagName('body')[0]
-const modal = document.getElementById('contenedor_botones_expandir_imagen')
-const imgDiv = document.createElement('div')
-const imagenes = modal.querySelectorAll('img')
-imagenes.forEach(img=>{img.remove()})
+const modal = document.createElement('div')
+modal.style.display="none"
+modal.id = 'modal'+id_original
+console.log("modal",modal)
 body.appendChild(modal)
+const modalchild = document.getElementsByClassName("modal_expandirImagen_contenedor")[0]
+modal.appendChild(modalchild)
+modalchild.id = " "+modal.id
+modalchild.style.display="flex"
+
+const imgDiv = document.createElement('div')
+
 modal.classList.add('modal_mostrarImg')
 modal.style.display="flex"  
 imgDiv.classList.add("imgDiv")
@@ -160,7 +177,7 @@ async function generate_low_quatity_version(base64, maxWidth = 300, quality = 0.
         .from("Imagenes")  // ¡Asegúrate de que coincida con el nombre real!
         .select("id")
         .limit(/*--Poner un limite de datos obtenidos--*/)
-        .order('id', { ascending: true });
+        .order('id', { ascending: false });
       if (error) {
         console.error("Error de Supabase:", error.message);
         console.error("Detalles:", error.details);
@@ -244,7 +261,9 @@ async function CargarImagenes(data,info) {
       divImg.classList = "singleIMG-continer";
       divImg.appendChild(img);
       Galeria.appendChild(divImg);
-      
+      if(info == "Cargada por el usuario"){
+        Galeria.insertBefore(divImg, Galeria.firstChild);
+      }
       img.addEventListener('click', function(){
         ExpandirImagen(img.id, img.src,id);
       })
@@ -287,12 +306,14 @@ actualizar.addEventListener('click', function(){
   modal.style.display="flex";
 })
 
-const CerrarExpandirImg = document.getElementById("CerrarExpandirImg")
-CerrarExpandirImg.addEventListener('click',function(){
-  const modal_mostrarImg = document.getElementsByClassName("modal_mostrarImg")[0]
-  
-  modal_mostrarImg.style.display="none"
-})
+const CerrarExpandirImg = document.getElementById("CerrarExpandirImg");
+CerrarExpandirImg.addEventListener('click', function() {
+  const modal_mostrarImg = document.getElementsByClassName("modal_mostrarImg");
+
+  Array.from(modal_mostrarImg).forEach(element => {
+    element.style.display = "none";
+  });
+});
 
 
 

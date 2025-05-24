@@ -180,7 +180,7 @@ background-color: #d81b60;
 }
 .modal_expandirImagen_contenedor{
   background-color: #aaa;
-  display: flex;
+  display: none;
   justify-content: space-around;
   height: 50px;
   align-items: center;
