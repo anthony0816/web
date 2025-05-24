@@ -355,7 +355,7 @@ eliminarPhoto.addEventListener('click', async function(){
       const divImg = document.getElementById("divImg"+id)
       divImg.remove();
       console.log("eliminado exitosamente ")
-      alert("Eliminado Exitosamente")
+      
     }
 })
 
