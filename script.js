@@ -180,7 +180,7 @@ async function generate_low_quatity_version(base64, maxWidth = 300, quality = 0.
       const { data, error } = await supabase
         .from("Imagenes")  // ¡Asegúrate de que coincida con el nombre real!
         .select("id")
-        .limit(4/*--Poner un limite de datos obtenidos--*/)
+        .limit(/*--Poner un limite de datos obtenidos--*/)
         .order('id', { ascending: false });
       if (error) {
         console.error("Error de Supabase:", error.message);
