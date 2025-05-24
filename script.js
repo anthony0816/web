@@ -88,6 +88,7 @@ async function uploadImage() {
     const files = fileInput.files;
     const modal = document.getElementById("panel_insertar");
     const inputFile = document.getElementById("imageInput");
+    const nav = document.getElementsByClassName("nav")[0]
     const Cargando = document.createElement('div');
           Cargando.style.cursor = "pointer"
     const botonMinimizar = document.createElement('div')
@@ -144,6 +145,8 @@ async function uploadImage() {
     
     modal.style.display = "none";
     Cargando.remove();
+    nav.style.top = "15px";
+    modal.classList.remove("panel_insertar_minimizado")
     botonMinimizar.remove();
     elementos.forEach(elemento => {
         elemento.style.display = "flex";
@@ -187,12 +190,12 @@ function toBase64(file) {
 }
 
 // Para obtener los ID
-async function ObtenerIds() {
+async function ObtenerIds(limit) {
     try {
         const { data, error } = await supabase
             .from("Imagenes")  // ¡Asegúrate de que coincida con el nombre real!
             .select("id")
-            .limit(20 /*--Poner un limite de datos obtenidos--*/)
+            .limit(limit /*--Poner un limite de datos obtenidos--*/)
             .order('id', { ascending: false });
 
         if (error) {
@@ -290,7 +293,7 @@ async function CargarImagenes(data, info) {
 
 
 
-ObtenerIds();
+ObtenerIds(15);
 // Cargar la imagen en la base de datos 
 const GuardarImagen = document.getElementById("GuardarImagen");
 GuardarImagen.addEventListener('click', function () {
