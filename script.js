@@ -253,14 +253,15 @@ async function CargarImagenes(data, info) {
         Galeria.innerHTML = "";
     }
 
-    for (const element of data) {
+    try{
+        for (const element of data) {
         const { data: imgData, error } = await supabase
             .from('Imagenes')
             .select('datalow')
             .eq('id', element.id)
             .single();
 
-        if (!error) {
+        
             const imgFormat = detectImageFormatFromBase64(imgData.datalow);
             const img = displayBase64Image(imgData.datalow, imgFormat);
             const id = element.id;
@@ -282,9 +283,13 @@ async function CargarImagenes(data, info) {
             img.addEventListener('click', function () {
                 ExpandirImagen(img.id, img.src, id);
             });
-        }
+        
     }
-    if(info == "Cargar mas"){
+    }catch(error){
+        console.log("Algo salió mal cargando las imagenes")
+    }
+    finally{
+        if(info == "Cargar mas"){
         
         const CargarMas = document.createElement('div')
         const CargarMasContenedor = document.createElement('div')
@@ -295,10 +300,13 @@ async function CargarImagenes(data, info) {
             Galeria.appendChild(CargarMasContenedor)
             CargarMasContenedor.appendChild(CargarMas)
             CargarMas.addEventListener('click',function(){
-                ObtenerIds(15, ImagenesCargadas);
                 CargarMasContenedor.remove()
+                console.log("cargando mas")
+                ObtenerIds(15, ImagenesCargadas);
             })
     }
+    }
+    console.log("Imagenes Cargadas: " + ImagenesCargadas )
 }
 
 
