@@ -6,6 +6,11 @@ const supabaseUrl = "https://nvunvfuliztilbzbydqs.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im52dW52ZnVsaXp0aWxiemJ5ZHFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc4ODg5OTYsImV4cCI6MjA2MzQ2NDk5Nn0.pBp5CkGva3Y_2xBP9BVq-qnHng6M_1rikTalGHRGfd8";
 const supabase = createClient(supabaseUrl, supabaseKey);
 
+//Extraer los numeros de un string 
+function extraerNumeros(str) {
+    return str.match(/\d+/g) ? str.match(/\d+/g).join('') : '';
+}
+
 async function ExpandirImagen(id,src,id_original){
 
   const existe = document.getElementById("modal"+id_original)
@@ -21,7 +26,6 @@ const body = document.getElementsByTagName('body')[0]
 const modal = document.createElement('div')
 modal.style.display="none"
 modal.id = 'modal'+id_original
-console.log("modal",modal)
 body.appendChild(modal)
 const modalchild = document.getElementsByClassName("modal_expandirImagen_contenedor")[0]
 modal.appendChild(modalchild)
@@ -176,7 +180,7 @@ async function generate_low_quatity_version(base64, maxWidth = 300, quality = 0.
       const { data, error } = await supabase
         .from("Imagenes")  // ¡Asegúrate de que coincida con el nombre real!
         .select("id")
-        .limit(/*--Poner un limite de datos obtenidos--*/)
+        .limit(4/*--Poner un limite de datos obtenidos--*/)
         .order('id', { ascending: false });
       if (error) {
         console.error("Error de Supabase:", error.message);
@@ -239,9 +243,7 @@ async function CargarImagenes(data,info) {
   if(info != "Cargada por el usuario"){
     Galeria.innerHTML = ""; 
   }
-  
-  
-  
+
   
   for (const element of data) {  
     const { data: imgData, error } = await supabase
@@ -258,6 +260,7 @@ async function CargarImagenes(data,info) {
       img.id = "img"+id
 
       const divImg = document.createElement('div');
+      divImg.id = "divImg"+id
       divImg.classList = "singleIMG-continer";
       divImg.appendChild(img);
       Galeria.appendChild(divImg);
@@ -315,5 +318,48 @@ CerrarExpandirImg.addEventListener('click', function() {
   });
 });
 
+
+const EliminarImg = document.getElementById("EliminarImg")
+EliminarImg.addEventListener('click',function(){
+const modalchild = document.getElementsByClassName("modal_expandirImagen_contenedor")[0]
+const modalchild_id = modalchild.id
+
+
+const id = extraerNumeros(modalchild_id)
+
+const ModaleEliminar = document.getElementsByClassName('modalEliminar')[0]
+// Mostrar el modal 
+ModaleEliminar.style.display = "flex"
+
+// Manejar cancelar 
+const BotonCancelar = document.getElementsByClassName("cancelarEliminarPhoto")[0]
+BotonCancelar.addEventListener('click', function(){
+  ModaleEliminar.style.display = "none"
+})
+
+// Manejar Aceptar
+const eliminarPhoto = document.getElementsByClassName("eliminarPhoto")[0]
+eliminarPhoto.addEventListener('click', async function(){
+  ModaleEliminar.style.display = "none"
+  const QuitarExpandir = document.getElementById("modal"+id)
+        QuitarExpandir.style.display="none"
+  const { data , error } = await supabase
+    .from("Imagenes") // Asegúrate de que el nombre coincida con tu tabla
+    .delete()
+    .eq("id", id)
+    .select();
+    if (error) {
+    console.error("Error al eliminar la imagen:", error);
+    }
+    if(data){
+      const divImg = document.getElementById("divImg"+id)
+      divImg.remove();
+      console.log("eliminado exitosamente ")
+      alert("Eliminado Exitosamente")
+    }
+})
+
+
+})
 
 

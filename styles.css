@@ -193,3 +193,32 @@ background-color: #d81b60;
 .modal_expandirImagen_botones{
   scale: 2.2;
 }
+
+.modalEliminar{
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  display: none;
+  position: fixed;
+  z-index: 30;
+  top: 50%;          /* 1. Lo posiciona al 50% del viewport */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(8, 8, 8, 0.753);
+  height: 10%;
+  width: 10%;
+  min-height: 200px;
+  min-width: 300px;
+  padding: 999px;
+  color: wheat;
+}
+.modalEliminar_contenedor_botones{
+  
+  display: flex;
+  justify-content: space-around;
+  height: 70px;
+  align-items: center;
+}
+.modalEliminarbotones{
+  scale: 2.2;
+}
