@@ -91,16 +91,16 @@ async function uploadImage() {
     const inputFile = document.getElementById("imageInput");
     const nav = document.getElementsByClassName("nav")[0]
     const Cargando = document.createElement('div');
-          Cargando.style.cursor = "pointer"
+        Cargando.style.cursor = "pointer"
     const botonMinimizar = document.createElement('div')
-          botonMinimizar.classList.add('GuardarImagen')
-          botonMinimizar.textContent = "Minimizar"
-          botonMinimizar.style.display="block"
-          botonMinimizar.style.cursor = "pointer"
-          botonMinimizar.id = "BotonMinimizar"
-          botonMinimizar.addEventListener('click', function(){
+        botonMinimizar.classList.add('GuardarImagen')
+        botonMinimizar.textContent = "Minimizar"
+        botonMinimizar.style.display="block"
+        botonMinimizar.style.cursor = "pointer"
+        botonMinimizar.id = "BotonMinimizar"
+        botonMinimizar.addEventListener('click', function(){
             MinimizarAlSubirImagenes(Cargando)
-          })
+        })
 
     if (files.length === 0) {
         alert("¡Selecciona una imagen primero!");
@@ -112,8 +112,9 @@ async function uploadImage() {
     });
     let cont = 1
     for await (const element of files) {
-        //Mostrar cargando
-        Cargando.textContent = "Cargando..."+element.name +` ${cont} de ${files.length}`;
+        //Mostrar cargand
+        Cargando.innerHTML = `Cargando...${element.name.substring(0,24)} <strong>${cont} de ${files.length}</strong>`;
+
         cont++;
         Cargando.classList.add('Cargando');
         modal.appendChild(Cargando);
@@ -133,7 +134,7 @@ async function uploadImage() {
                 }
             ])
             .select('id');
-          
+        
         if (error) {
             console.error("Error al insertar:", error);
         } else {
@@ -283,18 +284,21 @@ async function CargarImagenes(data, info) {
             });
         }
     }
-    const CargarMas = document.createElement('div')
-    const CargarMasContenedor = document.createElement('div')
-    CargarMas.classList.add("CargarMas")
-    CargarMas.classList.add("fa-solid")
-    CargarMas.classList.add("fa-rotate")
-    CargarMasContenedor.classList.add("CargarMasContenedor")
-    Galeria.appendChild(CargarMasContenedor)
-    CargarMasContenedor.appendChild(CargarMas)
-    CargarMas.addEventListener('click',function(){
-      ObtenerIds(15, ImagenesCargadas);
-      CargarMasContenedor.remove()
-    })
+    if(info == "Cargar mas"){
+        
+        const CargarMas = document.createElement('div')
+        const CargarMasContenedor = document.createElement('div')
+            CargarMas.classList.add("CargarMas")
+            CargarMas.classList.add("fa-solid")
+            CargarMas.classList.add("fa-rotate")
+            CargarMasContenedor.classList.add("CargarMasContenedor")
+            Galeria.appendChild(CargarMasContenedor)
+            CargarMasContenedor.appendChild(CargarMas)
+            CargarMas.addEventListener('click',function(){
+                ObtenerIds(15, ImagenesCargadas);
+                CargarMasContenedor.remove()
+            })
+    }
 }
 
 
@@ -308,7 +312,7 @@ async function CargarImagenes(data, info) {
 
 
 
-ObtenerIds(15,ImagenesCargadas);
+ObtenerIds(-1,ImagenesCargadas);
 
 
 // Cargar la imagen en la base de datos 
