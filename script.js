@@ -85,12 +85,12 @@ async function generate_low_quatity_version(base64, maxWidth = 300, quality = 0.
 // Subir imágenes por el usuario
 async function uploadImage() {
     const fileInput = document.getElementById('imageInput');
-    const file = fileInput.files[0];
+    const files = fileInput.files;
     const modal = document.getElementById("panel_insertar");
     const Cargando = document.createElement('div');
     const inputFile = document.getElementById("imageInput");
 
-    if (!file) {
+    if (files.length === 0) {
         alert("¡Selecciona una imagen primero!");
         return;
     }
@@ -98,35 +98,41 @@ async function uploadImage() {
     elementos.forEach(elemento => {
         elemento.style.display = "none";
     });
-    Cargando.textContent = "Cargando...";
-    Cargando.classList.add('Cargando');
-    modal.appendChild(Cargando);
+    let cont = 1
+    for await (const element of files) {
+        //Mostrar cargando
+        Cargando.textContent = "Cargando..."+element.name +` ${cont} de ${files.length}`;
+        cont++;
+        Cargando.classList.add('Cargando');
+        modal.appendChild(Cargando);
 
-    const base64Data = await toBase64(file);
-    const low_quality_version = await generate_low_quatity_version(base64Data);
+        const base64Data = await toBase64(element);
+        const low_quality_version = await generate_low_quatity_version(base64Data);
 
-    // Insertar la nueva imagen en la tabla
-    const { data, error } = await supabase
-        .from('Imagenes')
-        .insert([
-            {
-                name: file.name,
-                data: base64Data,
-                datalow: low_quality_version
-            }
-        ])
-        .select('id');
-
-    if (error) {
-        console.error("Error al insertar:", error);
-    } else {
-        console.log("Imagen guardada en Base64:", data);
-        console.log("¡Imagen subida con éxito!");
-        const info = "Cargada por el usuario";
-        CargarImagenes(data, info);
+        // Insertar la nueva imagen en la tabla
+        const { data, error } = await supabase
+            .from('Imagenes')
+            .insert([
+                {
+                    name: element.name,
+                    data: base64Data,
+                    datalow: low_quality_version
+                }
+            ])
+            .select('id');
+          
+        if (error) {
+            console.error("Error al insertar:", error);
+        } else {
+            console.log("Imagen guardada en Base64:", data);
+            console.log("¡Imagen subida con éxito!");
+            const info = "Cargada por el usuario";
+            CargarImagenes(data, info);
+        }
     }
+    
     modal.style.display = "none";
-    Cargando.style.display = "none";
+    Cargando.remove();
     elementos.forEach(elemento => {
         elemento.style.display = "flex";
     });
