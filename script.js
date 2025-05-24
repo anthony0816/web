@@ -87,8 +87,18 @@ async function uploadImage() {
     const fileInput = document.getElementById('imageInput');
     const files = fileInput.files;
     const modal = document.getElementById("panel_insertar");
-    const Cargando = document.createElement('div');
     const inputFile = document.getElementById("imageInput");
+    const Cargando = document.createElement('div');
+          Cargando.style.cursor = "pointer"
+    const botonMinimizar = document.createElement('div')
+          botonMinimizar.classList.add('GuardarImagen')
+          botonMinimizar.textContent = "Minimizar"
+          botonMinimizar.style.display="block"
+          botonMinimizar.style.cursor = "pointer"
+          botonMinimizar.id = "BotonMinimizar"
+          botonMinimizar.addEventListener('click', function(){
+            MinimizarAlSubirImagenes(Cargando)
+          })
 
     if (files.length === 0) {
         alert("¡Selecciona una imagen primero!");
@@ -105,6 +115,7 @@ async function uploadImage() {
         cont++;
         Cargando.classList.add('Cargando');
         modal.appendChild(Cargando);
+        modal.appendChild(botonMinimizar)
 
         const base64Data = await toBase64(element);
         const low_quality_version = await generate_low_quatity_version(base64Data);
@@ -133,6 +144,7 @@ async function uploadImage() {
     
     modal.style.display = "none";
     Cargando.remove();
+    botonMinimizar.remove();
     elementos.forEach(elemento => {
         elemento.style.display = "flex";
     });
@@ -180,7 +192,7 @@ async function ObtenerIds() {
         const { data, error } = await supabase
             .from("Imagenes")  // ¡Asegúrate de que coincida con el nombre real!
             .select("id")
-            .limit(4 /*--Poner un limite de datos obtenidos--*/)
+            .limit(20 /*--Poner un limite de datos obtenidos--*/)
             .order('id', { ascending: false });
 
         if (error) {
@@ -267,31 +279,64 @@ async function CargarImagenes(data, info) {
     }
 }
 
-ObtenerIds();
 
+
+
+
+
+
+
+
+
+
+
+ObtenerIds();
+// Cargar la imagen en la base de datos 
 const GuardarImagen = document.getElementById("GuardarImagen");
 GuardarImagen.addEventListener('click', function () {
     uploadImage();
 });
 
+//Minimizar mientras carca 
+const MinimizarAlSubirImagenes = (Cargando)=>{
+    const BotonMinimizar = document.getElementById("BotonMinimizar")
+    const nav = document.getElementsByClassName("nav")[0]      
+    const panel_insertar = document.getElementById("panel_insertar")
+          panel_insertar.classList.add('panel_insertar_minimizado')
+          console.log("panel insertar", panel_insertar)
+          nav.style.top = "32px"
+          if(window.getComputedStyle(BotonMinimizar).display === "block"){
+              Cargando.addEventListener('click', function(){
+                  BotonMinimizar.style.display = "block"
+                  panel_insertar.classList.remove("panel_insertar_minimizado")
+                  nav.style.top = "15px"
+              })
+          }
+          BotonMinimizar.style.display = "none"
+
+}
+
+// Cerrar Modal de subir imagenes
 const Cancelar = document.getElementById("Cancelar");
 Cancelar.addEventListener('click', function () {
     let modal = document.getElementById("panel_insertar");
     modal.style.display = "none";
 });
-
+// Acceder a al panel de opciones de subir imagen
 const subir = document.getElementById("subir");
 subir.addEventListener('click', function () {
     let modal = document.getElementById("panel_insertar");
     modal.style.display = "flex";
 });
 
+
+// actualizar la pagina 
 const actualizar = document.getElementById("actualizar");
 actualizar.addEventListener('click', function () {
     window.location.reload();
     modal.style.display = "flex";
 });
-
+// Cerrar la ventana de Maximisar vista de la imagen 
 const CerrarExpandirImg = document.getElementById("CerrarExpandirImg");
 CerrarExpandirImg.addEventListener('click', function () {
     const modal_mostrarImg = document.getElementsByClassName("modal_mostrarImg");
@@ -300,7 +345,7 @@ CerrarExpandirImg.addEventListener('click', function () {
         element.style.display = "none";
     });
 });
-
+// Eliminar desde el icono de elimiar
 const EliminarImg = document.getElementById("EliminarImg");
 EliminarImg.addEventListener('click', function () {
     const modalchild = document.getElementsByClassName("modal_expandirImagen_contenedor")[0];

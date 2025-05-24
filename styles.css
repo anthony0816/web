@@ -117,7 +117,16 @@ footer {
   transform: translate(-50%, -50%);
   z-index: 20;
   border-radius: 13px;
+
 }
+.panel_insertar_minimizado{
+  display: flex;
+  top : auto;
+  top: 16px;
+  height: 25px;
+  align-items: center;
+}
+
 .Cargando{
 margin: auto;
 }
