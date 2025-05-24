@@ -16,11 +16,14 @@ async function ExpandirImagen(id,src,id_original){
   const existe = document.getElementById("modal"+id_original)
   if(existe){
     existe.style.display="flex"
+    document.body.style.overflow = "hidden";//Desactivar el scroll
     const modalchild = document.getElementsByClassName("modal_expandirImagen_contenedor")[0]
     existe.appendChild(modalchild)
     modalchild.id = " "+existe.id
     return
   }
+
+document.body.style.overflow = "hidden";//Desactivar el scroll
 
 const body = document.getElementsByTagName('body')[0]
 const modal = document.createElement('div')
@@ -180,7 +183,7 @@ async function generate_low_quatity_version(base64, maxWidth = 300, quality = 0.
       const { data, error } = await supabase
         .from("Imagenes")  // ¡Asegúrate de que coincida con el nombre real!
         .select("id")
-        .limit(/*--Poner un limite de datos obtenidos--*/)
+        .limit(4/*--Poner un limite de datos obtenidos--*/)
         .order('id', { ascending: false });
       if (error) {
         console.error("Error de Supabase:", error.message);
@@ -312,7 +315,7 @@ actualizar.addEventListener('click', function(){
 const CerrarExpandirImg = document.getElementById("CerrarExpandirImg");
 CerrarExpandirImg.addEventListener('click', function() {
   const modal_mostrarImg = document.getElementsByClassName("modal_mostrarImg");
-
+  document.body.style.overflow = "auto";//Desactivar el scroll
   Array.from(modal_mostrarImg).forEach(element => {
     element.style.display = "none";
   });
