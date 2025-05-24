@@ -324,6 +324,7 @@ EliminarImg.addEventListener('click', function () {
         ModaleEliminar.style.display = "none";
         const QuitarExpandir = document.getElementById("modal" + id);
         QuitarExpandir.style.display = "none";
+        document.body.style.overflow = "auto"
 
         const { data, error } = await supabase
             .from("Imagenes") // Asegúrate de que el nombre coincida con tu tabla
