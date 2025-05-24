@@ -1,63 +1,53 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Nuestra Galería</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
-    <script type="module" src="./script.js"></script>
-    
-    
-    <header>
-    <h1>Para mi amor</h1>
-    <p>Cada foto nos recuerda lo hermosos momentos que hemos vivido juntos.</p>
-  </header>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Nuestra Galería</title>
+        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </head>
+    <body>
+        <script type="module" src="./script.js"></script>
 
-  <nav class="nav">
-  
-  <i class="fa-solid fa-rotate icono" id="actualizar"></i>   
-  <i class="fas fa-file-upload icono" id="subir"></i>     
+        <header>
+            <h1>Para mi amor</h1>
+            <p>Cada foto nos recuerda lo hermosos momentos que hemos vivido juntos.</p>
+        </header>
 
-  </nav>
+        <nav class="nav">
+            <i class="fa-solid fa-rotate icono" id="actualizar"></i>   
+            <i class="fas fa-file-upload icono" id="subir"></i>     
+        </nav>
 
-  <main id="gallery">
-  <!--aqui van las fotos-->
-  </main>
+        <main id="gallery">
+            <!-- Aqui van las fotos -->
+        </main>
 
-  
-  
-
-  <div class="panel_insertar" id="panel_insertar">
-    
-    <input type="file" id="imageInput" class="inputfile">
-    <label for="imageInput" class="file_input_label">Aqui sube una foto bb </label>
-  <div class="contenedor_botones">
-    <button id="GuardarImagen" class=" GuardarImagen ">Aceptar</button>
-    <button id="Cancelar" class=" GuardarImagen ">Cancelar</button>
-  </div>
-    
-  </div>
-  
-    <div class="modal_expandirImagen_contenedor">
-      <i id="EliminarImg" class="fa-solid fa-trash modal_expandirImagen_botones "></i>
-      <i id="CerrarExpandirImg" class="fa-solid fa-xmark modal_expandirImagen_botones "></i>
-    </div>
-
-    <div class="modalEliminar">
-      <h2>Bebita, pq quieres eliminar la foto ? 🥺</h2>
-      
-        <div class="modalEliminar_contenedor_botones"> 
-        <div class="fa-solid fa-check modalEliminarbotones eliminarPhoto" ></div> 
-        <div class="fa-solid fa-xmark modalEliminarbotones cancelarEliminarPhoto"></div>
+        <div class="panel_insertar" id="panel_insertar">
+            <input type="file" id="imageInput" class="inputfile">
+            <label for="imageInput" class="file_input_label">Aqui sube una foto bb</label>
+            <div class="contenedor_botones">
+                <button id="GuardarImagen" class="GuardarImagen">Aceptar</button>
+                <button id="Cancelar" class="GuardarImagen">Cancelar</button>
+            </div>
         </div>
-    </div>
-  
-  <footer>
-    &copy; Hecho con 🤍 para ti.
-  </footer>
 
-</body>
+        <div class="modal_expandirImagen_contenedor">
+            <i id="EliminarImg" class="fa-solid fa-trash modal_expandirImagen_botones"></i>
+            <i id="CerrarExpandirImg" class="fa-solid fa-xmark modal_expandirImagen_botones"></i>
+        </div>
+
+        <div class="modalEliminar">
+            <h2>Bebita, ¿por qué quieres eliminar la foto? 🥺</h2>
+            <div class="modalEliminar_contenedor_botones"> 
+                <div class="fa-solid fa-check modalEliminarbotones eliminarPhoto"></div> 
+                <div class="fa-solid fa-xmark modalEliminarbotones cancelarEliminarPhoto"></div>
+            </div>
+        </div>
+
+        <footer>
+            &copy; Hecho con 🤍 para ti.
+        </footer>
+    </body>
 </html>
