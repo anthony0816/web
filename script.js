@@ -1,11 +1,14 @@
 
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 import { ExpandirNav } from './script_continue.js';
+import { RecopilarIds } from './script_continue.js';
+import { Seleccionar } from './script_continue.js';
 
 const supabaseUrl = "https://nvunvfuliztilbzbydqs.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im52dW52ZnVsaXp0aWxiemJ5ZHFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc4ODg5OTYsImV4cCI6MjA2MzQ2NDk5Nn0.pBp5CkGva3Y_2xBP9BVq-qnHng6M_1rikTalGHRGfd8";
 const supabase = createClient(supabaseUrl, supabaseKey);
 var ImagenesCargadas = 0;
+export var idsActivos = []
 
 // Extraer los números de un string
 export function extraerNumeros(str) {
@@ -13,6 +16,10 @@ export function extraerNumeros(str) {
 }
 
 async function ExpandirImagen(id, src, id_original) {
+    const CheckbosHidden = document.getElementById("seleccionarEstado")
+    if(CheckbosHidden.checked){
+        return
+    }
     const existe = document.getElementById("modal" + id_original);
     if (existe) {
         existe.style.display = "flex";
@@ -226,6 +233,7 @@ function detectImageFormatFromBase64(base64Data) {
 
 // Cargar las imágenes desde la base de datos
 async function CargarImagenes(data, info) {
+    RecopilarIds(data);
     const Galeria = document.getElementById("gallery");
 
     if ((info != "Cargada por el usuario" )&&(info != "Cargar mas")) {
@@ -432,4 +440,14 @@ nav_expandir.addEventListener('click', ()=>{
     ExpandirNav(nav_expandir);
 } )
 
+const seleccionar = document.getElementById("seleccionar")
+    seleccionar.addEventListener('click', ()=>{
+        const CheckbosHidden = document.getElementById("seleccionarEstado")
+        if(!(CheckbosHidden.checked)){
+            seleccionar.style.color="#d81b60"
+        }else{
+            seleccionar.style.color ="black"
+        }
+        Seleccionar(CheckbosHidden)
+    })
 

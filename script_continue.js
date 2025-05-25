@@ -1,3 +1,4 @@
+import { idsActivos } from "./script.js"
 //Expandir la barra de navegación
 export function ExpandirNav(nav_expandir){
     const botones = document.getElementsByClassName("botonesExpandir")
@@ -23,6 +24,22 @@ export function ExpandirNav(nav_expandir){
 }
 
 //Funcion para seleccionar
-export function Seleccionar(){
+export function RecopilarIds(data){
+    data.forEach((element)=>{
+        idsActivos.push(element.id)
+    })
+    console.log("ids activos", idsActivos)
+}
+
+export function Seleccionar(CheckbosHidden){
+    if(!(CheckbosHidden.checked)){
+        let imgDivs = []
+            idsActivos.forEach((element=>{
+                const imgDiv = document.getElementById("divImg"+element)
+                    
+                    imgDivs.push(imgDiv)
+            }))
+    console.log("todos los divs de fotos", imgDivs)
+    }
     
 }
