@@ -159,9 +159,6 @@ async function uploadImage() {
 
 
 
-
-
-
  // Función para convertir File a Base64
 function toBase64(file) {
     return new Promise((resolve, reject) => {
@@ -301,7 +298,7 @@ async function CargarImagenes(data, info) {
 
 
 
-ObtenerIds(15,ImagenesCargadas);
+ObtenerIds(6,ImagenesCargadas);
 
 
 // Cargar la imagen en la base de datos 
@@ -360,47 +357,78 @@ CerrarExpandirImg.addEventListener('click', function () {
 });
 // Eliminar desde el icono de elimiar
 const EliminarImg = document.getElementById("EliminarImg");
-EliminarImg.addEventListener('click', function () {
+EliminarImg.addEventListener('click', function() {
+    // Declaraciones agrupadas al inicio
     const modalchild = document.getElementsByClassName("modal_expandirImagen_contenedor")[0];
     const modalchild_id = modalchild.id;
-
     const id = extraerNumeros(modalchild_id);
     const ModaleEliminar = document.getElementsByClassName('modalEliminar')[0];
+    const BotonCancelar = document.getElementsByClassName("cancelarEliminarPhoto")[0];
+    const eliminarPhoto = document.getElementsByClassName("eliminarPhoto")[0];
+    const nav = document.getElementsByClassName("nav")[0];
+    const modalNotificaciones = document.getElementsByClassName("modalNotificaciones")[0];
+    const param1 = document.getElementsByClassName("param1")[0];
+    let numero1 = extraerNumeros(param1.textContent);
+    const param2 = document.getElementsByClassName("param2")[0];
+    let numero2 = extraerNumeros(param2.textContent);
 
     // Mostrar el modal
     ModaleEliminar.style.display = "flex";
 
     // Manejar cancelar
-    const BotonCancelar = document.getElementsByClassName("cancelarEliminarPhoto")[0];
     BotonCancelar.addEventListener('click', function () {
         ModaleEliminar.style.display = "none";
     });
 
     // Manejar aceptar
-    const eliminarPhoto = document.getElementsByClassName("eliminarPhoto")[0];
     eliminarPhoto.addEventListener('click', async function () {
+        modalNotificaciones.style.display="block";
+        nav.style.top="32px";
         ModaleEliminar.style.display = "none";
         const QuitarExpandir = document.getElementById("modal" + id);
         QuitarExpandir.style.display = "none";
-        document.body.style.overflow = "auto"
+        document.body.style.overflow = "auto";
 
+        // Mostrar Modal de Notificaciones con la acción 
+        modalNotificaciones.style.display="block";
+        numero2++;
+        param2.textContent = numero2;
+        
         const { data, error } = await supabase
             .from("Imagenes") // Asegúrate de que el nombre coincida con tu tabla
             .delete()
             .eq("id", id)
-            .select();
+            .select("id");
 
         if (error) {
             console.error("Error al eliminar la imagen:", error);
+            Notification.textContent=`Error al eliminar la imagen #${numero2}`;
         }
 
         if (data) {
             const divImg = document.getElementById("divImg" + id);
-            divImg.remove();
-            console.log("Eliminado exitosamente");
+            try {
+                divImg.remove();
+            }
+            catch(error) {
+                console.log("error  ");
+            }
+            // Actualizar el estado de la barra de notificaciones 
+            finally {
+                numero1++;
+                param1.textContent = numero1;
+                console.log("Eliminado exitosamente");
+                if(numero1 > numero2) {
+                    modalNotificaciones.style.display="none";
+                    nav.style.top="15px";
+                    param1.textContent = "1";
+                    param2.textContent = "0";
+                }
+            }
         }
     });
 });
+
 
 
 
