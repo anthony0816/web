@@ -33,13 +33,20 @@ export function RecopilarIds(data){
 
 export function Seleccionar(CheckbosHidden){
     if(!(CheckbosHidden.checked)){
-        let imgDivs = []
             idsActivos.forEach((element=>{
                 const imgDiv = document.getElementById("divImg"+element)
-                    
-                    imgDivs.push(imgDiv)
+                        imgDiv.addEventListener('click', ()=>{
+                            imgDiv.style.backgroundColor="red"
+                        })
             }))
-    console.log("todos los divs de fotos", imgDivs)
+    
+    }else{
+        idsActivos.forEach((element=>{
+                const imgDiv = document.getElementById("divImg"+element)
+                        imgDiv.addEventListener('click', ()=>{
+                            //
+                        })
+            }))
     }
     
 }
