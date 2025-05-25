@@ -87,6 +87,7 @@ p {
 transition: scale 0.15s;
 width: 100%;
 cursor: pointer;
+scale: 1;
 }
 .singleIMG-continer:hover{
   scale: 1.05;

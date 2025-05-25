@@ -34,18 +34,18 @@ export function RecopilarIds(data){
 export function Seleccionar(CheckbosHidden){
     if(!(CheckbosHidden.checked)){
             idsActivos.forEach((element=>{
-                const imgDiv = document.getElementById("divImg"+element)
+                const imgDiv = document.getElementById("img"+element)
                         imgDiv.addEventListener('click', ()=>{
-                            imgDiv.style.backgroundColor="red"
+                            imgDiv.style.scale = "0.7"
+                            imgDiv.classList.add("selected")
                         })
             }))
     
-    }else{
-        idsActivos.forEach((element=>{
-                const imgDiv = document.getElementById("divImg"+element)
-                        imgDiv.addEventListener('click', ()=>{
-                            //
-                        })
+    }else if(CheckbosHidden.checked){
+            idsActivos.forEach((element=>{
+                const imgDiv = document.getElementById("img"+element)
+                    imgDiv.style.scale = "1"
+                    imgDiv.classList.remove("selected")
             }))
     }
     
