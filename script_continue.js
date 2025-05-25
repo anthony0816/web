@@ -64,6 +64,21 @@ export function Seleccionar(CheckbosHidden , modalNotificaciones , nav){
         modalNotificaciones.style.display="block"
         modalNotificaciones.textContent = "(inválido)Esperar a cargar fotos..."
         nav.style.top = "32px"
+            idsActivos.forEach((element)=>{
+                const imgDiv = document.getElementById("img"+element)
+                    try{
+                        imgDiv.onclick= function(){
+                        return
+                        }
+                    }
+                    catch(error){
+                        console.log("el arreglo esta vacío")
+                    }
+                    finally{
+                        try{imgDiv.classList.remove("selected")}
+                        catch(error){console.log("No existe clase que remover")}
+                    }
+            })
     }
     
     
