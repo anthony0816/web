@@ -305,7 +305,7 @@ async function CargarImagenes(data, info) {
 
 
 
-ObtenerIds(15,ImagenesCargadas);
+ObtenerIds(4,ImagenesCargadas);
 
 
 // Cargar la imagen en la base de datos 
@@ -444,18 +444,22 @@ nav_expandir.addEventListener('click', ()=>{
 const seleccionar = document.getElementById("seleccionar")
     seleccionar.addEventListener('click', ()=>{
         const CheckbosHidden = document.getElementById("seleccionarEstado")
+        const modalNotificaciones = document.getElementsByClassName("modalNotificaciones2")[0]
+        const nav = document.getElementsByClassName("nav")[0]
+
         if(!(CheckbosHidden.checked)){
             seleccionar.style.color="#d81b60"
         }else{
             seleccionar.style.color ="black"
         }
-        Seleccionar(CheckbosHidden)
+        Seleccionar(CheckbosHidden,modalNotificaciones,nav)
     })
 
 const eliminar_seleccionados = document.getElementById("eliminar_seleccionados")
     eliminar_seleccionados.addEventListener('click', ()=>{
+        const nav = document.getElementsByClassName("nav")[0]
         const seleccionadosHTMLColection = document.getElementsByClassName("selected")
                 const seleccionados = Array.from(seleccionadosHTMLColection)
-                DeleteImg(seleccionados)
+                DeleteImg(seleccionados,nav )
 })
 

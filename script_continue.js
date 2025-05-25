@@ -34,12 +34,18 @@ export function RecopilarIds(data){
     console.log("ids activos", idsActivos)
 }
 // Función para seleccionar las fotos 1x1
-export function Seleccionar(CheckbosHidden){
-    
-    if(!(CheckbosHidden.checked)){
+export function Seleccionar(CheckbosHidden , modalNotificaciones , nav){
+    modalNotificaciones.style.display ="none"
+    nav.style.top = "15px" 
+
+    try{
+        if(!(CheckbosHidden.checked)){
             idsActivos.forEach((element=>{
                 const imgDiv = document.getElementById("img"+element)
-                        imgDiv.addEventListener('click',()=> AnimarImgSeleccionar(imgDiv))
+                    imgDiv.onclick = function(){
+                        imgDiv.style.scale = "0.7"
+                        imgDiv.classList.add("selected")   
+                    }
                             
             }))
     
@@ -48,21 +54,30 @@ export function Seleccionar(CheckbosHidden){
                 const imgDiv = document.getElementById("img"+element)
                     imgDiv.style.scale = "1"
                     imgDiv.classList.remove("selected")
-                    imgDiv.removeEventListener('click', handleClick);
+                    imgDiv.onclick = function(){
+                        return
+                    };
             }))
     }
+    }catch(error){
+        console.log("Debe esperar a que carguen las fotos ")
+        modalNotificaciones.style.display="block"
+        modalNotificaciones.textContent = "(inválido)Esperar a cargar fotos..."
+        nav.style.top = "32px"
+    }
     
-    const handleClick =()=> AnimarImgSeleccionar(imgDiv)
+    
 }
 
-export async function DeleteImg(elements){
+export async function DeleteImg(elements, nav){
+    
     const modalNotificaciones = document.getElementsByClassName("modalNotificaciones")[0]
     const param1 = document.getElementsByClassName("param1")[0]
     let numero1 = extraerNumeros(param1.textContent)
     const param2 = document.getElementsByClassName("param2")[0]
     
     modalNotificaciones.style.display = "block"
-    
+    nav.style.top = "32px"
     for(const element of elements){
         param2.textContent = elements.length
         const id = extraerNumeros(element.id)
@@ -88,10 +103,7 @@ export async function DeleteImg(elements){
     param1.textContent = "1"
     param2.textContent = "0"
     modalNotificaciones.style.display = "none"
+    nav.style.top = "15px"
     console.log("ids activos despues de eliminar", idsActivos)
 }
 
-function AnimarImgSeleccionar(imgDiv){
-    imgDiv.style.scale = "0.7"
-    imgDiv.classList.add("selected")    
-}
