@@ -35,10 +35,12 @@ export function RecopilarIds(data){
 }
 // Función para seleccionar las fotos 1x1
 export function Seleccionar(CheckbosHidden){
+    
     if(!(CheckbosHidden.checked)){
             idsActivos.forEach((element=>{
                 const imgDiv = document.getElementById("img"+element)
-                        imgDiv.addEventListener('click', AnimarImgSeleccionar(imgDiv))
+                        imgDiv.addEventListener('click',()=> AnimarImgSeleccionar(imgDiv))
+                            
             }))
     
     }else if(CheckbosHidden.checked){
@@ -46,11 +48,11 @@ export function Seleccionar(CheckbosHidden){
                 const imgDiv = document.getElementById("img"+element)
                     imgDiv.style.scale = "1"
                     imgDiv.classList.remove("selected")
-                    imgDiv.removeEventListener('click', AnimarImgSeleccionar);
+                    imgDiv.removeEventListener('click', handleClick);
             }))
     }
-
     
+    const handleClick =()=> AnimarImgSeleccionar(imgDiv)
 }
 
 export async function DeleteImg(elements){
@@ -89,7 +91,7 @@ export async function DeleteImg(elements){
     console.log("ids activos despues de eliminar", idsActivos)
 }
 
-export function AnimarImgSeleccionar(div){
-    div.style.scale = "0.7"
-    div.classList.add("selected")
+function AnimarImgSeleccionar(imgDiv){
+    imgDiv.style.scale = "0.7"
+    imgDiv.classList.add("selected")    
 }
