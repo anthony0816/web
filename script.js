@@ -1,5 +1,6 @@
 
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+import { ExpandirNav } from './script_continue.js';
 
 const supabaseUrl = "https://nvunvfuliztilbzbydqs.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im52dW52ZnVsaXp0aWxiemJ5ZHFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc4ODg5OTYsImV4cCI6MjA2MzQ2NDk5Nn0.pBp5CkGva3Y_2xBP9BVq-qnHng6M_1rikTalGHRGfd8";
@@ -7,7 +8,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 var ImagenesCargadas = 0;
 
 // Extraer los números de un string
-function extraerNumeros(str) {
+export function extraerNumeros(str) {
     return str.match(/\d+/g) ? str.match(/\d+/g).join('') : '';
 }
 
@@ -295,10 +296,7 @@ async function CargarImagenes(data, info) {
 
 
 
-
-
-
-ObtenerIds(6,ImagenesCargadas);
+ObtenerIds(4,ImagenesCargadas);
 
 
 // Cargar la imagen en la base de datos 
@@ -429,6 +427,9 @@ EliminarImg.addEventListener('click', function() {
     });
 });
 
-
+const nav_expandir = document.getElementById("nav_expandir")
+nav_expandir.addEventListener('click', ()=>{
+    ExpandirNav(nav_expandir);
+} )
 
 
