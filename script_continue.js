@@ -1,7 +1,7 @@
-import { idsActivos } from "./script.js"
+
 import { extraerNumeros } from "./script.js"
 import { supabase } from "./script.js"
-
+var idsActivos = []
 //Expandir la barra de navegación
 export function ExpandirNav(nav_expandir){
     const botones = document.getElementsByClassName("botonesExpandir")
@@ -38,10 +38,7 @@ export function Seleccionar(CheckbosHidden){
     if(!(CheckbosHidden.checked)){
             idsActivos.forEach((element=>{
                 const imgDiv = document.getElementById("img"+element)
-                        imgDiv.addEventListener('click', ()=>{
-                            imgDiv.style.scale = "0.7"
-                            imgDiv.classList.add("selected")
-                        })
+                        imgDiv.addEventListener('click', AnimarImgSeleccionar(imgDiv))
             }))
     
     }else if(CheckbosHidden.checked){
@@ -49,22 +46,24 @@ export function Seleccionar(CheckbosHidden){
                 const imgDiv = document.getElementById("img"+element)
                     imgDiv.style.scale = "1"
                     imgDiv.classList.remove("selected")
+                    imgDiv.removeEventListener('click', AnimarImgSeleccionar);
             }))
     }
+
     
 }
 
 export async function DeleteImg(elements){
     const modalNotificaciones = document.getElementsByClassName("modalNotificaciones")[0]
     const param1 = document.getElementsByClassName("param1")[0]
-    const numero1 = extraerNumeros(param1.textContent)
+    let numero1 = extraerNumeros(param1.textContent)
     const param2 = document.getElementsByClassName("param2")[0]
     
     modalNotificaciones.style.display = "block"
     
     for(const element of elements){
         param2.textContent = elements.length
-        const id = element.id
+        const id = extraerNumeros(element.id)
         const {data , error} = await supabase
             .from("Imagenes")
             .delete()
@@ -76,9 +75,21 @@ export async function DeleteImg(elements){
             if(data){
                 numero1++
                 param1.textContent = numero1
+                const div = document.getElementById("divImg"+id)
+                div.remove()
+                for (let index = 0; index < idsActivos.length; index++) {
+                    if(idsActivos[index] == id)idsActivos.splice(index,1)
+                    
+                }
             }
     }
     param1.textContent = "1"
     param2.textContent = "0"
     modalNotificaciones.style.display = "none"
+    console.log("ids activos despues de eliminar", idsActivos)
+}
+
+export function AnimarImgSeleccionar(div){
+    div.style.scale = "0.7"
+    div.classList.add("selected")
 }
