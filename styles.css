@@ -285,3 +285,6 @@ background-color: #d81b60;
   color: aliceblue;
   margin: auto;
 }
+.transition{
+  transition: scale 0.13s;
+}

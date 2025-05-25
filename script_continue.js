@@ -42,9 +42,16 @@ export function Seleccionar(CheckbosHidden , modalNotificaciones , nav){
         if(!(CheckbosHidden.checked)){
             idsActivos.forEach((element=>{
                 const imgDiv = document.getElementById("img"+element)
+                    imgDiv.classList.add("transition")
                     imgDiv.onclick = function(){
-                        imgDiv.style.scale = "0.7"
-                        imgDiv.classList.add("selected")   
+                        if(this.classList.contains("selected")){
+                            this.style.scale = "1"
+                            this.classList.remove("selected")
+                        }
+                        else{
+                            this.style.scale = "0.7"
+                            this.classList.add("selected")
+                        }   
                     }
                             
             }))
