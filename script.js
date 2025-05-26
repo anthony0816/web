@@ -4,6 +4,7 @@ import { ExpandirNav } from './script_continue.js';
 import { RecopilarIds } from './script_continue.js';
 import { Seleccionar } from './script_continue.js';
 import { DeleteImg } from './script_continue.js';
+import { añadirFuncionesDeNavegacion } from './script_continue.js';
 
 const supabaseUrl = "https://nvunvfuliztilbzbydqs.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im52dW52ZnVsaXp0aWxiemJ5ZHFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc4ODg5OTYsImV4cCI6MjA2MzQ2NDk5Nn0.pBp5CkGva3Y_2xBP9BVq-qnHng6M_1rikTalGHRGfd8";
@@ -13,7 +14,9 @@ export var idsActivos = []
 
 // Extraer los números de un string
 export function extraerNumeros(str) {
-    return str.match(/\d+/g) ? str.match(/\d+/g).join('') : '';
+    const numeroString = str.match(/\d+/g) ? str.match(/\d+/g).join('') : '';
+    numero = parseInt(numeroString, 10)
+    return numero
 }
 
 async function ExpandirImagen(id, src, id_original) {
@@ -70,6 +73,7 @@ async function ExpandirImagen(id, src, id_original) {
 
         return newsrc;
     }
+    añadirFuncionesDeNavegacion(modal)
     img.src = await CargarImagenAltaCalidad(id_original);
 }
 
@@ -307,6 +311,11 @@ async function CargarImagenes(data, info) {
 
 ObtenerIds(4,ImagenesCargadas);
 
+let botones = document.getElementById("123").addEventListener("click", ()=>{
+    const modal = document.getElementById("modal662")
+    console.log("modal",modal)
+    modal.style.display = "block"
+})
 
 // Cargar la imagen en la base de datos 
 const GuardarImagen = document.getElementById("GuardarImagen");

@@ -129,3 +129,26 @@ export async function DeleteImg(elements, nav){
     console.log("ids activos despues de eliminar", idsActivos)
 }
 
+export function añadirFuncionesDeNavegacion(FotoExpandida){
+    console.log("este es el modal ", FotoExpandida)
+    const navegablefoward = document.createElement('div')
+    const navegablebackwards = document.createElement('div')
+    navegablefoward.classList.add("navegablefoward")
+    navegablebackwards.classList.add("navegablebackwards")
+    FotoExpandida.appendChild(navegablefoward)
+    FotoExpandida.appendChild(navegablebackwards)
+    
+
+    // Extraer el id 
+    const id = extraerNumeros(FotoExpandida.id)
+    const idString = id.toString()
+    const posicion_en_array = idsActivos.indexOf(id)
+    console.log(" id", id)
+    console.log("idToString", idString)
+    console.log("index of", posicion_en_array)
+
+
+    console.log("idsActivos:", idsActivos);
+console.log("Tipo de idsActivos[0]:", typeof idsActivos[0]);
+console.log("ID buscado:", id, "Tipo:", typeof id);
+}
