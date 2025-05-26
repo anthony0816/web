@@ -329,11 +329,7 @@ async function CargarImagenes(data, info) {
 
 ObtenerIds(4);
 
-let botones = document.getElementById("123").addEventListener("click", ()=>{
-    const modal = document.getElementById("modal662")
-    console.log("modal",modal)
-    modal.style.display = "block"
-})
+
 
 // Cargar la imagen en la base de datos 
 const GuardarImagen = document.getElementById("GuardarImagen");

@@ -19,3 +19,15 @@
     height: 100%;
 
 }
+
+.background{
+    background-image: url("/Untitled design (2).png");
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    z-index: -10;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
