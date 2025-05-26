@@ -146,6 +146,6 @@ export function añadirFuncionesDeNavegacion(FotoExpandida){
     const id = extraerNumeros(FotoExpandida.id)
     const posicion_en_array = idsActivos.indexOf(id)
     console.log("index of", posicion_en_array)
-    console.log("hojis", hijos  )
+    
 
 }
