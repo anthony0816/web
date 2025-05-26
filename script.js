@@ -15,7 +15,7 @@ export var idsActivos = []
 // Extraer los números de un string
 export function extraerNumeros(str) {
     const numeroString = str.match(/\d+/g) ? str.match(/\d+/g).join('') : '';
-    numero = parseInt(numeroString, 10)
+    const numero = parseInt(numeroString, 10)
     return numero
 }
 
