@@ -285,6 +285,22 @@ background-color: #d81b60;
   color: aliceblue;
   margin: auto;
 }
+.modalNotificaciones3{
+    display: none;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%);
+  background-color: #17b95a;
+  width: 100%;
+  text-align: center;
+  border-radius: 13px;
+  min-width: 375px;
+  max-width: 600px;
+  color: aliceblue;
+  margin: auto;
+  z-index: 40;
+}
 .transition{
   transition: scale 0.13s;
 }

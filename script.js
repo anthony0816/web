@@ -19,7 +19,17 @@ export function extraerNumeros(str) {
     return numero
 }
 
-async function ExpandirImagen(id, src, id_original) {
+export function CargarMasElementos(){
+    const botonCargarMasHtmlCollection = document.getElementsByClassName("CargarMas-contenedor")
+    const botonCargarMas = Array.from(botonCargarMasHtmlCollection)
+        botonCargarMas.forEach((element)=>{
+            element.remove();
+        })
+    console.log("cargando mas")
+    ObtenerIds(3);
+}
+
+export async function ExpandirImagen(id, src, id_original) {
     const CheckbosHidden = document.getElementById("seleccionarEstado")
     if(CheckbosHidden.checked){
         return
@@ -75,6 +85,15 @@ async function ExpandirImagen(id, src, id_original) {
     }
     añadirFuncionesDeNavegacion(modal)
     img.src = await CargarImagenAltaCalidad(id_original);
+}
+
+// Cerrar expandir imagen 
+export function CerrarExpandirImg(){
+    const modal_mostrarImg = document.getElementsByClassName("modal_mostrarImg");
+    document.body.style.overflow = "auto"; 
+    Array.from(modal_mostrarImg).forEach(element => {
+        element.style.display = "none";
+    });
 }
 
 // Obtener versión de baja calidad de la foto
@@ -183,13 +202,13 @@ function toBase64(file) {
 }
 
 // Para obtener los ID
-async function ObtenerIds(k,ImagenesCargadas ) {
+export async function ObtenerIds(n) {
     try {
         const { data, error } = await supabase
             .from("Imagenes")  // ¡Asegúrate de que coincida con el nombre real!
             .select("id")
             .order('id', { ascending: false })
-            .range(ImagenesCargadas,ImagenesCargadas+k);
+            .range(ImagenesCargadas,ImagenesCargadas+n);
 
         if (error) {
             console.error("Error de Supabase:", error.message);
@@ -285,16 +304,15 @@ async function CargarImagenes(data, info) {
         
         const CargarMas = document.createElement('div')
         const CargarMasContenedor = document.createElement('div')
+            CargarMasContenedor.classList.add("CargarMas-contenedor")
             CargarMas.classList.add("CargarMas")
             CargarMas.classList.add("fa-solid")
             CargarMas.classList.add("fa-rotate")
             CargarMasContenedor.classList.add("CargarMasContenedor")
             Galeria.appendChild(CargarMasContenedor)
             CargarMasContenedor.appendChild(CargarMas)
-            CargarMas.addEventListener('click',function(){
-                CargarMasContenedor.remove()
-                console.log("cargando mas")
-                ObtenerIds(15, ImagenesCargadas);
+            CargarMasContenedor.addEventListener('click', ()=>{
+                CargarMasElementos();
             })
     }
     }
@@ -309,7 +327,7 @@ async function CargarImagenes(data, info) {
 
 
 
-ObtenerIds(4,ImagenesCargadas);
+ObtenerIds(4);
 
 let botones = document.getElementById("123").addEventListener("click", ()=>{
     const modal = document.getElementById("modal662")
@@ -363,14 +381,8 @@ actualizar.addEventListener('click', function () {
     modal.style.display = "flex";
 });
 // Cerrar la ventana de Maximisar vista de la imagen 
-const CerrarExpandirImg = document.getElementById("CerrarExpandirImg");
-CerrarExpandirImg.addEventListener('click', function () {
-    const modal_mostrarImg = document.getElementsByClassName("modal_mostrarImg");
-    document.body.style.overflow = "auto"; // Desactivar el scroll
-    Array.from(modal_mostrarImg).forEach(element => {
-        element.style.display = "none";
-    });
-});
+const CerrarExpandirImg_boton = document.getElementById("CerrarExpandirImg");
+CerrarExpandirImg_boton.addEventListener('click', CerrarExpandirImg);
 // Eliminar desde el icono de elimiar
 const EliminarImg = document.getElementById("EliminarImg");
 EliminarImg.addEventListener('click', function() {

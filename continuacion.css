@@ -4,7 +4,6 @@
 }
 
 .navegablebackwards{
-    background-color: rgba(162, 45, 45, 0.557);
     width: 50%;
     height: 30PX;
     position: absolute;
@@ -13,7 +12,6 @@
 }
 
 .navegablefoward{
-    background-color: rgba(48, 48, 164, 0.553);
     width: 50%;
     height: 30PX;
     position: absolute;

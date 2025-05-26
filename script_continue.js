@@ -1,6 +1,9 @@
 
 import { extraerNumeros } from "./script.js"
 import { supabase } from "./script.js"
+import { ExpandirImagen } from "./script.js"
+import { CerrarExpandirImg } from "./script.js"
+import { CargarMasElementos } from "./script.js"
 var idsActivos = []
 //Expandir la barra de navegación
 export function ExpandirNav(nav_expandir){
@@ -129,11 +132,11 @@ export async function DeleteImg(elements, nav){
     console.log("ids activos despues de eliminar", idsActivos)
 }
 
-export function añadirFuncionesDeNavegacion(FotoExpandida){
+export function añadirFuncionesDeNavegacion(modal){
     
     const navegablefoward = document.createElement('div')
     const navegablebackwards = document.createElement('div')
-    const imgDiv = FotoExpandida.children[0]
+    const imgDiv = modal.children[0]
     
     imgDiv.classList.add("navegable-continer")
     navegablefoward.classList.add("navegablefoward")
@@ -143,9 +146,45 @@ export function añadirFuncionesDeNavegacion(FotoExpandida){
     
 
     // Extraer el id 
-    const id = extraerNumeros(FotoExpandida.id)
+    const id = extraerNumeros(modal.id)
     const posicion_en_array = idsActivos.indexOf(id)
+    const idSiguiente = idsActivos[posicion_en_array+1]
+    const idAnterior = idsActivos[posicion_en_array-1]
     console.log("index of", posicion_en_array)
-    
 
+    const fotosiguiente = document.getElementById("img"+idSiguiente)
+    console.log("foto siguiente", fotosiguiente)
+
+
+    navegablefoward.addEventListener('click', ()=>{
+        const direccion = "final"
+        pasarImagen(idSiguiente,direccion,modal)
+    })
+    navegablebackwards.addEventListener('click',()=>{
+        const direccion = "inicio" 
+        pasarImagen(idAnterior,direccion,modal)
+    })
+
+}
+
+function pasarImagen(id,direccion,modal){
+    const img = document.getElementById("img"+id)
+    const notificacion = document.getElementsByClassName("modalNotificaciones3")[0]
+    notificacion.style.display = "none"
+    if(!img && direccion == "inicio"){
+        notificacion.style.display = "block"
+        notificacion.textContent = `Haz llegado al ${direccion}`
+        return
+    }
+    else if(!img && direccion == "final"){
+        notificacion.style.display = "block"
+        notificacion.textContent = "Cargando..."
+        CargarMasElementos();
+        añadirFuncionesDeNavegacion(modal)
+        return
+    }
+    const src = img.src
+    console.log("datos de la imagen ", img, src)
+    CerrarExpandirImg()
+    ExpandirImagen( "img"+id, src, id)
 }
