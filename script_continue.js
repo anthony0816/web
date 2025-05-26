@@ -149,42 +149,49 @@ export function añadirFuncionesDeNavegacion(modal){
     const id = extraerNumeros(modal.id)
     const posicion_en_array = idsActivos.indexOf(id)
     const idSiguiente = idsActivos[posicion_en_array+1]
-    const idAnterior = idsActivos[posicion_en_array-1]
-    console.log("index of", posicion_en_array)
 
     const fotosiguiente = document.getElementById("img"+idSiguiente)
     console.log("foto siguiente", fotosiguiente)
+    if(!fotosiguiente){
+        if( idsActivos.length - posicion_en_array == 1){
+            CargarMasElementos()
+        }
+    }
 
 
-    navegablefoward.addEventListener('click', ()=>{
+    navegablefoward.onclick = function(){
         const direccion = "final"
-        pasarImagen(idSiguiente,direccion,modal)
-    })
-    navegablebackwards.addEventListener('click',()=>{
+        const next = idsActivos[posicion_en_array+1]
+        pasarImagen(next,direccion,modal,navegablefoward)
+    }
+    navegablebackwards.onclick = function(){
+        const idAnterior = idsActivos[posicion_en_array-1]
         const direccion = "inicio" 
         pasarImagen(idAnterior,direccion,modal)
-    })
+    }
 
 }
 
-function pasarImagen(id,direccion,modal){
-    const img = document.getElementById("img"+id)
+function pasarImagen(id,direccion){
     const notificacion = document.getElementsByClassName("modalNotificaciones3")[0]
+    const img = document.getElementById("img"+id)
     notificacion.style.display = "none"
+
     if(!img && direccion == "inicio"){
         notificacion.style.display = "block"
         notificacion.textContent = `Haz llegado al ${direccion}`
         return
     }
     else if(!img && direccion == "final"){
-        notificacion.style.display = "block"
         notificacion.textContent = "Cargando..."
-        CargarMasElementos();
-        añadirFuncionesDeNavegacion(modal)
+        notificacion.style.display = "block"
+        setTimeout(()=>{
+            notificacion.style.display = "none"
+        },3000)
         return
     }
     const src = img.src
-    console.log("datos de la imagen ", img, src)
+    
     CerrarExpandirImg()
     ExpandirImagen( "img"+id, src, id)
 }
