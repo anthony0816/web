@@ -482,6 +482,7 @@ const eliminar_seleccionados = document.getElementById("eliminar_seleccionados")
     eliminar_seleccionados.addEventListener('click', ()=>{
         const elementosSeleccionados = document.getElementsByClassName("selected")[0]
         if (!elementosSeleccionados)return
+        document.body.style.overflow = "hidden";
         const modalEliminarMultiple = document.getElementsByClassName("modalEliminarMultiples")[0]
             modalEliminarMultiple.classList.add("modalEliminarMultiples_ON")
 })
@@ -494,11 +495,13 @@ const aceptar_eliminar_seleccionados = document.getElementsByClassName("modalEli
                 DeleteImg(seleccionados,nav )
                 const modalEliminarMultiple = document.getElementsByClassName("modalEliminarMultiples")[0]
             modalEliminarMultiple.classList.remove("modalEliminarMultiples_ON")
+            document.body.style.overflow = "auto";
         }
 const cancelar_eliminar_seleccionados = document.getElementsByClassName("modalEliminarMultiples_cancelar")[0]
         cancelar_eliminar_seleccionados.onclick = function(){
             const modal = document.getElementsByClassName("modalEliminarMultiples")[0]
                 modal.classList.remove("modalEliminarMultiples_ON")
+                document.body.style.overflow = "auto";
         }
 
 const download_single_photo = document.getElementById("download_single_photo")
