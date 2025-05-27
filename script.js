@@ -5,6 +5,7 @@ import { RecopilarIds } from './script_continue.js';
 import { Seleccionar } from './script_continue.js';
 import { DeleteImg } from './script_continue.js';
 import { añadirFuncionesDeNavegacion } from './script_continue.js';
+import { Descargar } from './script_continue.js';
 
 const supabaseUrl = "https://nvunvfuliztilbzbydqs.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im52dW52ZnVsaXp0aWxiemJ5ZHFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc4ODg5OTYsImV4cCI6MjA2MzQ2NDk5Nn0.pBp5CkGva3Y_2xBP9BVq-qnHng6M_1rikTalGHRGfd8";
@@ -17,6 +18,10 @@ export function extraerNumeros(str) {
     const numeroString = str.match(/\d+/g) ? str.match(/\d+/g).join('') : '';
     const numero = parseInt(numeroString, 10)
     return numero
+}
+export function cambiarEstadoCheckbox(){
+    const CheckbosHidden = document.getElementById("seleccionar")
+        CheckbosHidden.click()  
 }
 
 export function CargarMasElementos(){
@@ -447,7 +452,7 @@ EliminarImg.addEventListener('click', function() {
 });
 
 const nav_expandir = document.getElementById("nav_expandir")
-nav_expandir.addEventListener('click', ()=>{
+    nav_expandir.addEventListener('click', ()=>{
     ExpandirNav(nav_expandir);
 } )
 
@@ -473,3 +478,35 @@ const eliminar_seleccionados = document.getElementById("eliminar_seleccionados")
                 DeleteImg(seleccionados,nav )
 })
 
+const download_single_photo = document.getElementById("download_single_photo")
+        download_single_photo.onclick = function(){
+            const id = []
+            const modal = document.getElementsByClassName("modal_expandirImagen_contenedor")[0]
+            id[0] = extraerNumeros(modal.id) 
+            Descargar(id)
+        }
+
+const download_photos = document.getElementById("descargar")
+        download_photos.onclick = function(){
+            const selected = document.getElementsByClassName("selected")
+                if(!selected[0]){
+                    const notificacion = document.getElementsByClassName("modalNotificaciones3")[0]
+                        notificacion.classList.add("modalNotificaciones3_error_mode")
+                        notificacion.textContent = "Seleccionar al menos un elemento"
+                        notificacion.style.backgroundColor = "#d81b37"
+                        setTimeout(()=>{
+                        notificacion.style.backgroundColor = "#17b95a"
+                        notificacion.classList.remove("modalNotificaciones3_error_mode")
+                        },3000)
+                        return
+                }
+                
+            const coleccition = Array.from(selected)
+            const ids = []
+            coleccition.forEach((element)=>{
+                const id = extraerNumeros(element.id)
+                ids.push(id)
+            })
+            console.log("ids" ,ids)
+            Descargar(ids)
+        }

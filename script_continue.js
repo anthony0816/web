@@ -4,6 +4,7 @@ import { supabase } from "./script.js"
 import { ExpandirImagen } from "./script.js"
 import { CerrarExpandirImg } from "./script.js"
 import { CargarMasElementos } from "./script.js"
+import { cambiarEstadoCheckbox } from "./script.js"
 var idsActivos = []
 //Expandir la barra de navegación
 export function ExpandirNav(nav_expandir){
@@ -196,7 +197,41 @@ function pasarImagen(id,direccion){
     ExpandirImagen( "img"+id, src, id)
 }
 
-export function DescargarUnaImagen(img){
-const a = document.createElement('a')
+export async function Descargar(ids){
+    const notificacion = document.getElementsByClassName("modalNotificaciones3")[0]
+    const cantidad = ids.length
+    let en_proceso = 0
+    for(const id of ids){
+        en_proceso ++;
+        notificacion.classList.add("modalNotificaciones3_error_mode")
+        notificacion.textContent = `Preparando para la descarga... ${en_proceso} de ${cantidad}`
+        const {data , error} = await supabase
+                .from("Imagenes")
+                .select("name, data")
+                .eq("id",id)
+                .single()
+        console.log("data",data)  
+        if(error){
+            console.log("Ha ocurrido un error al obtener los datos de la imagen", error)
+            notificacion.textContent = "Ha ocurrido un error, intentar de nuevo "
+            notificacion.style.backgroundColor = "#d81b37" 
+            setTimeout(()=>{
+            notificacion.style.backgroundColor = "#17b95a"
+            notificacion.classList.remove("modalNotificaciones3_error_mode")
+            },3000) 
 
+        }  
+        if(data){
+            const src = data.data
+            const name = data.name
+            const enlace = document.createElement("a")
+            enlace.download = name
+            enlace.href = `data:image/jpeg;base64,${src}`
+            document.body.appendChild(enlace)
+            enlace.click()
+            document.body.removeChild(enlace) 
+            
+        }        
+    }
+    cambiarEstadoCheckbox()
 }

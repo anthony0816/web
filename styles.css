@@ -301,6 +301,11 @@ background-color: #d81b60;
   margin: auto;
   z-index: 40;
 }
+.modalNotificaciones3_error_mode{
+  display: block;
+  background-color:#17b95a;
+}
+
 .transition{
   transition: scale 0.13s;
 }
