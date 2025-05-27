@@ -32,3 +32,31 @@
     left: 50%;
     transform: translate(-50%,-50%);
 }
+
+.modalEliminarMultiples{
+    display: none;
+
+}
+.modalEliminarMultiples_ON{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 50;
+    background-color: #333333d0;
+    color: wheat;
+    min-width: 300px;
+    padding: 999px;
+
+}
+.modalEliminarMultiples_botones_container{
+    display: flex;
+    justify-content: space-around;
+}
+.modalEliminarMultiples_botones{
+    scale: 2.4;
+    margin-top: 30px;
+}

@@ -480,11 +480,26 @@ const seleccionar = document.getElementById("seleccionar")
 
 const eliminar_seleccionados = document.getElementById("eliminar_seleccionados")
     eliminar_seleccionados.addEventListener('click', ()=>{
+        const elementosSeleccionados = document.getElementsByClassName("selected")[0]
+        if (!elementosSeleccionados)return
+        const modalEliminarMultiple = document.getElementsByClassName("modalEliminarMultiples")[0]
+            modalEliminarMultiple.classList.add("modalEliminarMultiples_ON")
+})
+const aceptar_eliminar_seleccionados = document.getElementsByClassName("modalEliminarMultiples_aceptar")[0]
+        aceptar_eliminar_seleccionados.onclick = function (){
+        
         const nav = document.getElementsByClassName("nav")[0]
         const seleccionadosHTMLColection = document.getElementsByClassName("selected")
                 const seleccionados = Array.from(seleccionadosHTMLColection)
                 DeleteImg(seleccionados,nav )
-})
+                const modalEliminarMultiple = document.getElementsByClassName("modalEliminarMultiples")[0]
+            modalEliminarMultiple.classList.remove("modalEliminarMultiples_ON")
+        }
+const cancelar_eliminar_seleccionados = document.getElementsByClassName("modalEliminarMultiples_cancelar")[0]
+        cancelar_eliminar_seleccionados.onclick = function(){
+            const modal = document.getElementsByClassName("modalEliminarMultiples")[0]
+                modal.classList.remove("modalEliminarMultiples_ON")
+        }
 
 const download_single_photo = document.getElementById("download_single_photo")
         download_single_photo.onclick = function(){
