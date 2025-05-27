@@ -229,8 +229,11 @@ export async function Descargar(ids){
             enlace.href = `data:image/jpeg;base64,${src}`
             document.body.appendChild(enlace)
             enlace.click()
-            document.body.removeChild(enlace) 
+            document.body.removeChild(enlace)
             
+            setTimeout(()=>{
+            notificacion.classList.remove("modalNotificaciones3_error_mode")
+            },3000) 
         }        
     }
     cambiarEstadoCheckbox()
