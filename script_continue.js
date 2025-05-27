@@ -195,3 +195,8 @@ function pasarImagen(id,direccion){
     CerrarExpandirImg()
     ExpandirImagen( "img"+id, src, id)
 }
+
+export function DescargarUnaImagen(img){
+const a = document.createElement('a')
+
+}

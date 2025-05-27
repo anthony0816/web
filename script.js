@@ -369,13 +369,6 @@ subir.addEventListener('click', function () {
     modal.style.display = "flex";
 });
 
-
-// actualizar la pagina 
-const actualizar = document.getElementById("actualizar");
-actualizar.addEventListener('click', function () {
-    window.location.reload();
-    modal.style.display = "flex";
-});
 // Cerrar la ventana de Maximisar vista de la imagen 
 const CerrarExpandirImg_boton = document.getElementById("CerrarExpandirImg");
 CerrarExpandirImg_boton.addEventListener('click', CerrarExpandirImg);
