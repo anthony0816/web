@@ -23,6 +23,12 @@ export function cambiarEstadoCheckbox(){
     const CheckbosHidden = document.getElementById("seleccionar")
         CheckbosHidden.click()  
 }
+export function desmarcarCheckbox(){
+    const labelForInputHidden = document.getElementById("seleccionar")
+    if(labelForInputHidden.classList.contains("activo")){
+        labelForInputHidden.click()
+    }
+}
 
 export function CargarMasElementos(){
     const botonCargarMasHtmlCollection = document.getElementsByClassName("CargarMas-contenedor")
@@ -461,11 +467,13 @@ const seleccionar = document.getElementById("seleccionar")
         const CheckbosHidden = document.getElementById("seleccionarEstado")
         const modalNotificaciones = document.getElementsByClassName("modalNotificaciones2")[0]
         const nav = document.getElementsByClassName("nav")[0]
-
+        console.log("estado del chexbox", CheckbosHidden.checked)
         if(!(CheckbosHidden.checked)){
             seleccionar.style.color="#d81b60"
+            seleccionar.classList.add("activo")
         }else{
             seleccionar.style.color ="black"
+            seleccionar.classList.remove("activo")
         }
         Seleccionar(CheckbosHidden,modalNotificaciones,nav)
     })
@@ -483,7 +491,8 @@ const download_single_photo = document.getElementById("download_single_photo")
             const id = []
             const modal = document.getElementsByClassName("modal_expandirImagen_contenedor")[0]
             id[0] = extraerNumeros(modal.id) 
-            Descargar(id)
+            const info = "single"
+            Descargar(id, info)
         }
 
 const download_photos = document.getElementById("descargar")
@@ -508,5 +517,6 @@ const download_photos = document.getElementById("descargar")
                 ids.push(id)
             })
             console.log("ids" ,ids)
-            Descargar(ids)
+            const info = "many"
+            Descargar(ids, info)
         }

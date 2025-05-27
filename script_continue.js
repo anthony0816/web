@@ -5,6 +5,7 @@ import { ExpandirImagen } from "./script.js"
 import { CerrarExpandirImg } from "./script.js"
 import { CargarMasElementos } from "./script.js"
 import { cambiarEstadoCheckbox } from "./script.js"
+import { desmarcarCheckbox } from "./script.js"
 var idsActivos = []
 //Expandir la barra de navegación
 export function ExpandirNav(nav_expandir){
@@ -27,6 +28,7 @@ export function ExpandirNav(nav_expandir){
         nav_expandir.classList.remove("fa-xmark");
         nav_expandir.style.color = "black"
         nav.style.width="50%"
+        desmarcarCheckbox()
     }
 }
 
@@ -50,10 +52,12 @@ export function Seleccionar(CheckbosHidden , modalNotificaciones , nav){
                     imgDiv.onclick = function(){
                         if(this.classList.contains("selected")){
                             this.style.scale = "1"
+                            this.classList.remove("singleIMG_onSelect")
                             this.classList.remove("selected")
                         }
                         else{
-                            this.style.scale = "0.7"
+                            this.style.scale = "0.9"
+                            this.classList.add("singleIMG_onSelect")
                             this.classList.add("selected")
                         }   
                     }
@@ -64,6 +68,7 @@ export function Seleccionar(CheckbosHidden , modalNotificaciones , nav){
             idsActivos.forEach((element=>{
                 const imgDiv = document.getElementById("img"+element)
                     imgDiv.style.scale = "1"
+                    imgDiv.classList.remove("singleIMG_onSelect")
                     imgDiv.classList.remove("selected")
                     imgDiv.onclick = function(){
                         return
@@ -197,7 +202,7 @@ function pasarImagen(id,direccion){
     ExpandirImagen( "img"+id, src, id)
 }
 
-export async function Descargar(ids){
+export async function Descargar(ids , info){
     const notificacion = document.getElementsByClassName("modalNotificaciones3")[0]
     const cantidad = ids.length
     let en_proceso = 0
@@ -210,7 +215,7 @@ export async function Descargar(ids){
                 .select("name, data")
                 .eq("id",id)
                 .single()
-        console.log("data",data)  
+        
         if(error){
             console.log("Ha ocurrido un error al obtener los datos de la imagen", error)
             notificacion.textContent = "Ha ocurrido un error, intentar de nuevo "
@@ -236,5 +241,8 @@ export async function Descargar(ids){
             },3000) 
         }        
     }
-    cambiarEstadoCheckbox()
+    if(info == "many"){
+        cambiarEstadoCheckbox()
+    }
+    
 }
