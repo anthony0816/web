@@ -397,7 +397,7 @@ async function CargarImagenes(data, info) {
 
 
 
-ObtenerIds(3);
+ObtenerIds(27);
 
 
 
