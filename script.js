@@ -40,18 +40,57 @@ export function CargarMasElementos(){
     ObtenerIds(27);
 }
 
-export async function ExpandirImagen(id, src, id_original) {
+export async function ExpandirImagen(id, src, id_original,info) {
     const CheckbosHidden = document.getElementById("seleccionarEstado")
     if(CheckbosHidden.checked){
         return
     }
     const existe = document.getElementById("modal" + id_original);
     if (existe) {
+        existe.classList.remove("closed")
+        // Animaciones
+        if(!(info == "next")){
+        existe.classList.remove("animacion")
+        setTimeout(()=>{
+        existe.classList.add("animacion")
+        },10)
+        }
+        // End
+
         existe.style.display = "flex";
         document.body.style.overflow = "hidden"; // Desactivar el scroll
         const modalchild = document.getElementsByClassName("modal_expandirImagen_contenedor")[0];
         existe.appendChild(modalchild);
         modalchild.id = " " + existe.id;
+        if (existe.classList.contains("cancelado")){
+        
+            setTimeout(async ()=>{
+                const modal = document.getElementById("modal"+ id_original)
+                // El primer hijo de modal su primer hijo es la foto 
+                const img =  modal.children[0].children[0]
+                if(modal.classList.contains("closed")){
+                    modal.classList.add("cancelado")
+                    console.log("cancelado")
+                    return
+                }
+                console.log ("Se empieza a ejecutar ahora")
+                async function CargarImagenAltaCalidad(id) {
+                    const { data, error } = await supabase
+                    .from('Imagenes')
+                    .select('data')
+                    .eq('id', id)
+                    .single();
+
+                    if (error) {
+                        console.log("error al recargar la imagen");
+                    }
+                    const newsrc = `data:image/jpeg;base64,${data.data}`;
+
+                return newsrc;
+                }
+                img.src = await CargarImagenAltaCalidad(id_original);
+        },2000)
+        }
         return;
     }
 
@@ -59,6 +98,8 @@ export async function ExpandirImagen(id, src, id_original) {
 
     const body = document.getElementsByTagName('body')[0];
     const modal = document.createElement('div');
+    const imgDiv = document.createElement('div');
+    const img = document.createElement('img');
     modal.style.display = "none";
     modal.id = 'modal' + id_original;
     body.appendChild(modal);
@@ -66,37 +107,53 @@ export async function ExpandirImagen(id, src, id_original) {
     modal.appendChild(modalchild);
     modalchild.id = " " + modal.id;
     modalchild.style.display = "flex";
-
-    const imgDiv = document.createElement('div');
-
-    modal.classList.add('modal_mostrarImg');
-    modal.style.display = "flex";
-    imgDiv.classList.add("imgDiv");
-    const img = document.createElement('img');
-    img.classList.add('img_mostrar_modal');
     img.src = src;
     img.id = id;
-
+    imgDiv.classList.add("imgDiv");
+    modal.style.display = "flex";
+    img.classList.add('img_mostrar_modal');
     modal.insertBefore(imgDiv, modal.firstChild);
     imgDiv.appendChild(img);
-
-    async function CargarImagenAltaCalidad(id) {
-        const { data, error } = await supabase
-            .from('Imagenes')
-            .select('data')
-            .eq('id', id)
-            .single();
-
-        if (error) {
-            console.log("error al recargar la imagen");
-        }
-        const newsrc = `data:image/jpeg;base64,${data.data}`;
-
-        return newsrc;
+    modal.classList.add('modal_mostrarImg');
+    modal.classList.remove("closed")
+    
+    // Animaciones 
+    if(!(info == "next")){
+    setTimeout(()=>{
+    modal.classList.add("animacion")
+    },10)
+    }else{
+        modal.classList.add("animacion")
     }
+    //End
     añadirFuncionesDeNavegacion(modal)
-    img.src = await CargarImagenAltaCalidad(id_original);
-    console.log("base64", img.id ,img.src)
+    
+    
+
+    setTimeout(async ()=>{
+        const modal = document.getElementById("modal"+ id_original)
+        if(modal.classList.contains("closed")){
+            modal.classList.add("cancelado")
+            console.log("cancelado")
+            return
+        }
+        console.log ("Se empieza a ejecutar ahora")
+        async function CargarImagenAltaCalidad(id) {
+            const { data, error } = await supabase
+                .from('Imagenes')
+                .select('data')
+                .eq('id', id)
+                .single();
+
+                if (error) {
+                    console.log("error al recargar la imagen");
+                }
+                const newsrc = `data:image/jpeg;base64,${data.data}`;
+
+            return newsrc;
+        }
+            img.src = await CargarImagenAltaCalidad(id_original);
+    },2000)
 }
 
 // Cerrar expandir imagen 
@@ -105,6 +162,7 @@ export function CerrarExpandirImg(){
     document.body.style.overflow = "auto"; 
     Array.from(modal_mostrarImg).forEach(element => {
         element.style.display = "none";
+        element.classList.add("closed")
     });
 }
 
@@ -339,7 +397,7 @@ async function CargarImagenes(data, info) {
 
 
 
-ObtenerIds(27);
+ObtenerIds(3);
 
 
 

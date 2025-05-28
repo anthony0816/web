@@ -197,9 +197,9 @@ function pasarImagen(id,direccion){
         return
     }
     const src = img.src
-    
+    const info = "next"
     CerrarExpandirImg()
-    ExpandirImagen( "img"+id, src, id)
+    ExpandirImagen( "img"+id, src, id,info)
 }
 
 export async function Descargar(ids , info){
