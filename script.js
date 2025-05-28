@@ -37,7 +37,7 @@ export function CargarMasElementos(){
             element.remove();
         })
     console.log("cargando mas")
-    ObtenerIds(3);
+    ObtenerIds(27);
 }
 
 export async function ExpandirImagen(id, src, id_original) {
@@ -96,6 +96,7 @@ export async function ExpandirImagen(id, src, id_original) {
     }
     añadirFuncionesDeNavegacion(modal)
     img.src = await CargarImagenAltaCalidad(id_original);
+    console.log("base64", img.id ,img.src)
 }
 
 // Cerrar expandir imagen 
@@ -338,7 +339,7 @@ async function CargarImagenes(data, info) {
 
 
 
-ObtenerIds(4);
+ObtenerIds(27);
 
 
 
