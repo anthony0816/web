@@ -100,6 +100,7 @@ export async function ExpandirImagen(id, src, id_original,info) {
     const modal = document.createElement('div');
     const imgDiv = document.createElement('div');
     const img = document.createElement('img');
+    
     modal.style.display = "none";
     modal.id = 'modal' + id_original;
     body.appendChild(modal);
