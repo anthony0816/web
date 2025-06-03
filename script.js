@@ -328,7 +328,7 @@ function detectImageFormatFromBase64(base64Data) {
 
 // Cargar las imágenes desde la base de datos
 async function CargarImagenes(data, info) {
-    RecopilarIds(data);
+    RecopilarIds(data, info);
     const Galeria = document.getElementById("gallery");
 
     if ((info != "Cargada por el usuario" )&&(info != "Cargar mas")) {

@@ -33,7 +33,14 @@ export function ExpandirNav(nav_expandir){
 }
 
 //Funcion para seleccionar
-export function RecopilarIds(data){
+export function RecopilarIds(data,info){
+    if(info == "Cargada por el usuario"){
+        data.forEach((element)=>{
+            idsActivos.unshift(element.id)
+        })
+        console.log("ids activos", idsActivos)
+        return
+    }
     data.forEach((element)=>{
         idsActivos.push(element.id)
     })
