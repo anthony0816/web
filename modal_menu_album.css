@@ -25,7 +25,18 @@
     text-align: center;
 }
 
-
+.overlay{
+    display: none;/*Temporal */
+    height: 20px;
+    width: 20px;
+    background-color: rgba(8, 8, 8, 0.753);
+    position: fixed;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    z-index: 20;
+    padding: 1920px 1000px;
+}
 
 .modal_nombre_album{
     position: fixed;
@@ -37,13 +48,12 @@
     background-color:  rgb(8, 129, 169);
     z-index: 30;
     display: flex;
-    display: none; /*Tranajando en esto todavia */
+    display: none;/*Temporal */
     flex-direction: column;
     justify-content: center;
     align-items: center;
     max-width: 300px;
     border-radius: 13px;
-    padding: 999px;
 }
 .nombre_album_continer{
 text-align: center;
