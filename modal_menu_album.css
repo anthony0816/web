@@ -1,0 +1,67 @@
+.modal_menu_album{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    max-width: 700px;
+    min-width: 200px;
+    margin: auto;
+    overflow: auto;
+    border-top: 3px solid black;
+    padding-top: 4px;
+}
+.menu_album_createAlbum_option{
+    background-color: rgb(124, 95, 21);
+    align-content: center;
+    padding: 47px 20px;
+    margin: 5px 5px;
+}
+.album_item{
+    background-color: rgb(8, 129, 169);
+    align-content: center;
+    min-height: 120px;
+    min-width: 120px;
+    margin: 5px 5px;
+    text-align: center;
+}
+
+
+
+.modal_nombre_album{
+    position: fixed;
+    width: 90%;
+    height: 30%;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    background-color:  rgb(8, 129, 169);
+    z-index: 30;
+    display: flex;
+    display: none; /*Tranajando en esto todavia */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 300px;
+    border-radius: 13px;
+    padding: 999px;
+}
+.nombre_album_continer{
+text-align: center;
+}
+.nombre_album_input{
+    height: 30px;
+    width: 90%;
+    max-width: 300px;
+}
+
+.nombre_album_botones_contenedor{
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+}
+.nombre_album_boton{
+    padding: 15px;
+    border-radius: 13px;
+}

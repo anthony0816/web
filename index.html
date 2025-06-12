@@ -7,20 +7,32 @@
         <link rel="stylesheet" href="styles.css">
         <link rel="stylesheet" href="continuacion.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="stylesheet" href="modal_menu_album.css">
     </head>
     <body>
         <script type="module" src="./script_continue.js"></script>
         <script type="module" src="./script.js"></script>
+        <script type="module" src="./modal_menu_album.js"></script>
         <div class="background">
 
         </div>
         <header>
-            <h1> Para Mi Niña Hermosa </h1>
+            <div class="header_frase_contenedor">
+                <h1> Para Mi Niña Hermosa </h1>
             <p>
                 Chiquitica, tú sabes que te amo con la vida, ¿verdad? Eres lo mejor que he tenido, sí, porque eres mía. Se me ocurrió hacer esto; pensé que sería más fácil, pero me ha tomado más tiempo del que imaginé. Este es el primer trabajo funcional que hago, y me llena de placer saber que lo hice para ti, pensando en nosotros, aunque me haya tenido que acostar tarde. Pero eso no me importa, porque es una mínima cosa comparada con lo que el amor que siento por ti me inspira a hacer.
 
 En fin, bebita, quería crear un espacio donde pudiéramos guardar nuestras fotitos para que no se pierdan. Así también puedes descargarlas en tu móvil si no las tienes. Si quieres subir alguna foto, también puedes eliminarla, pero no te lo recomiendo, mi amor 😅. Aquí podemos guardar imágenes de los dos e intercambiarlas, sin importar que tengas un iPhone. Espero que te guste, mi amor. Eres la cosita más linda del mundo. Te amo. 🤍
             </p>
+            </div>
+        <!--Modal para opciones de album-->
+        <h2>Albums</h2>
+        <div class="modal_menu_album">
+            <div class="menu_album_createAlbum_option"><span></span> <i class="fas fa-plus"></i></div>
+            <!--aqui se ejecutarán elementos de tipo -->
+            <!--<div class="album_item"> prueba</div>-->
+            <div class="album_item"> La carita mas linda del mundo</div>
+        </div>
         </header>
 
         <nav class="nav">
@@ -77,5 +89,17 @@ En fin, bebita, quería crear un espacio donde pudiéramos guardar nuestras foti
         <footer>
             &copy; Hecho con 🤍 para ti.
         </footer>
+        <!--Modal nombre del album-->
+            <div class="modal_nombre_album">
+            <div class="nombre_album_continer">
+                <label > Inserte el nombre del album
+                <input type="text" class="nombre_album_input">
+            </label>
+            </div>
+            <div class="nombre_album_botones_contenedor">
+                <button class="nombre_album_boton" >Aceptar</button>
+                <button class="nombre_album_boton" >Cancelar</button>
+            </div>
+        </div>
     </body>
 </html>

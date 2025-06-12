@@ -13,12 +13,21 @@ header {
   background-color: #fff;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   height: 80vh;
-  overflow: scroll;
-  
+  overflow: auto;
 }
 
-h1 {
+header .header_frase_contenedor{
+  max-width: 700px;
+  margin: auto;
+}
+
+
+h1{
   font-size: 2.5rem;
+  color: #d81b60;
+  margin-bottom: 1rem;
+}
+h2{
   color: #d81b60;
   margin-bottom: 1rem;
 }
