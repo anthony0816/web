@@ -86,7 +86,7 @@ export  function obtenerIdsSeleccionados() {
   const ids = []
 
   ElementosSeleccionados.forEach((elem)=>{
-    const id = extraerNumeros(elem.id)
+    const id = extraerNumeros(elem.id) 
     ids.push(id)
   })
   return ids
