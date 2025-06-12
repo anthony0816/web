@@ -11,8 +11,8 @@ export async function crearTablaAlbum(tableName) {
   const { data, error } = await supabase.rpc('execute_sql', {
     query: `
       CREATE TABLE IF NOT EXISTS ${tableName} (
-        imgsIds NUMERIC PRIMARY KEY
-      );
+    imgsIds NUMERIC
+);
     `,
   });
 
@@ -22,28 +22,6 @@ export async function crearTablaAlbum(tableName) {
   }
 
   console.log("✅ Tabla creada exitosamente");
-}
-
-// Eliminar una tabla como album  de la base de datos 
-export async function eliminarTablaAlbum(tableName) {
-    // no borrar la tabla principal de las imagenes por accidente 
-    if(tableName == "Imagenes"){
-        console.log("Imposible eliminar o modificar la tabla Imagenes")
-        return
-    }
-  const { data, error } = await supabase.rpc('execute_sql', {
-    query: `
-      DROP TABLE IF EXISTS ${tableName};
-    `,
-  });
-
-  if (error) {
-    console.error("Error eliminando tabla:", error);
-    return false;
-  }
-
-  console.log("✅ Tabla eliminada exitosamente");
-  return true;
 }
 // Ver cuantas tablas como albums existen el la base de datos (excluye a la tabla IMAGENES)
 export async function listarTablasAlbums() {
@@ -60,13 +38,15 @@ export async function listarTablasAlbums() {
 export async function mostrarAlbums(){
     const modal_menu_album = document.getElementsByClassName("modal_menu_album")[0]
     const albums = await listarTablasAlbums()
-    albums.forEach(al => {
+    
+    if (albums){
+        albums.forEach(al => {
         const div = document.createElement('div')
         div.classList.add("album_item")
         div.textContent = al
         modal_menu_album.appendChild(div)
     });
-    
+    }
 }
 
 // funcion asincrona para crear el album y esperar la respuesta 
@@ -80,11 +60,23 @@ async function CrearAlbum() {
 
   // Comenzar la petición de creación de la table Album con los ids seleccionados
   const idsSeleccionados = obtenerIdsSeleccionados()
+  const cuerpoConsulta = ObtenerCuerpoDeConsulta(idsSeleccionados)
   const nuevoAlbum = await crearTablaAlbum(inputNombre.value) // importante
 
-  // vamos a insertar los valores nuevos a la nueva tabla, los valores de los Id de las imagenes
-  
 
+  // vamos a insertar los valores nuevos a la nueva tabla, los valores de los Id de las imagenes
+    const { data, error } = await supabase
+    .from(inputNombre.value)
+    .insert(cuerpoConsulta);
+
+  if (error) {
+    console.error('Error insertando datos:', error);
+    return;
+  }
+
+  console.log('Datos insertados:', data);
+  Cerrar_modal_nombre_album()
+  mostrarAlbums()
 }
 //Función para obtener lso ids de los seleccionados
 export  function obtenerIdsSeleccionados() {
@@ -98,6 +90,18 @@ export  function obtenerIdsSeleccionados() {
     ids.push(id)
   })
   return ids
+}
+// Para que el arreglo tenga cuerpo de consulta con el nombre del campo y el valor (objetos)
+function ObtenerCuerpoDeConsulta (ids){
+const newIds = []
+  ids.forEach((id)=>{
+    newIds.push(
+      {
+        imgsids:id
+      }
+    )
+  })
+  return newIds
 }
 
 // funcion para abrir el modal de crear album para el nombre 
@@ -118,7 +122,6 @@ function Cerrar_modal_nombre_album(){
   overlay.style.display="none"
   document.body.style.overflow ="auto"
 }
-
 
 
 
