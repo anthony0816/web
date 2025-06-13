@@ -398,7 +398,27 @@ async function CargarImagenes(data, info) {
 
 
 
-ObtenerIds(1);
+
+
+
+
+
+
+
+// Cantidad de fotos en la primera iteracion
+const CantFotos = 10
+ObtenerIds(CantFotos);
+
+
+
+// al hacer click en la galeria de los albums
+const Galeria = document.getElementsByClassName("galeria")[0]
+    Galeria.onclick = ()=>{
+       const limpiarImagenes = document.getElementById("gallery")
+       limpiarImagenes.innerHTML = ""
+       ImagenesCargadas = 0
+        ObtenerIds(CantFotos)
+    }
 
 
 

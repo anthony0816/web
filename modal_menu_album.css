@@ -15,6 +15,7 @@
     align-content: center;
     padding: 47px 20px;
     margin: 5px 5px;
+    cursor: pointer;
 }
 .album_item{
     background-color: rgb(8, 129, 169);
@@ -23,6 +24,16 @@
     min-width: 120px;
     margin: 5px 5px;
     text-align: center;
+    cursor: pointer;
+}
+.galeria{
+    background-color: rgb(18, 164, 142);
+    align-content: center;
+    min-height: 120px;
+    min-width: 120px;
+    margin: 5px 5px;
+    text-align: center;
+    cursor: pointer;
 }
 
 .overlay{

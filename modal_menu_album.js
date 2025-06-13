@@ -1,5 +1,6 @@
 import { supabase } from "./script.js";
 import { extraerNumeros } from "./script.js";
+import { ObtenerIds } from "./script.js";
 // Crear una Tabla como album en la base de datos
 export async function crearTablaAlbum(tableName) {
   // no borrar la tabla principal de las imagenes por accidente
@@ -136,13 +137,16 @@ export async function mostrarAlbums() {
   const hijosArray = Array.from(hijosHtmlCollection);
   hijosArray.forEach((ch) => {
     if (ch.classList.contains("menu_album_createAlbum_option") == false) {
-      ch.remove();
+      if (ch.classList.contains("galeria") == false){
+        ch.remove();
+      }
     }
   });
   const albums = await listarTablasAlbums();
   if (albums) {
     albums.forEach((al) => {
       const div = document.createElement("div");
+      div.onclick = ()=>{abrirAlbum()}
       div.classList.add("album_item");
       div.textContent = al.nombrealbums;
       modal_menu_album.appendChild(div);
@@ -190,6 +194,10 @@ async function CrearAlbum() {
 
   Cerrar_modal_nombre_album();
   mostrarAlbums();
+}
+
+function abrirAlbum(){
+
 }
 //Función para obtener lso ids de los seleccionados
 export function obtenerIdsSeleccionados() {
