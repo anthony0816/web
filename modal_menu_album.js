@@ -65,15 +65,16 @@ async function CrearAlbum() {
 
 
   // vamos a insertar los valores nuevos a la nueva tabla, los valores de los Id de las imagenes
-    const { data, error } = await supabase
+  try {
+  const { data, error } = await supabase
     .from(inputNombre.value)
     .insert(cuerpoConsulta);
 
-  if (error) {
-    console.error('Error insertando datos:', error);
-    alert(`Error: ${error.message}`); // Así lo verás en móvil
-    //return;
-  }
+  if (error) throw error; // Forza el error si existe
+  alert("Insertado correctamente");
+} catch (e) {
+  alert(`Error REAL: ${JSON.stringify(e)}`); // Muestra el error crudo
+}
   console.log('Datos insertados:', data);
   Cerrar_modal_nombre_album()
   mostrarAlbums()
