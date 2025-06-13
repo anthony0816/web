@@ -65,17 +65,17 @@ async function CrearAlbum() {
 
 
   // vamos a insertar los valores nuevos a la nueva tabla, los valores de los Id de las imagenes
-  try {
-  const { data, error } = await supabase
-    .from(inputNombre.value)
-    .insert(cuerpoConsulta);
+    
+  const { error } = await supabase.rpc('bulk_insert', {
+    table_name: inputNombre.value,
+    rows: cuerpoConsulta // Suponiendo que tienes esta función en PostgreSQL
+  });
 
-  if (error) throw error; // Forza el error si existe
-  alert("Insertado correctamente");
-} catch (e) {
-  alert(`Error REAL: ${JSON.stringify(e)}`); // Muestra el error crudo
-}
-  console.log('Datos insertados:', data);
+  if (error) {
+    console.error('Error insertando datos:', error);
+    alert(`Error: ${error.message}`); // Así lo verás en móvil
+    return;
+  }
   Cerrar_modal_nombre_album()
   mostrarAlbums()
 }
