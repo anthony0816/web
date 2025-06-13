@@ -71,9 +71,10 @@ async function CrearAlbum() {
 
   if (error) {
     console.error('Error insertando datos:', error);
+    alert("error", error)
     return;
   }
-
+  alert("Hecho", data)
   console.log('Datos insertados:', data);
   Cerrar_modal_nombre_album()
   mostrarAlbums()
