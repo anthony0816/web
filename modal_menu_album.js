@@ -141,7 +141,6 @@ const BotonCrearAlbum = document.getElementsByClassName("menu_album_createAlbum_
       alert("Selecciona al menos una foto")
       return
     }
-
     Mostrar_modal_nombre_album()
   }
 
