@@ -71,10 +71,8 @@ async function CrearAlbum() {
 
   if (error) {
     console.error('Error insertando datos:', error);
-    alert("error", error)
     return;
   }
-  alert("Hecho", data)
   console.log('Datos insertados:', data);
   Cerrar_modal_nombre_album()
   mostrarAlbums()
@@ -147,8 +145,8 @@ const BotonCrearAlbum = document.getElementsByClassName("menu_album_createAlbum_
 
 // boton de aceptar del Modal nombre album para crear album 
 const aceptarCrearAlbum = document.getElementsByClassName("aceptarCrearAlbum")[0]
-  aceptarCrearAlbum.onclick = async ()=>{
-    await CrearAlbum()
+  aceptarCrearAlbum.onclick =()=>{
+    CrearAlbum()
   }
 
 const cancelarCrearAlbum_ = document.getElementsByClassName("cancelarCrearAlbum_")[0]
