@@ -61,9 +61,15 @@ export async function listarTablasAlbums() {
 export async function mostrarAlbums() {
   const modal_menu_album =
     document.getElementsByClassName("modal_menu_album")[0];
-    //para que no se pierda el boton crear al remplazar los chidls
-  modal_menu_album.innerHTML = `<div class="menu_album_createAlbum_option">
-                                <span></span> <i class="fas fa-plus"></i></div>`;
+
+  //para que no se pierda el boton crear al remplazar los chidls
+  const hijosHtmlCollection = modal_menu_album.children;
+  const hijosArray = Array.from(hijosHtmlCollection);
+  hijosArray.forEach((ch) => {
+    if (ch.classList.contains("menu_album_createAlbum_option") == false) {
+      ch.remove();
+    }
+  });
   const albums = await listarTablasAlbums();
 
   if (albums) {
