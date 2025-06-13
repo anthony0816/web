@@ -6,7 +6,11 @@ import { CerrarExpandirImg } from "./script.js"
 import { CargarMasElementos } from "./script.js"
 import { cambiarEstadoCheckbox } from "./script.js"
 import { desmarcarCheckbox } from "./script.js"
-var idsActivos = []
+export var idsActivos = []
+
+export function EliminarIdsActicos(){
+   idsActivos = []
+}
 //Expandir la barra de navegación
 export function ExpandirNav(nav_expandir){
     const botones = document.getElementsByClassName("botonesExpandir")

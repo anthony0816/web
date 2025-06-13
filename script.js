@@ -6,12 +6,13 @@ import { Seleccionar } from './script_continue.js';
 import { DeleteImg } from './script_continue.js';
 import { añadirFuncionesDeNavegacion } from './script_continue.js';
 import { Descargar } from './script_continue.js';
+import { EliminarIdsActicos } from './script_continue.js';
 
 const supabaseUrl = "https://nvunvfuliztilbzbydqs.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im52dW52ZnVsaXp0aWxiemJ5ZHFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc4ODg5OTYsImV4cCI6MjA2MzQ2NDk5Nn0.pBp5CkGva3Y_2xBP9BVq-qnHng6M_1rikTalGHRGfd8";
 export const supabase = createClient(supabaseUrl, supabaseKey);
 var ImagenesCargadas = 0;
-export var idsActivos = []
+//export var idsActivos = []
 
 // Extraer los números de un string
 export function extraerNumeros(str) {
@@ -327,12 +328,13 @@ function detectImageFormatFromBase64(base64Data) {
 }
 
 // Cargar las imágenes desde la base de datos
-async function CargarImagenes(data, info) {
+export async function CargarImagenes(data, info) {
     RecopilarIds(data, info);
     const Galeria = document.getElementById("gallery");
 
     if ((info != "Cargada por el usuario" )&&(info != "Cargar mas")) {
         Galeria.innerHTML = "";
+        EliminarIdsActicos();
     }
 
     try{
