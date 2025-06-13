@@ -150,8 +150,8 @@ const aceptarCrearAlbum = document.getElementsByClassName("aceptarCrearAlbum")[0
     await CrearAlbum()
   }
 
-const cancelarCrearAlbum = document.getElementsByClassName("cancelarCrearAlbum")[0]
-  cancelarCrearAlbum.onclick =()=>{
+const cancelarCrearAlbum_ = document.getElementsByClassName("cancelarCrearAlbum_")[0]
+  cancelarCrearAlbum_.onclick =()=>{
     Cerrar_modal_nombre_album()
   }
 
