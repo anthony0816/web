@@ -52,30 +52,31 @@ export async function mostrarAlbums(){
 // funcion asincrona para crear el album y esperar la respuesta 
 async function CrearAlbum() {
   const inputNombre = document.getElementsByClassName("nombre_album_input")[0]
-  // si el campo esta vacío no hacemos nada 
-  if(inputNombre.value ==""){
+  if(inputNombre.value == ""){
     console.log("esta vacío el campo")
     return
   }
 
-  // Comenzar la petición de creación de la table Album con los ids seleccionados
   const idsSeleccionados = obtenerIdsSeleccionados()
   const cuerpoConsulta = ObtenerCuerpoDeConsulta(idsSeleccionados)
-  const nuevoAlbum = await crearTablaAlbum(inputNombre.value) // importante
+  const nuevoAlbum = await crearTablaAlbum(inputNombre.value)
 
+  // --- LÍNEA NUEVA 1: Espera 200ms y recarga el esquema ---
+  await new Promise(resolve => setTimeout(resolve, 200));
+  await supabase.rpc('reload_schema');
+  // --------------------------------------------------------
 
-  // vamos a insertar los valores nuevos a la nueva tabla, los valores de los Id de las imagenes
-    
   const { error } = await supabase.rpc('bulk_insert', {
     table_name: inputNombre.value,
-    rows: cuerpoConsulta // Suponiendo que tienes esta función en PostgreSQL
+    rows: cuerpoConsulta
   });
 
   if (error) {
     console.error('Error insertando datos:', error);
-    alert(`Error: ${error.message}`); // Así lo verás en móvil
+    alert(`Error en móvil: ${error.message}`); // Mensaje específico
     return;
   }
+  
   Cerrar_modal_nombre_album()
   mostrarAlbums()
 }
