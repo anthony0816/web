@@ -71,6 +71,7 @@ async function CrearAlbum() {
 
   if (error) {
     console.error('Error insertando datos:', error);
+    alert(error)
     //return;
   }
   console.log('Datos insertados:', data);
