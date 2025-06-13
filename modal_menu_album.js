@@ -11,7 +11,7 @@ export async function crearTablaAlbum(tableName) {
   const { data, error } = await supabase.rpc('execute_sql', {
     query: `
       CREATE TABLE IF NOT EXISTS ${tableName} (
-    imgsIds NUMERIC
+    imgsids NUMERIC
 );
     `,
   });
@@ -71,7 +71,7 @@ async function CrearAlbum() {
 
   if (error) {
     console.error('Error insertando datos:', error);
-    alert(error)
+    alert(`Error: ${error.message}`); // Así lo verás en móvil
     //return;
   }
   console.log('Datos insertados:', data);
