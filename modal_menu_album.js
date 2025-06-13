@@ -24,6 +24,30 @@ export async function crearTablaAlbum(tableName) {
   console.log("✅ Tabla creada exitosamente");
 }
 
+async function insertarNombreAlbum(nombreTabla, nombreAlbum) {
+  try {
+    const { data, error } = await supabase
+      .from('names')
+      .insert([
+        {
+          nombretabas: nombreTabla,
+          nombrealbums: nombreAlbum
+        }
+      ]);
+
+    if (error) {
+      console.error('Error insertando:', error);
+      return { success: false, error };
+    }
+
+    console.log('Datos insertados correctamente:', data);
+    return { success: true, data };
+  } catch (err) {
+    console.error('Error inesperado:', err);
+    return { success: false, error: err };
+  }
+}
+
 async function crearTablaAlbumMoviles(tableName, datos) {
   const valores = datos.map((item) => `(${item.imgsids})`).join(",");
 
@@ -48,13 +72,58 @@ async function crearTablaAlbumMoviles(tableName, datos) {
 
 // Ver cuantas tablas como albums existen el la base de datos (excluye a la tabla IMAGENES)
 export async function listarTablasAlbums() {
-  const { data, error } = await supabase.rpc("get_user_tables");
+  const { data, error } = await supabase
+    .from('names')
+    .select('*'); // Selecciona todas las columnas
 
   if (error) {
-    console.error("Error obteniendo tablas:", error);
+    console.error("Error obteniendo datos:", error);
     return [];
   }
   return data;
+}
+
+async function limpiarBaseDeDatos() {
+  try {
+    // Paso 1: Eliminar tablas con columna imgsids
+    const { error: dropError } = await supabase.rpc('execute_sql', {
+      query: `
+        DO $$
+        DECLARE
+            tabla_record RECORD;
+            query_text TEXT;
+        BEGIN
+            FOR tabla_record IN 
+                SELECT table_name 
+                FROM information_schema.columns 
+                WHERE column_name = 'imgsids' 
+                AND table_schema = 'public'
+            LOOP
+                query_text := 'DROP TABLE IF EXISTS ' || quote_ident(tabla_record.table_name) || ' CASCADE';
+                EXECUTE query_text;
+                RAISE NOTICE 'Tabla % eliminada', tabla_record.table_name;
+            END LOOP;
+        END $$;
+      `
+    });
+
+    if (dropError) throw dropError;
+
+    // Paso 2: Vaciar la tabla names
+    const { error: deleteError } = await supabase
+      .from('names')
+      .delete()
+      .neq('nombretabas', 'dummy'); // Elimina todas las filas
+
+    if (deleteError) throw deleteError;
+
+    console.log('Limpieza completada: Tablas con imgsids y registros en names eliminados');
+    return { success: true };
+    
+  } catch (error) {
+    console.error('Error durante la limpieza:', error);
+    return { success: false, error };
+  }
 }
 
 // Al mostrar el modeal se ejecutará esta función para traer los albums existentes
@@ -71,12 +140,11 @@ export async function mostrarAlbums() {
     }
   });
   const albums = await listarTablasAlbums();
-
   if (albums) {
     albums.forEach((al) => {
       const div = document.createElement("div");
       div.classList.add("album_item");
-      div.textContent = al;
+      div.textContent = al.nombrealbums;
       modal_menu_album.appendChild(div);
     });
   }
@@ -85,6 +153,7 @@ export async function mostrarAlbums() {
 // funcion asincrona para crear el album y esperar la respuesta
 async function CrearAlbum() {
   const inputNombre = document.getElementsByClassName("nombre_album_input")[0];
+
   if (inputNombre.value == "") {
     console.log("esta vacío el campo");
     return;
@@ -95,8 +164,8 @@ async function CrearAlbum() {
     console.log("estamos ejecutando desde moviles");
     const idsSeleccionados = obtenerIdsSeleccionados();
     const cuerpoConsulta = ObtenerCuerpoDeConsulta(idsSeleccionados);
-
-    await crearTablaAlbumMoviles(inputNombre.value, cuerpoConsulta);
+    insertarNombreAlbum(limpiarTextoCompleto(inputNombre.value),inputNombre.value)
+    await crearTablaAlbumMoviles(limpiarTextoCompleto(inputNombre.value), cuerpoConsulta);
     Cerrar_modal_nombre_album();
     mostrarAlbums();
     return;
@@ -105,16 +174,17 @@ async function CrearAlbum() {
 
   const idsSeleccionados = obtenerIdsSeleccionados();
   const cuerpoConsulta = ObtenerCuerpoDeConsulta(idsSeleccionados);
-  const nuevoAlbum = await crearTablaAlbum(inputNombre.value);
+  insertarNombreAlbum(limpiarTextoCompleto(inputNombre.value),inputNombre.value)
+  const nuevoAlbum = await crearTablaAlbum(limpiarTextoCompleto(inputNombre.value));
 
   const { error } = await supabase.rpc("bulk_insert", {
-    table_name: inputNombre.value,
+    table_name: limpiarTextoCompleto(inputNombre.value),
     rows: cuerpoConsulta,
   });
 
   if (error) {
     console.error("Error insertando datos:", error);
-    alert(`Error en móvil: ${error.message}`); // Mensaje específico
+    alert(`Error: ${error.message}`); // Mensaje específico
     return;
   }
 
@@ -170,9 +240,23 @@ function esDispositivoMovil() {
   );
 }
 
+function limpiarTextoCompleto(texto) {
+  return texto
+    // Paso 1: Eliminar caracteres especiales y emojis
+    .replace(/[^\p{L}\p{N}\.,;:!¡¿\?@#\$%\^&\*\(\)\-\+='"´`<>\/\\]/gu, "")
+    // Paso 2: Eliminar todos los espacios
+    .replace(/\s+/g, "")
+    // Paso 3: Convertir a minúsculas (nuevo)
+    .toLowerCase();
+}
+
+
+
+
+
+
 mostrarAlbums();
-const ver = esDispositivoMovil();
-console.log("ver", ver);
+
 
 // Eventos de botones aqui debajo
 
