@@ -61,6 +61,9 @@ export async function listarTablasAlbums() {
 export async function mostrarAlbums() {
   const modal_menu_album =
     document.getElementsByClassName("modal_menu_album")[0];
+    //para que no se pierda el boton crear al remplazar los chidls
+  modal_menu_album.innerHTML = `<div class="menu_album_createAlbum_option">
+                                <span></span> <i class="fas fa-plus"></i></div>`;
   const albums = await listarTablasAlbums();
 
   if (albums) {
@@ -75,16 +78,15 @@ export async function mostrarAlbums() {
 
 // funcion asincrona para crear el album y esperar la respuesta
 async function CrearAlbum() {
-  
   const inputNombre = document.getElementsByClassName("nombre_album_input")[0];
   if (inputNombre.value == "") {
     console.log("esta vacío el campo");
     return;
   }
 
-  // usar la query especializada para dispositivos moviles 
-  if (esDispositivoMovil() == true ) {
-    console.log("estamos ejecutando desde moviles")
+  // usar la query especializada para dispositivos moviles
+  if (esDispositivoMovil() == true) {
+    console.log("estamos ejecutando desde moviles");
     const idsSeleccionados = obtenerIdsSeleccionados();
     const cuerpoConsulta = ObtenerCuerpoDeConsulta(idsSeleccionados);
 
@@ -93,13 +95,12 @@ async function CrearAlbum() {
     mostrarAlbums();
     return;
   }
-  console.log("estamos ejecutando desde pc")
+  console.log("estamos ejecutando desde pc");
 
   const idsSeleccionados = obtenerIdsSeleccionados();
   const cuerpoConsulta = ObtenerCuerpoDeConsulta(idsSeleccionados);
   const nuevoAlbum = await crearTablaAlbum(inputNombre.value);
 
-  
   const { error } = await supabase.rpc("bulk_insert", {
     table_name: inputNombre.value,
     rows: cuerpoConsulta,
