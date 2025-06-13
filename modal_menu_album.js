@@ -66,7 +66,8 @@ async function CrearAlbum() {
 
   // vamos a insertar los valores nuevos a la nueva tabla, los valores de los Id de las imagenes
     
-  const { error } = await supabase.rpc('bulk_insert', {
+  setTimeout(async ()=>{
+    const { error } = await supabase.rpc('bulk_insert', {
     table_name: inputNombre.value,
     rows: cuerpoConsulta // Suponiendo que tienes esta función en PostgreSQL
   });
@@ -76,6 +77,7 @@ async function CrearAlbum() {
     alert(`Error: ${error.message}`); // Así lo verás en móvil
     return;
   }
+  },3000)
   Cerrar_modal_nombre_album()
   mostrarAlbums()
 }
