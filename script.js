@@ -41,7 +41,7 @@ export function CargarMasElementos(){
     ObtenerIds(27);
 }
 
-export async function ExpandirImagen(id, src, id_original,info) {
+export async function ExpandirImagen(id, src, id_original,info,album) {
     const CheckbosHidden = document.getElementById("seleccionarEstado")
     if(CheckbosHidden.checked){
         return
@@ -128,7 +128,7 @@ export async function ExpandirImagen(id, src, id_original,info) {
         modal.classList.add("animacion")
     }
     //End
-    añadirFuncionesDeNavegacion(modal)
+    añadirFuncionesDeNavegacion(modal, album)
     
     
 
@@ -368,7 +368,7 @@ export async function CargarImagenes(data, info) {
 
             // añadir funciones de expandir a la imagen 
             img.addEventListener('click', function () {
-                ExpandirImagen(img.id, img.src, id);
+                ExpandirImagen(img.id, img.src, id, "hola",info);
             });
         
     }

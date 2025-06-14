@@ -161,8 +161,8 @@ export async function DeleteImg(elements, nav){
     console.log("ids activos despues de eliminar", idsActivos)
 }
 
-export function añadirFuncionesDeNavegacion(modal){
-    
+export function añadirFuncionesDeNavegacion(modal,album){
+    console.log("album", album) // prueba
     const navegablefoward = document.createElement('div')
     const navegablebackwards = document.createElement('div')
     const imgDiv = modal.children[0]
@@ -182,9 +182,12 @@ export function añadirFuncionesDeNavegacion(modal){
     const fotosiguiente = document.getElementById("img"+idSiguiente)
     console.log("foto siguiente", fotosiguiente)
     if(!fotosiguiente){
-        if( idsActivos.length - posicion_en_array == 1){
+        if(album != "cargarAlbum"){
+            if( idsActivos.length - posicion_en_array == 1){
             CargarMasElementos()
         }
+        }
+        
     }
 
 
