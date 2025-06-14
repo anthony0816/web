@@ -61,7 +61,7 @@ export function RecopilarIds(data,info){
     console.log("ids activos", idsActivos)
 }
 // Función para seleccionar las fotos 1x1
-export function Seleccionar(CheckbosHidden , modalNotificaciones , nav){
+export function Seleccionar(CheckbosHidden , modalNotificaciones , nav, info){
     modalNotificaciones.style.display ="none"
     nav.style.top = "15px" 
 
@@ -72,8 +72,29 @@ export function Seleccionar(CheckbosHidden , modalNotificaciones , nav){
         idsArray.push(extraerNumeros(gh.id))
     })
 
-    console.log("disponibles", idsArray)
-
+    //console.log("disponibles", idsArray)
+    
+    if (info == "fromCargarImagenes"){ 
+        idsArray.forEach((element=>{
+            if((element == NaN)||!(element))return
+                const imgDiv = document.getElementById("img"+element)
+                    imgDiv.classList.add("transition")
+                    imgDiv.onclick = function(){
+                        if(this.classList.contains("selected")){
+                            this.style.scale = "1"
+                            this.classList.remove("singleIMG_onSelect")
+                            this.classList.remove("selected")
+                        }
+                        else{
+                            this.style.scale = "0.9"
+                            this.classList.add("singleIMG_onSelect")
+                            this.classList.add("selected")
+                        }   
+                    }
+                            
+        }))
+          return  // se acabo
+    }
     try{
         if(!(CheckbosHidden.checked)){
             idsArray.forEach((element=>{

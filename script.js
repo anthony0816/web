@@ -370,8 +370,15 @@ export async function CargarImagenes(data, info) {
             img.addEventListener('click', function () {
                 ExpandirImagen(img.id, img.src, id, "hola",info);
             });
+
+            if(document.getElementById("seleccionarEstado").checked){
+                //console.log("vamo a ver si pincha")
+                const nav = document.getElementsByTagName("nav")[0]
+                const modalNotificaciones = document.getElementsByClassName("modalNotificaciones2")[0]
+                Seleccionar(document.getElementById("seleccionarEstado"),modalNotificaciones,nav,"fromCargarImagenes")
+            }
         
-    }
+        }
     }catch(error){
         console.log("Algo salió mal cargando las imagenes")
     }
