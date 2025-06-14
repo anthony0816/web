@@ -244,8 +244,8 @@ async function uploadImage() {
         } else {
             console.log("Imagen guardada en Base64:", data);
             console.log("¡Imagen subida con éxito!");
-            const info = "Cargada por el usuario";
-            CargarImagenes(data, info);
+
+            CargarImagenes(data, "Cargada por el usuario");
         }
     }
     
@@ -329,17 +329,18 @@ function detectImageFormatFromBase64(base64Data) {
 
 // Cargar las imágenes desde la base de datos
 export async function CargarImagenes(data, info) {
-    RecopilarIds(data, info);
+    
     const Galeria = document.getElementById("gallery");
 
     if ((info != "Cargada por el usuario" )&&(info != "Cargar mas")) {
         Galeria.innerHTML = "";
-        EliminarIdsActicos();
+        EliminarIdsActicos()
     }
 
     try{
         for (const element of data) {
-        const { data: imgData, error } = await supabase
+            RecopilarIds(element, info);
+            const { data: imgData, error } = await supabase
             .from('Imagenes')
             .select('datalow')
             .eq('id', element.id)
@@ -356,14 +357,16 @@ export async function CargarImagenes(data, info) {
             divImg.id = "divImg" + id;
             divImg.classList = "singleIMG-continer";
             divImg.appendChild(img);
-            Galeria.appendChild(divImg);
-            ImagenesCargadas ++ ;
             
-
+            // verificacion importante
             if (info == "Cargada por el usuario") {
                 Galeria.insertBefore(divImg, Galeria.firstChild);
+            }else{
+                Galeria.appendChild(divImg);
             }
+            ImagenesCargadas ++ ;
 
+            // añadir funciones de expandir a la imagen 
             img.addEventListener('click', function () {
                 ExpandirImagen(img.id, img.src, id);
             });
@@ -408,7 +411,7 @@ export async function CargarImagenes(data, info) {
 
 
 // Cantidad de fotos en la primera iteracion
-const CantFotos = 10
+const CantFotos = 2
 ObtenerIds(CantFotos);
 
 

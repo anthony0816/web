@@ -38,6 +38,18 @@ export function ExpandirNav(nav_expandir){
 
 //Funcion para seleccionar
 export function RecopilarIds(data,info){
+    if ((info == "Cargar mas")|| (info == "cargarAlbum")){
+        idsActivos.push(data.id)
+        console.log("ids activos", idsActivos)
+        return
+    }
+    if(info =="Cargada por el usuario"){
+        idsActivos.unshift(data.id)
+        console.log("ids activos", idsActivos)
+        return
+    }
+    
+    return
     if(info == "Cargada por el usuario"){
         data.forEach((element)=>{
             idsActivos.unshift(element.id)
