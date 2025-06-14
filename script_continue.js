@@ -173,59 +173,47 @@ export function añadirFuncionesDeNavegacion(modal,album){
     imgDiv.appendChild(navegablefoward)
     imgDiv.appendChild(navegablebackwards)
     
-
-    // Extraer el id 
-    const id = extraerNumeros(modal.id)
-    const posicion_en_array = idsActivos.indexOf(id)
-    const idSiguiente = idsActivos[posicion_en_array+1]
-
-    const fotosiguiente = document.getElementById("img"+idSiguiente)
-    console.log("foto siguiente", fotosiguiente)
-    if(!fotosiguiente){
-        if(album != "cargarAlbum"){
-            if( idsActivos.length - posicion_en_array == 1){
-            CargarMasElementos()
-        }
-        }
-        
-    }
-
-
-    navegablefoward.onclick = function(){
-        const direccion = "final"
-        const next = idsActivos[posicion_en_array+1]
-        pasarImagen(next,direccion,modal,navegablefoward)
-    }
-    navegablebackwards.onclick = function(){
-        const idAnterior = idsActivos[posicion_en_array-1]
-        const direccion = "inicio" 
-        pasarImagen(idAnterior,direccion,modal)
-    }
+   navegablefoward.onclick = ()=>{
+    pasarImagen("foward",modal,album)
+   }
+   navegablebackwards.onclick = ()=>{
+    pasarImagen("backwards",modal,album)
+   }
 
 }
 
-function pasarImagen(id,direccion){
-    const notificacion = document.getElementsByClassName("modalNotificaciones3")[0]
-    const img = document.getElementById("img"+id)
-    notificacion.style.display = "none"
-
-    if(!img && direccion == "inicio"){
-        notificacion.style.display = "block"
-        notificacion.textContent = `Haz llegado al ${direccion}`
-        return
+function pasarImagen(direccion,modal,album){
+    const modal_id = extraerNumeros(modal.id) 
+    console.log("modal", modal_id)
+    const galeria = document.getElementById("gallery")
+    const galeriaHijos= Array.from(galeria.children)
+    const idsArray = []
+    galeriaHijos.forEach((gh)=>{
+        idsArray.push(extraerNumeros(gh.id))
+    })
+    const posisionArray = idsArray.indexOf(modal_id)
+    if (direccion == "foward"){
+        if (idsArray[posisionArray+1]){
+            const id = idsArray[posisionArray+1]
+            const src = galeriaHijos[posisionArray+1].children[0].src
+           
+            CerrarExpandirImg()
+            ExpandirImagen("img"+id, src, id,"next", album )
+           
+        }else{
+            if(album !="cargarAlbum" )
+            CargarMasElementos()
+        }
+    }else{
+        if (idsArray[posisionArray-1]){
+            const id = idsArray[posisionArray-1]
+            const src = galeriaHijos[posisionArray-1].children[0].src
+           
+            CerrarExpandirImg()
+            ExpandirImagen("img"+id, src, id,"next", album )
+           
+        }
     }
-    else if(!img && direccion == "final"){
-        notificacion.textContent = "Cargando..."
-        notificacion.style.display = "block"
-        setTimeout(()=>{
-            notificacion.style.display = "none"
-        },3000)
-        return
-    }
-    const src = img.src
-    const info = "next"
-    CerrarExpandirImg()
-    ExpandirImagen( "img"+id, src, id,info)
 }
 
 export async function Descargar(ids , info){
