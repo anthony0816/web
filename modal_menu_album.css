@@ -34,7 +34,7 @@
     transition: var(--mi-transicion);
 }
 .galeria{
-    background-color: rgb(18, 164, 142);
+    background-color: rgb(8, 129, 169);
     align-content: center;
     min-height: 120px;
     min-width: 120px;
@@ -43,6 +43,9 @@
     cursor: pointer;
     border-radius: 13px;
     transition: var(--mi-transicion);
+}
+.active{
+    background-color: rgb(18, 164, 142);
 }
 
 .overlay{

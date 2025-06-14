@@ -153,6 +153,14 @@ export async function mostrarAlbums() {
     albums.forEach((al) => {
       const div = document.createElement("div");
       div.onclick = () => {
+        // agregar la funcionalidad de estilos para color cuando este señalado
+        const active = Array.from(document.getElementsByClassName("active"))
+        
+        if(active){
+            active.forEach((el)=>{el.classList.remove("active")})
+            div.classList.add("active")
+        }
+        // ejecutar la logica de abrir el album
         abrirAlbum(div);
       };
       div.classList.add("album_item");

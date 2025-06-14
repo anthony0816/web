@@ -23,7 +23,6 @@
 }
 
 .album_item:hover {
-    background-color: rgb(15, 114, 148);
     transform: scale(var(--scale-major));
 }
 
@@ -32,7 +31,6 @@
 }
 
 .galeria:hover {
-    background-color: rgb(20, 138, 120);
     transform: scale(var(--scale-major));
 }
 

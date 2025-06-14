@@ -402,6 +402,11 @@ export async function CargarImagenes(data, info) {
     console.log("Imagenes Cargadas: " + ImagenesCargadas )
 }
 
+function GaleriaHacerClick(){
+    const Galeria = document.getElementsByClassName("galeria")[0]
+    console.log("galeria", Galeria)
+    Galeria.click();
+}
 
 
 
@@ -417,16 +422,28 @@ export async function CargarImagenes(data, info) {
 
 
 
-// Cantidad de fotos en la primera iteracion
-const CantFotos = 5
-ObtenerIds(CantFotos);
+// iniciar la app 
+const CantFotos = 5 // cantidad de fotos al inicio 
+setTimeout(()=>{
+    GaleriaHacerClick();
+    console.log("se ejecuta")
+},1000)
+
 
 
 
 // al hacer click en la galeria de los albums
 const Galeria = document.getElementsByClassName("galeria")[0]
     Galeria.onclick = ()=>{
-       const limpiarImagenes = document.getElementById("gallery")
+       
+        const active = Array.from(document.getElementsByClassName("active"))
+        
+        if(active){
+            active.forEach((el)=>{el.classList.remove("active")})
+            Galeria.classList.add("active")
+        }
+
+        const limpiarImagenes = document.getElementById("gallery")
        limpiarImagenes.innerHTML = ""
        ImagenesCargadas = 0
         ObtenerIds(CantFotos)
