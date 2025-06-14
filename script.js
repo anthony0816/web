@@ -423,7 +423,7 @@ function GaleriaHacerClick(){
 
 
 // iniciar la app 
-const CantFotos = 5 // cantidad de fotos al inicio 
+const CantFotos = 15 // cantidad de fotos al inicio 
 setTimeout(()=>{
     GaleriaHacerClick();
     console.log("se ejecuta")
