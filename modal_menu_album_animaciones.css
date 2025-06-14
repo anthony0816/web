@@ -1,0 +1,41 @@
+:root {
+    --scale-major: 1.02;
+    --scale-inferior: 0.9;
+    --transition-duration: 0.2s;
+}
+
+.menu_album_createAlbum_option,
+.album_item,
+.galeria {
+    transition: 
+        transform var(--transition-duration) ease,
+        background-color var(--transition-duration) ease; /* Transición para color y escala */
+}
+
+/* El resto del código se mantiene igual */
+.menu_album_createAlbum_option:hover {
+    background-color: rgb(108, 83, 21);
+    transform: scale(var(--scale-major));
+}
+
+.menu_album_createAlbum_option:active {
+    transform: scale(var(--scale-inferior));
+}
+
+.album_item:hover {
+    background-color: rgb(15, 114, 148);
+    transform: scale(var(--scale-major));
+}
+
+.album_item:active {
+    transform: scale(var(--scale-inferior));
+}
+
+.galeria:hover {
+    background-color: rgb(20, 138, 120);
+    transform: scale(var(--scale-major));
+}
+
+.galeria:active {
+    transform: scale(var(--scale-inferior));
+}

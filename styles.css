@@ -53,6 +53,7 @@ p {
   border-radius: 25px;
   z-index: 10;
   background-color: white;
+  transition: width 0.4s;
 }
 
 .icono{
