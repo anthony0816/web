@@ -40,11 +40,9 @@ export function ExpandirNav(nav_expandir){
 export function RecopilarIds(data,info){
     if ((info == "Cargar mas")|| (info == "cargarAlbum")){
         idsActivos.push(data.id)
-        console.log("ids activos", idsActivos)
         return
     }
     if(info =="Cargada por el usuario"){
-        idsActivos.unshift(data.id)
         console.log("ids activos", idsActivos)
         return
     }
@@ -67,9 +65,19 @@ export function Seleccionar(CheckbosHidden , modalNotificaciones , nav){
     modalNotificaciones.style.display ="none"
     nav.style.top = "15px" 
 
+    const galeria = document.getElementById("gallery")
+    const galeriaHijos= Array.from(galeria.children)
+    const idsArray = []
+    galeriaHijos.forEach((gh)=>{
+        idsArray.push(extraerNumeros(gh.id))
+    })
+
+    console.log("disponibles", idsArray)
+
     try{
         if(!(CheckbosHidden.checked)){
-            idsActivos.forEach((element=>{
+            idsArray.forEach((element=>{
+                if((element == NaN)||!(element))return
                 const imgDiv = document.getElementById("img"+element)
                     imgDiv.classList.add("transition")
                     imgDiv.onclick = function(){
@@ -88,7 +96,8 @@ export function Seleccionar(CheckbosHidden , modalNotificaciones , nav){
             }))
     
     }else if(CheckbosHidden.checked){
-            idsActivos.forEach((element=>{
+            idsArray.forEach((element=>{
+                if((element == NaN)||!(element))return
                 const imgDiv = document.getElementById("img"+element)
                     imgDiv.style.scale = "1"
                     imgDiv.classList.remove("singleIMG_onSelect")
@@ -103,7 +112,7 @@ export function Seleccionar(CheckbosHidden , modalNotificaciones , nav){
         modalNotificaciones.style.display="block"
         modalNotificaciones.textContent = "(inválido)Esperar a cargar fotos..."
         nav.style.top = "32px"
-            idsActivos.forEach((element)=>{
+            idsArray.forEach((element)=>{
                 const imgDiv = document.getElementById("img"+element)
                     try{
                         imgDiv.onclick= function(){

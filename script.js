@@ -411,7 +411,7 @@ export async function CargarImagenes(data, info) {
 
 
 // Cantidad de fotos en la primera iteracion
-const CantFotos = 2
+const CantFotos = 5
 ObtenerIds(CantFotos);
 
 
