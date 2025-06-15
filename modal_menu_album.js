@@ -25,6 +25,36 @@ export async function crearTablaAlbum(tableName) {
 
   console.log("✅ Tabla creada exitosamente");
 }
+
+// Eliminar un album de la base de datos
+export async function EliminarAlbum(albumName) {
+  // Eliminar la tablaAlbum
+  console.log("eliminando", albumName);
+  const { error } = await supabase.rpc("execute_sql", {
+    query: `
+    DROP TABLE ${albumName}
+    `,
+  });
+  if (error) {
+    console.log("ocurrio un error en la eliminacion", error);
+  }
+
+  // Eliminar de la tabla names
+  const { errror } = await supabase
+    .from("names")
+    .delete()
+    .eq("nombretabas", albumName);
+
+  if (errror) {
+    console.log(
+      "Ocurrió un error al intentar eliminar la fila en la tabla names:",
+      error
+    );
+  } else {
+    console.log("Registro eliminado exitosamente");
+    mostrarAlbums();
+  }
+}
 async function SelectFromTabla(tableName) {
   const { data, error } = await supabase.from(tableName).select("*");
   if (error) {
@@ -212,10 +242,8 @@ async function CrearAlbum() {
     limpiarTextoCompleto(inputNombre.value),
     inputNombre.value
   );
-    // se crea el album en la base de datos 
-     await crearTablaAlbum(
-    limpiarTextoCompleto(inputNombre.value)
-  );
+  // se crea el album en la base de datos
+  await crearTablaAlbum(limpiarTextoCompleto(inputNombre.value));
 
   const { error } = await supabase.rpc("bulk_insert", {
     table_name: limpiarTextoCompleto(inputNombre.value),
@@ -230,11 +258,6 @@ async function CrearAlbum() {
 
   Cerrar_modal_nombre_album();
   mostrarAlbums();
-}
-
- export async function EliminarAlbum(albumName) {
-  // por implementar
-  console.log("eliminando", albumName)
 }
 
 async function abrirAlbum(elemento) {
@@ -311,7 +334,6 @@ function CodificarDatos(datos) {
   });
   return codificados;
 }
-
 
 
 
