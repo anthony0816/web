@@ -12,21 +12,42 @@ header {
   padding: 2rem;
   background-color: #fff;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  height: 80vh;
+  max-height: 0;
+  height: auto;
   overflow: auto;
+  overflow: hidden;
+  transition: max-height 1s;
+}
+.header_expanded{
+  max-height: 900px;
 }
 
 header .header_frase_contenedor{
   max-width: 700px;
   margin: auto;
 }
-
+header .down{
+  display: block;
+  position: sticky;
+  bottom: -19px;
+  scale: 1.9;
+  cursor: pointer;
+}
+header .up{
+  display: none;
+  position: sticky;
+  bottom: -19px;
+  scale: 1.9;
+  cursor: pointer;
+}
 
 h1{
   font-size: 2.5rem;
   color: #d81b60;
   margin-bottom: 1rem;
+  margin-top: 20px;
 }
+
 h2{
   color: #d81b60;
   margin-bottom: 1rem;
@@ -36,6 +57,9 @@ p {
   font-size: 1.1rem;
   color: #333;
   text-align: justify;
+}
+.hidetext{
+  display: none;
 }
 .nav{
   display: flex;
