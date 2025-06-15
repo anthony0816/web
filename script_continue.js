@@ -7,6 +7,8 @@ import { CargarMasElementos } from "./script.js"
 import { cambiarEstadoCheckbox } from "./script.js"
 import { desmarcarCheckbox } from "./script.js"
 import { albumOnClick } from "./modal_menu_album.js"
+import { EliminarAlbum } from "./modal_menu_album.js"
+import { limpiarTextoCompleto } from "./modal_menu_album.js"
 
 export var idsActivos = []
 
@@ -198,7 +200,8 @@ export async function DeleteImg(elements, nav){
         // logica para eliminar los albums
         if(element.classList.contains("album_item")){ // --------IMPORTANTE
             // por implementar 
-            console.log("se eliminara correcamente proximamente")
+            const nombreAlbum = limpiarTextoCompleto(element.textContent)
+            await EliminarAlbum(nombreAlbum)
             continue;
         }
         param2.textContent = elements.length

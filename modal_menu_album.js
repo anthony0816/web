@@ -212,7 +212,8 @@ async function CrearAlbum() {
     limpiarTextoCompleto(inputNombre.value),
     inputNombre.value
   );
-  const nuevoAlbum = await crearTablaAlbum(
+    // se crea el album en la base de datos 
+     await crearTablaAlbum(
     limpiarTextoCompleto(inputNombre.value)
   );
 
@@ -229,6 +230,11 @@ async function CrearAlbum() {
 
   Cerrar_modal_nombre_album();
   mostrarAlbums();
+}
+
+ export async function EliminarAlbum(albumName) {
+  // por implementar
+  console.log("eliminando", albumName)
 }
 
 async function abrirAlbum(elemento) {
@@ -286,7 +292,7 @@ function esDispositivoMovil() {
   );
 }
 
-function limpiarTextoCompleto(texto) {
+export function limpiarTextoCompleto(texto) {
   return (
     texto
       // Paso 1: Eliminar caracteres especiales y emojis
