@@ -153,24 +153,29 @@ export async function mostrarAlbums() {
     albums.forEach((al) => {
       const div = document.createElement("div");
       div.onclick = () => {
-       // prevenir el span de click inecesarios puede sobrecargar el servidor 
-        if(div.classList.contains("active"))return
-
-        // agregar la funcionalidad de estilos para color cuando este señalado
-        const active = Array.from(document.getElementsByClassName("active"))
-        
-        if(active){
-            active.forEach((el)=>{el.classList.remove("active")})
-            div.classList.add("active")
-        }
-        // ejecutar la logica de abrir el album
-        abrirAlbum(div);
+        albumOnClick(div);
       };
       div.classList.add("album_item");
       div.textContent = al.nombrealbums;
       modal_menu_album.appendChild(div);
     });
   }
+}
+
+export function albumOnClick(div) {
+  // prevenir el span de click inecesarios puede sobrecargar el servidor
+  if (div.classList.contains("active")) return;
+
+  // agregar la funcionalidad de estilos para color cuando este señalado
+  const active = Array.from(document.getElementsByClassName("active"));
+  if (active) {
+    active.forEach((el) => {
+      el.classList.remove("active");
+    });
+    div.classList.add("active");
+  }
+  // ejecutar la logica de abrir el album
+  abrirAlbum(div);
 }
 
 // funcion asincrona para crear el album y esperar la respuesta
@@ -229,8 +234,8 @@ async function CrearAlbum() {
 async function abrirAlbum(elemento) {
   const nombreTabla = limpiarTextoCompleto(elemento.textContent);
   const ids = await SelectFromTabla(nombreTabla);
-  const idsCodificados = CodificarDatos(ids)
-  CargarImagenes(idsCodificados, "cargarAlbum")
+  const idsCodificados = CodificarDatos(ids);
+  CargarImagenes(idsCodificados, "cargarAlbum");
 }
 //Función para obtener lso ids de los seleccionados
 export function obtenerIdsSeleccionados() {
@@ -293,15 +298,16 @@ function limpiarTextoCompleto(texto) {
   );
 }
 
-function CodificarDatos(datos){
- const codificados = []
- datos.forEach((dato)=>{
-  codificados.push(
-    {id:dato.imgsids}
-  )
- })
-return codificados
+function CodificarDatos(datos) {
+  const codificados = [];
+  datos.forEach((dato) => {
+    codificados.push({ id: dato.imgsids });
+  });
+  return codificados;
 }
+
+
+
 
 
 
