@@ -358,7 +358,7 @@ export async function CargarImagenes(data, info) {
             .eq('id', element.id)
             .single();
             if(error){
-                console.log(`Ocurrio un error al intentar acceder al id ${element.id} puede que no exista, El error :`, error)
+                console.log(`Ocurrio un error al intentar acceder al id ${element.id} puede que no exista en la base de datos, El error :`, error)
                 continue;
             }
         
