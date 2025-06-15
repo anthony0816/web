@@ -333,7 +333,7 @@ export async function CargarImagenes(data, info) {
     
     // por 1 segundo expone true por lo que cualquier llamada anterior se cancela en ese segundo 
     deboDetener = true 
-     await new Promise(resolve => setTimeout(resolve, 1000)); 
+     await new Promise(resolve => setTimeout(resolve, 2000)); 
      deboDetener = false
 
     
