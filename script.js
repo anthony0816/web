@@ -357,7 +357,10 @@ export async function CargarImagenes(data, info) {
             .select('datalow')
             .eq('id', element.id)
             .single();
-
+            if(error){
+                console.log(`Ocurrio un error al intentar acceder al id ${element.id} puede que no exista, El error : ${error}`)
+                continue;
+            }
         
             const imgFormat = detectImageFormatFromBase64(imgData.datalow);
             const img = displayBase64Image(imgData.datalow, imgFormat);
