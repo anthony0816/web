@@ -447,7 +447,9 @@ setTimeout(()=>{
 // al hacer click en la galeria de los albums
 const Galeria = document.getElementsByClassName("galeria")[0]
     Galeria.onclick = ()=>{
-       
+       // prevenir el span de click inecesarios puede sobrecargar el servidor 
+        if(Galeria.classList.contains("active"))return
+
         const active = Array.from(document.getElementsByClassName("active"))
         
         if(active){

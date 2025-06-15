@@ -153,6 +153,9 @@ export async function mostrarAlbums() {
     albums.forEach((al) => {
       const div = document.createElement("div");
       div.onclick = () => {
+       // prevenir el span de click inecesarios puede sobrecargar el servidor 
+        if(div.classList.contains("active"))return
+
         // agregar la funcionalidad de estilos para color cuando este señalado
         const active = Array.from(document.getElementsByClassName("active"))
         
