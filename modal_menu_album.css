@@ -78,6 +78,10 @@
     max-width: 300px;
     border-radius: 13px;
 }
+.modal_nombre_album_selected{
+    background-color: rgb(162, 20, 20);
+    scale: 0.9;
+}
 .nombre_album_continer{
 text-align: center;
 }

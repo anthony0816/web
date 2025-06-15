@@ -6,6 +6,8 @@ import { CerrarExpandirImg } from "./script.js"
 import { CargarMasElementos } from "./script.js"
 import { cambiarEstadoCheckbox } from "./script.js"
 import { desmarcarCheckbox } from "./script.js"
+import { albumOnClick } from "./modal_menu_album.js"
+
 export var idsActivos = []
 
 export function EliminarIdsActicos(){
@@ -95,6 +97,9 @@ export function Seleccionar(CheckbosHidden , modalNotificaciones , nav, info){
         }))
           return  // se acabo
     }
+
+
+
     try{
         if(!(CheckbosHidden.checked)){
             idsArray.forEach((element=>{
@@ -116,7 +121,25 @@ export function Seleccionar(CheckbosHidden , modalNotificaciones , nav, info){
                             
             }))
     
-    }else if(CheckbosHidden.checked){
+        // Ejecutar logica relacionada con los albunes para seleccionarlos  
+            const albums = Array.from(document.getElementsByClassName("album_item"))
+            albums.forEach((al)=>{
+                al.onclick = ()=>{
+                    if(al.classList.contains("selected")== false){
+                        al.classList.add("selected")
+                        al.classList.add("modal_nombre_album_selected")
+                    }
+                    else{
+                        al.classList.remove("selected")
+                        al.classList.remove("modal_nombre_album_selected")
+                    }
+                    
+                }
+            })
+
+    }
+
+    else if(CheckbosHidden.checked){
             idsArray.forEach((element=>{
                 if((element == NaN)||!(element))return
                 const imgDiv = document.getElementById("img"+element)
@@ -127,6 +150,15 @@ export function Seleccionar(CheckbosHidden , modalNotificaciones , nav, info){
                         return
                     };
             }))
+        // Ejecutar logica relacionada con los albunes para seleccionarlos  
+            const albums = Array.from(document.getElementsByClassName("album_item"))
+            albums.forEach((al)=>{
+                al.classList.remove("selected")
+                al.classList.remove("modal_nombre_album_selected")
+                al.onclick = ()=>{
+                    albumOnClick(al)
+                }
+            })
     }
     }catch(error){
         console.log("Debe esperar a que carguen las fotos ")
@@ -163,6 +195,12 @@ export async function DeleteImg(elements, nav){
     modalNotificaciones.style.display = "block"
     nav.style.top = "32px"
     for(const element of elements){
+        // logica para eliminar los albums
+        if(element.classList.contains("album_item")){ // --------IMPORTANTE
+            // por implementar 
+            console.log("se eliminara correcamente proximamente")
+            continue;
+        }
         param2.textContent = elements.length
         const id = extraerNumeros(element.id)
         const {data , error} = await supabase
