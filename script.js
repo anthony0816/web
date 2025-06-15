@@ -328,7 +328,14 @@ function detectImageFormatFromBase64(base64Data) {
 }
 
 // Cargar las imágenes desde la base de datos
+let deboDetener = false // bandera para interrumpir lalmadas anteriores a la funcion 
 export async function CargarImagenes(data, info) {
+    
+    // por 1 segundo expone true por lo que cualquier llamada anterior se cancela en ese segundo 
+    deboDetener = true 
+     await new Promise(resolve => setTimeout(resolve, 1000)); 
+     deboDetener = false
+
     
     const Galeria = document.getElementById("gallery");
 
@@ -339,6 +346,11 @@ export async function CargarImagenes(data, info) {
 
     try{
         for (const element of data) {
+            if(deboDetener){
+                console.log("se ha detenido debido a la bandera")
+                return
+            }
+
             RecopilarIds(element, info);
             const { data: imgData, error } = await supabase
             .from('Imagenes')
