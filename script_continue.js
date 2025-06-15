@@ -289,6 +289,12 @@ export async function Descargar(ids , info){
     const cantidad = ids.length
     let en_proceso = 0
     for(const id of ids){
+        // implementacion de logica de descargar albums
+        if(Number.isNaN(id)){// ---------IMPORTANTE
+            console.log("implementacion de descarga de albums proximamente")
+            continue;
+        }
+
         en_proceso ++;
         notificacion.classList.add("modalNotificaciones3_error_mode")
         notificacion.textContent = `Preparando para la descarga... ${en_proceso} de ${cantidad}`
