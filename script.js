@@ -13,6 +13,7 @@ const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 export const supabase = createClient(supabaseUrl, supabaseKey);
 var ImagenesCargadas = 0;
 //export var idsActivos = []
+var IMGRAM = []
 
 // Extraer los números de un string
 export function extraerNumeros(str) {
@@ -357,7 +358,12 @@ export async function CargarImagenes(data, info) {
                 console.log("se ha detenido debido a la bandera")
                 return
             }
-
+            // VAlidar si ya se cargó en ram 
+            const imgEnRAM = IMGRAM.find(img => img.id == element.id)
+            if(imgEnRAM){
+                Galeria.appendChild(imgEnRAM.div)
+                continue;
+            }
             RecopilarIds(element, info);
             const { data: imgData, error } = await supabase
             .from('Imagenes')
@@ -383,8 +389,13 @@ export async function CargarImagenes(data, info) {
             // verificacion importante
             if (info == "Cargada por el usuario") {
                 Galeria.insertBefore(divImg, Galeria.firstChild);
+                
+                // Guardar la iamgen en RAM
+                IMGRAM.push({div:divImg,id: extraerNumeros(divImg.id)})
             }else{
                 Galeria.appendChild(divImg);
+                // Guardar la iamgen en RAM
+                IMGRAM.push({div:divImg,id: extraerNumeros(divImg.id)})
             }
             ImagenesCargadas ++ ;
 
@@ -402,7 +413,7 @@ export async function CargarImagenes(data, info) {
         
         }
     }catch(error){
-        console.log("Algo salió mal cargando las imagenes")
+        console.log("Algo salió mal cargando las imagenes", error)
     }
     finally{
         if(info == "Cargar mas"){
