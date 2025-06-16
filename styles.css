@@ -32,6 +32,7 @@ header .down{
   bottom: -19px;
   scale: 1.9;
   cursor: pointer;
+  left: 7px; /*Un mistreio de pq hayq ue ahcer eso para que quede alineado */
 }
 header .up{
   display: none;
@@ -39,6 +40,7 @@ header .up{
   bottom: -19px;
   scale: 1.9;
   cursor: pointer;
+  left: 7px; /*Un mistreio de pq hayq ue ahcer eso para que quede alineado */
 }
 
 h1{
