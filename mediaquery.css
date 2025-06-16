@@ -52,6 +52,7 @@ display: none !important;
         z-index: 10;
         background-color: rgba(248, 248, 248, 0.874);
         transition: bottom 0.5s;
+        overflow-x: hidden;
     }
     .desplegarMenu{
         bottom: 50px;
