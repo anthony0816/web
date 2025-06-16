@@ -424,6 +424,27 @@ export async function CargarImagenes(data, info) {
     console.log("Imagenes Cargadas: " + ImagenesCargadas )
 }
 
+// Tuve que repetir la fucnion aqui al original esta en el modulo de MenuAlbumesMoviles daba error de importación 
+function OcultarAlbumMoviles() {
+  const Menu = document.getElementsByClassName("modal_menu_album")[0];
+  const overlay = document.getElementsByClassName("overlay")[0];
+  const body = document.getElementsByTagName("body")[0];
+
+  Menu.classList.remove("desplegarMenu");
+  overlay.classList.remove("modificarOverlay");
+  overlay.style.display = "none";
+  document.body.overflow = "auto";
+  body.style.overflow = "auto";
+
+  // es necesario quitar el evento on clik del overlay
+  // funcionalida de clik para ocultar en el overlay
+  overlay.onclick = () => {
+    return;
+  };
+}
+
+
+
 function GaleriaHacerClick(){
     const Galeria = document.getElementsByClassName("galeria")[0]
     console.log("galeria", Galeria)
@@ -457,7 +478,8 @@ setTimeout(()=>{
 // al hacer click en la galeria de los albums
 const Galeria = document.getElementsByClassName("galeria")[0]
     Galeria.onclick = ()=>{
-       // prevenir el span de click inecesarios puede sobrecargar el servidor 
+       OcultarAlbumMoviles()
+        // prevenir el span de click inecesarios puede sobrecargar el servidor 
         if(Galeria.classList.contains("active"))return
 
         const active = Array.from(document.getElementsByClassName("active"))

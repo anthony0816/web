@@ -188,10 +188,7 @@ export async function mostrarAlbums() {
       div.onclick = () => {
         
         albumOnClick(div);
-        document.getElementById("gallery").innerHTML = ""
-        setTimeout(()=>{
-          OcultarAlbumMoviles()
-        },200)
+        
 
       };
       div.classList.add("album_item");
@@ -202,8 +199,15 @@ export async function mostrarAlbums() {
 }
 
 export function albumOnClick(div) {
+  // pase lo qeu pase se cierra el menu de lso albums 
+  setTimeout(()=>{
+          OcultarAlbumMoviles()
+      },200)
+  
   // prevenir el span de click inecesarios puede sobrecargar el servidor
   if (div.classList.contains("active")) return;
+// quitar todas las fotos de la galeria 
+  document.getElementById("gallery").innerHTML = ""
 
   // agregar la funcionalidad de estilos para color cuando este señalado
   const active = Array.from(document.getElementsByClassName("active"));
