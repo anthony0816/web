@@ -1,6 +1,7 @@
 import { supabase } from "./script.js";
 import { extraerNumeros } from "./script.js";
 import { CargarImagenes } from "./script.js";
+import { OcultarAlbumMoviles } from "./MenuAlbumsMoviles.js";
 
 // Crear una Tabla como album en la base de datos
 export async function crearTablaAlbum(tableName) {
@@ -174,7 +175,9 @@ export async function mostrarAlbums() {
   hijosArray.forEach((ch) => {
     if (ch.classList.contains("menu_album_createAlbum_option") == false) {
       if (ch.classList.contains("galeria") == false) {
-        ch.remove();
+        if(ch.classList.contains("albumDown")==false){
+          ch.remove();
+        }
       }
     }
   });
@@ -183,7 +186,13 @@ export async function mostrarAlbums() {
     albums.forEach((al) => {
       const div = document.createElement("div");
       div.onclick = () => {
+        
         albumOnClick(div);
+        document.getElementById("gallery").innerHTML = ""
+        setTimeout(()=>{
+          OcultarAlbumMoviles()
+        },200)
+
       };
       div.classList.add("album_item");
       div.textContent = al.nombrealbums;

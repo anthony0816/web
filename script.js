@@ -46,6 +46,10 @@ export async function ExpandirImagen(id, src, id_original,info,album) {
     if(CheckbosHidden.checked){
         return
     }
+
+    // Ocultar la barra de abajo en mobiles 
+    document.getElementsByClassName("barraInferior")[0].style.bottom="-100px"
+
     const existe = document.getElementById("modal" + id_original);
     if (existe) {
         existe.classList.remove("closed")
@@ -161,6 +165,9 @@ export async function ExpandirImagen(id, src, id_original,info,album) {
 // Cerrar expandir imagen 
 export function CerrarExpandirImg(){
     const modal_mostrarImg = document.getElementsByClassName("modal_mostrarImg");
+    // volver a abrir el menu para moviles
+    document.getElementsByClassName("barraInferior")[0].style.bottom="0"
+    
     document.body.style.overflow = "auto"; 
     Array.from(modal_mostrarImg).forEach(element => {
         element.style.display = "none";

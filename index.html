@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="modal_menu_album.css">
         <link rel="stylesheet" href="modal_menu_album_animaciones.css">
         <link rel="stylesheet" href="NavBarAnimaciones.css">
+        <link rel="stylesheet" href="mediaquery.css">
     </head>
     <body>
         <script type="module" src="./script_continue.js"></script>
@@ -17,6 +18,7 @@
         <script type="module" src="./modal_menu_album.js"></script>
         <script type="module" src="ExpandirCerrarHeader.js"></script>
         <script type="module" src="manejodeRecargarPagina.js"></script>
+        <script type="module" src="MenuAlbumsMoviles.js"></script>
         <div class="background">
 
         </div>
@@ -37,6 +39,7 @@ En fin, bebita, quería crear un espacio donde pudiéramos guardar nuestras foti
 
                 <!--Modal para opciones de album-->
         <div class="modal_menu_album">
+            <i class="fas fa-bars albumDown"></i>
             <div class="menu_album_createAlbum_option"><span></span> <i class="fas fa-plus"></i></div>
             <div class="galeria"> Galería</div>
             <!--aqui se ejecutarán elementos de tipo -->
@@ -98,7 +101,11 @@ En fin, bebita, quería crear un espacio donde pudiéramos guardar nuestras foti
             &copy; Hecho con 🤍 para ti.
         </footer>
 
-
+        <!-- Barra inferior de gestion de album  -->
+         <div class="barraInferior ocultar">
+            <i class="fa-solid fa-folder-plus album-icon" id="create_album"></i>
+            <i class="fa-solid fa-folder-open album-icon" id="open_album_folder"></i>
+         </div>
 
 
 
