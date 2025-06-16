@@ -53,7 +53,7 @@ export async function EliminarAlbum(albumName) {
     );
   } else {
     console.log("Registro eliminado exitosamente");
-    mostrarAlbums();
+    await mostrarAlbums();
   }
 }
 async function SelectFromTabla(tableName) {
@@ -356,7 +356,7 @@ function CodificarDatos(datos) {
 
 
 
-mostrarAlbums();
+await mostrarAlbums();
 
 // Eventos de botones aqui debajo
 

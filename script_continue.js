@@ -201,7 +201,7 @@ export async function DeleteImg(elements, nav){
         if(element.classList.contains("album_item")){ // --------IMPORTANTE
             // por implementar 
             const nombreAlbum = limpiarTextoCompleto(element.textContent)
-             EliminarAlbum(nombreAlbum)
+             await EliminarAlbum(nombreAlbum)
             continue;
         }
         param2.textContent = elements.length
