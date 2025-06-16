@@ -101,7 +101,8 @@ p {
   padding: 0.8rem;
   max-width: 900px;
   margin: auto;
-  
+  background-color: red;
+  padding-bottom: 60px;
 }
 .CargarMasContenedor{
   border: 2px solid black;
