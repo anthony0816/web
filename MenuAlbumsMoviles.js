@@ -1,3 +1,16 @@
+import { Mostrar_modal_nombre_album } from "./modal_menu_album.js";
+
+
+const BotonCrearAlbum = document.getElementById("create_album")
+BotonCrearAlbum.onclick =()=>{
+    // verificar que al menos exista un archivo foto seleccionado
+      if (!document.getElementsByClassName("selected")[0]) {
+        alert("Selecciona al menos una foto");
+        return;
+      }
+      Mostrar_modal_nombre_album();
+}
+
 const BotonAlbums = document.getElementById("open_album_folder");
 BotonAlbums.onclick = () => {
   DesplegarAlbumMoviles();

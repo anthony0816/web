@@ -300,7 +300,7 @@ function ObtenerCuerpoDeConsulta(ids) {
 }
 
 // funcion para abrir el modal de crear album para el nombre
-function Mostrar_modal_nombre_album() {
+export function Mostrar_modal_nombre_album() {
   // Activar el modal para la captura del nombre
   const modal = document.getElementsByClassName("modal_nombre_album")[0];
   const overlay = document.getElementsByClassName("overlay")[0];
