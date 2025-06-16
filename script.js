@@ -364,6 +364,7 @@ export async function CargarImagenes(data, info) {
                 Galeria.appendChild(imgEnRAM.div)
                 // una pequeña espera para hacerlo mas dinamico 
                 await new Promise(resolve => setTimeout(resolve, 50)); 
+                ImagenesCargadas ++;
                 continue;
             }
             RecopilarIds(element, info);
