@@ -478,7 +478,9 @@ setTimeout(()=>{
 // al hacer click en la galeria de los albums
 const Galeria = document.getElementsByClassName("galeria")[0]
     Galeria.onclick = ()=>{
-       OcultarAlbumMoviles()
+       setTimeout(()=>{
+        OcultarAlbumMoviles()
+       },200)
         // prevenir el span de click inecesarios puede sobrecargar el servidor 
         if(Galeria.classList.contains("active"))return
 
