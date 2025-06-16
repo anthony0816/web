@@ -362,6 +362,8 @@ export async function CargarImagenes(data, info) {
             const imgEnRAM = IMGRAM.find(img => img.id == element.id)
             if(imgEnRAM){
                 Galeria.appendChild(imgEnRAM.div)
+                // una pequeña espera para hacerlo mas dinamico 
+                await new Promise(resolve => setTimeout(resolve, 50)); 
                 continue;
             }
             RecopilarIds(element, info);
