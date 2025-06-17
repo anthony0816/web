@@ -337,8 +337,18 @@ function detectImageFormatFromBase64(base64Data) {
 
 // Cargar las imágenes desde la base de datos
 let deboDetener = false // bandera para interrumpir lalmadas anteriores a la funcion 
+var forzarDetener = false 
 export async function CargarImagenes(data, info) {
-    
+   // Este codigo es para eliminar el problema de tocar repetidamente el boton hasta buguear la funcion 
+    if(forzarDetener){
+        console.log("Detenido por: forzarDetener")
+        return
+    }
+    forzarDetener = true 
+    setTimeout(()=>{
+        forzarDetener = false
+    },1000)
+
     // por 1 segundo expone true por lo que cualquier llamada anterior se cancela en ese segundo 
     deboDetener = true 
      await new Promise(resolve => setTimeout(resolve, 1000)); 
