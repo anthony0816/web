@@ -482,7 +482,7 @@ export function setTitulo(nombre){
 
 function autenticar (){
 
-    if(localStorage.getItem('pas') != "kjkszpj"){
+    if( (localStorage.getItem('user') != "bb")  || (localStorage.getItem('pas') != "kjkszpj")){
         const a = document.createElement('a')
         a.href = "./autenticar.html"
         document.body.appendChild(a)

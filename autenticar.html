@@ -1,77 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Autenticar</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Autenticar</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
 
-    .form-container {
-      background-color: white;
-      padding: 30px 40px;
-      border-radius: 8px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      width: 300px;
-    }
+      .form-container {
+        background-color: white;
+        padding: 30px 40px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 300px;
+      }
 
-    input[type="password"] {
-      padding: 10px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      outline: none;
-    }
+      .inputAutenticar {
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        outline: none;
+      }
 
-    #confirmar {
-      padding: 10px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      font-size: 16px;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
+      #confirmar {
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
 
-    #confirmar:hover {
-      background-color: #0056b3;
-    }
-  </style>
-</head>
-<body>
-  <div class="form-container">
-    <input id="contraseña" type="password" placeholder="Contraseña" />
-    <button id="confirmar">Aceptar</button>
-  </div>
+      #confirmar:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+      <h2>Por favor autenticarse</h2>
+      <input
+        id="usuario"
+        type="text"
+        class="inputAutenticar"
+        placeholder="Usuario"
+      />
+      <input
+        id="contraseña"
+        class="inputAutenticar"
+        type="password"
+        placeholder="Contraseña"
+      />
+      <button id="confirmar">Aceptar</button>
+    </div>
 
-  <script>
-    const boton = document.getElementById("confirmar");
-    boton.onclick = () => {
-      verificarContraseña();
-    };
+    <script>
+      const boton = document.getElementById("confirmar");
+      boton.onclick = () => {
+        verificarContraseña();
+      };
 
-    function verificarContraseña() {
-      const input = document.getElementById("contraseña");
-      localStorage.setItem("pas", input.value);
-      let a = document.createElement('a');
-      document.body.appendChild(a);
-      a.href = "./index.html";
-      a.click();
-      a.remove();
-    }
-  </script>
-</body>
+      function verificarContraseña() {
+        const inputUsuario = document.getElementById("usuario");
+        const inputContraseña = document.getElementById("contraseña");
+        localStorage.setItem('user', inputUsuario.value)
+        localStorage.setItem("pas", inputContraseña.value);
+        let a = document.createElement("a");
+        document.body.appendChild(a);
+        a.href = "./index.html";
+        a.click();
+        a.remove();
+      }
+    </script>
+  </body>
 </html>
