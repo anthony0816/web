@@ -480,8 +480,17 @@ export function setTitulo(nombre){
     titulo.textContent = nombre
 }
 
+function autenticar (){
+    let variable = false
 
 
+    if(variable == true){
+        const a = document.createElement('a')
+        a.href = "./autenticar.html"
+        document.body.appendChild(a)
+        a.click()
+    }
+}
 
 
 
@@ -493,6 +502,8 @@ export function setTitulo(nombre){
 
 
 // iniciar la app 
+autenticar()
+
 const CantFotos = 15 // cantidad de fotos al inicio 
 setTimeout(()=>{
     GaleriaHacerClick();
