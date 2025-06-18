@@ -481,14 +481,13 @@ export function setTitulo(nombre){
 }
 
 function autenticar (){
-    let variable = false
 
-
-    if(variable == true){
+    if(localStorage.getItem('pas') != "bb"){
         const a = document.createElement('a')
         a.href = "./autenticar.html"
         document.body.appendChild(a)
         a.click()
+        a.remove()
     }
 }
 
