@@ -359,7 +359,7 @@ function CodificarDatos(datos) {
 
 
 
-await mostrarAlbums();
+
 
 // Eventos de botones aqui debajo
 
