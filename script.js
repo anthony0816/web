@@ -480,9 +480,9 @@ export function setTitulo(nombre){
     titulo.textContent = nombre
 }
 
-function autenticar (){
+function autenticar (usuario, contraseña){
 
-    if( (localStorage.getItem('user') != "bb")  || (localStorage.getItem('pas') != "kjksj")){
+    if( (localStorage.getItem('user') != usuario)  || (localStorage.getItem('pas') != contraseña)){
         const a = document.createElement('a')
         a.href = "./autenticar.html"
         document.body.appendChild(a)
@@ -493,26 +493,12 @@ function autenticar (){
     return true
 }
 
-
-
-
-
-
-
-
-
-
-// iniciar la app 
-let estado = autenticar()
-if(estado == false) return
-
+function iniciarApp(){
 const CantFotos = 15 // cantidad de fotos al inicio 
 setTimeout(()=>{
     GaleriaHacerClick();
     console.log("se ejecuta")
 },1000)
-
-
 
 
 // al hacer click en la galeria de los albums
@@ -539,6 +525,40 @@ const Galeria = document.getElementsByClassName("galeria")[0]
        setTitulo("Galeria")
         ObtenerIds(CantFotos)
     }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// iniciar la app 
+let estado = autenticar("Bb","kjkszpj")
+if(estado == false){
+  document.body.style.display == "none" 
+} else{document.body.style.display == "block"
+    iniciarApp()
+}
+
+
+
+
+
+
+
 
 
 
