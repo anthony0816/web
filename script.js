@@ -482,13 +482,15 @@ export function setTitulo(nombre){
 
 function autenticar (){
 
-    if( (localStorage.getItem('user') != "bb")  || (localStorage.getItem('pas') != "kjkszpj")){
+    if( (localStorage.getItem('user') != "bb")  || (localStorage.getItem('pas') != "kjksj")){
         const a = document.createElement('a')
         a.href = "./autenticar.html"
         document.body.appendChild(a)
         a.click()
         a.remove()
+        return false
     }
+    return true
 }
 
 
@@ -501,7 +503,8 @@ function autenticar (){
 
 
 // iniciar la app 
-autenticar()
+let estado = autenticar()
+if(estado == false) return
 
 const CantFotos = 15 // cantidad de fotos al inicio 
 setTimeout(()=>{
