@@ -8,6 +8,7 @@ body {
 }
 
 header {
+  margin-top: 50px;
   text-align: center;
   padding: 2rem;
   background-color: #fff;
@@ -65,7 +66,9 @@ p {
 }
 .nav{
   display: flex;
-  position: sticky;
+  position: fixed;
+  transform: translate(-50%);
+  left: 50%;
   justify-content: space-around;
   top: 15px;
   min-width: 100px;
