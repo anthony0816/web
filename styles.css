@@ -11,7 +11,7 @@ header {
   margin-top: 50px;
   text-align: center;
   padding: 2rem;
-  background-color: #fff;
+  background-color: inherit;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   max-height: 0;
   height: auto;
@@ -97,6 +97,21 @@ p {
 .icono:hover{
   scale: 2.6;
 }
+
+.title{
+  display: none;
+  background-color:inherit;
+  padding: 10% 0;
+  text-align: center;
+  font-size: 40px;
+  font-family: sans-serif;
+  font-weight: 700;
+
+  /* para que el texto baje dinamicamente  */
+  white-space: normal;
+  word-wrap: break-word; 
+}
+
 #gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));

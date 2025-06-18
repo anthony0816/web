@@ -2,6 +2,7 @@ import { supabase } from "./script.js";
 import { extraerNumeros } from "./script.js";
 import { CargarImagenes } from "./script.js";
 import { OcultarAlbumMoviles } from "./MenuAlbumsMoviles.js";
+import { setTitulo } from "./script.js";
 
 // Crear una Tabla como album en la base de datos
 export async function crearTablaAlbum(tableName) {
@@ -217,6 +218,8 @@ export function albumOnClick(div) {
     });
     div.classList.add("active");
   }
+  // cambiar el titulo para que salga el nombe del album 
+  setTitulo(div.textContent)
   // ejecutar la logica de abrir el album
   abrirAlbum(div);
 }

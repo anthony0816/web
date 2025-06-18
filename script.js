@@ -475,7 +475,10 @@ function GaleriaHacerClick(){
     Galeria.click();
 }
 
-
+export function setTitulo(nombre){
+ const titulo = document.getElementsByClassName("title")[0]
+    titulo.textContent = nombre
+}
 
 
 
@@ -518,6 +521,9 @@ const Galeria = document.getElementsByClassName("galeria")[0]
         const limpiarImagenes = document.getElementById("gallery")
        limpiarImagenes.innerHTML = ""
        ImagenesCargadas = 0
+
+       // poner el titulo 
+       setTitulo("Galeria")
         ObtenerIds(CantFotos)
     }
 

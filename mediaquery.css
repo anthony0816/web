@@ -21,6 +21,9 @@
 .menu_album_createAlbum_option{
 display: none !important; 
 }
+.title{
+    display: block;
+}
 .albumDown{
     width: 100%;
     text-align: center;
