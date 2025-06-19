@@ -566,9 +566,9 @@ function autenticar(usuario, contraseña) {
 // iniciar la app
 let estado = autenticar("Bb", "kjkszpj");
 if (estado == false) {
-  document.body.style.display == "none";
+  document.getElementsByTagName('body')[0].style.display = "none"
 } else {
-  document.body.style.display == "block";
+  document.getElementsByTagName('body')[0].style.display = "block"
   await iniciarApp();
 }
 
