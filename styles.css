@@ -84,6 +84,26 @@ p {
   background-color: white;
   transition: width 0.4s;
 }
+.ajustes{
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  right: 3%;
+  top: 15px;
+  background-color: inherit;
+  height: 50px;
+  width:  50px;
+  border: 2px black solid;
+  border-radius: 50%;
+  transition: top 0.4s , right 0.4s; 
+  z-index: 10;
+
+}
+.ajustesAnimacion{
+ top: 80px;
+ right: 7%;
+}
 
 .icono{
   scale: 1.7;

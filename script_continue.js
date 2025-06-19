@@ -19,6 +19,7 @@ export function EliminarIdsActicos(){
 export function ExpandirNav(nav_expandir){
     const botones = document.getElementsByClassName("botonesExpandir")
     const nav = document.getElementsByClassName("nav")[0]
+    const ajustes = document.getElementsByClassName("ajustes")[0]
     if(nav_expandir.classList.contains("fa-plus")){
         Array.from(botones).forEach((element) =>{
             element.classList.add("fas")
@@ -26,6 +27,7 @@ export function ExpandirNav(nav_expandir){
         nav_expandir.classList.remove("fa-plus");
         nav_expandir.classList.add("fa-xmark");
         nav_expandir.style.color = "#d81b60"
+        ajustes.classList.add("ajustesAnimacion")
         nav.style.width="80%"
     }
     else{
@@ -35,6 +37,7 @@ export function ExpandirNav(nav_expandir){
         nav_expandir.classList.add("fa-plus");
         nav_expandir.classList.remove("fa-xmark");
         nav_expandir.style.color = "black"
+        ajustes.classList.remove("ajustesAnimacion")
         nav.style.width="50%"
         desmarcarCheckbox()
     }
