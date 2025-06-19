@@ -4,11 +4,12 @@
 
 .modal_menu_album{
     display: flex;
+    justify-content: center;
     display: none;
     flex-direction: row;
     align-items: center;
     width: 100%;
-    max-width: 700px;
+    max-width: 1800px;
     min-width: 200px;
     margin: auto;
     overflow: auto;
