@@ -1,7 +1,12 @@
+function getCssObjects(){
+  const styles_css = Array.from(document.styleSheets)[1]
+  console.log("hoja de estilo", styles_css)
+}
+
 function getCSSCustomProperties() {
   const cssVariables = {};
   const sheets = document.styleSheets;
-
+  console.log("sheets", Array.from(sheets))
   // Recorrer todas las hojas de estilo
   Array.from(sheets).forEach(sheet => {
     try {
@@ -29,11 +34,29 @@ function getCSSCustomProperties() {
 
 function CambiarColor(){
     const cssVariables = getCSSCustomProperties()
+    const cssObjetos = getCssObjects()
     console.log("cssVariables", cssVariables)
     const body = document.getElementsByTagName('body')[0]
-    console.log("color",body.style.backgroundColor)
-    if (body.style.backgroundColor === "rgb(249, 249, 249)"){
-        body.style.backgroundColor = "red"
+    const header = document.getElementsByTagName("header")[0]
+    const nav = document.getElementsByTagName("nav")[0]
+    
+    if (body.classList.contains("modoClaro")){
+      body.classList.remove("modoClaro")  
+      body.style.backgroundColor = cssVariables["--dark_bodyColor"]
+      body.style.color = cssVariables["--text_color"]
+      header.style.backgroundColor = cssVariables["--dark_headerColor"]
+      header.style.color = cssVariables["--dark_header_textColor"]
+      nav.style.backgroundColor = cssVariables["--dark_navColor"]
+      nav.style.color = cssVariables["--dark_nav_textColor"]
+
+    }else{
+      body.classList.add("modoClaro")
+      body.style.backgroundColor = cssVariables["--bodyColor"]
+      body.style.color = cssVariables["--dark_text_color"]
+      header.style.backgroundColor = cssVariables["--headerColor"]
+      header.style.color = cssVariables["--header_textColor"]
+      nav.style.backgroundColor = cssVariables["--navColor"]
+      nav.style.color = cssVariables["--nav_textColor"]
     }
 
 }

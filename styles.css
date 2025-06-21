@@ -2,19 +2,25 @@
   /* Colores originales */
   --fondo: red;
   --bodyColor: #f9f9f9;
+  --text_color: white;
   --headerColor:inherit;
-  --navColor: white;
-  --botonAjustesColor: inherit;
+  --header_textColor: #222;
+  --navColor: #fff;
+  --nav_textColor: #222 ;
+  --botonAjustesColor: #fff;
   --titleColor:inherit;
   --galeriaColor: inherit;
   --cargarMasColor:#aaaaaa8f;
 
   /* Para el modo oscuro  */
   --dark_fondo: red;
-  --dark_bodyColor: #2e2121;
-  --dark_headerColor:inherit;
-  --dark_navColor: rgb(133, 27, 27);
-  --dark_botonAjustesColor: inherit;
+  --dark_bodyColor: #222;
+  --dark_text_color: #222;
+  --dark_headerColor:#333;
+  --dark_header_textColor: white;
+  --dark_navColor: #ddd;
+  --dark_nav_textColor: #222 ;
+  --dark_botonAjustesColor: #ddd;
   --dark_titleColor:inherit;
   --dark_galeriaColor: inherit;
   --dark_cargarMasColor:#aaaaaa8f;
@@ -27,14 +33,20 @@ body {
   margin: 0;
   padding: 0;
   position: relative;
+  color: var(--text_color);
   
+}
+.modoClaro{
+  background-color: var(--bodyColor);
 }
 
 header {
-  margin-top: 50px;
+  /* margin-top: 50px; */
   text-align: center;
   padding: 2rem;
+  padding-top: 80px;
   background-color: var(--headerColor);
+  color: var(--dark_header_textColor);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   max-height: 0;
   height: auto;
@@ -81,7 +93,7 @@ h2{
 
 p {
   font-size: 1.1rem;
-  color: #333;
+  color: inherit;
   text-align: justify;
 }
 .hidetext{
@@ -105,6 +117,8 @@ p {
   border-radius: 25px;
   z-index: 10;
   background-color: var(--navColor);
+  color: var(--nav_textColor);
+  color: black;
   transition: width 0.4s;
 }
 .ajustes{
@@ -115,6 +129,7 @@ p {
   right: 5%;
   top: 15px;
   background-color: var(--botonAjustesColor);
+  color: #222;
   height: 50px;
   width:  30px;
   border: 2px black solid;
@@ -132,7 +147,7 @@ p {
   scale: 1.7;
   margin-left: 10px;
   transition: scale 0.2s;
-  
+  color: inherit;
 }
 .botonesExpandir{
   display: none;
@@ -171,6 +186,7 @@ p {
 .CargarMasContenedor{
   border: 2px solid black;
   background-color: var(--cargarMasColor);
+  color: #222;
   border-radius: 13px;
   display: flex;
   justify-content: center;
