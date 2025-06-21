@@ -8,6 +8,7 @@
     }
     .modal_menu_album{
         display: flex;
+        background-color: inherit !important;
     }
     .albumDown{
         display: none;
