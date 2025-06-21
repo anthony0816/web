@@ -280,7 +280,7 @@ async function abrirAlbum(elemento) {
   const nombreTabla = limpiarTextoCompleto(elemento.textContent);
   const ids = await SelectFromTabla(nombreTabla);
   const idsCodificados = CodificarDatos(ids);
-  CargarImagenes(idsCodificados, "cargarAlbum");
+  CargarImagenes(idsCodificados, "cargarAlbum",nombreTabla);
 }
 //Función para obtener lso ids de los seleccionados
 export function obtenerIdsSeleccionados() {

@@ -7,6 +7,7 @@ import { añadirFuncionesDeNavegacion } from "./script_continue.js";
 import { Descargar } from "./script_continue.js";
 import { EliminarIdsActicos } from "./script_continue.js";
 import { mostrarAlbums } from "./modal_menu_album.js";
+import { DisplayFromAlbum } from "./displayFromAlbum.js";
 
 const supabaseUrl = "https://nvunvfuliztilbzbydqs.supabase.co";
 const supabaseKey =
