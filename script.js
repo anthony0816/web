@@ -509,9 +509,9 @@ function autenticar(usuario, contraseña) {
   return true;
 }
 
- async function iniciarApp() {
+ async function iniciarApp(cantidad) {
   await mostrarAlbums();
-  const CantFotos = 15; // cantidad de fotos al inicio
+  const CantFotos = cantidad; // cantidad de fotos al inicio
   setTimeout(() => {
     GaleriaHacerClick();
     console.log("se ejecuta");
@@ -568,7 +568,7 @@ let estado = autenticar("Bb", "kjkszpj");
 if (estado == false) {
   document.getElementsByTagName('body')[0].innerHTML=""
 } else {
-  await iniciarApp();
+  await iniciarApp(2);
 }
 
 // Cargar la imagen en la base de datos
