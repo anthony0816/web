@@ -89,13 +89,13 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  right: 3%;
+  right: 5%;
   top: 15px;
   background-color: inherit;
   height: 50px;
-  width:  50px;
+  width:  30px;
   border: 2px black solid;
-  border-radius: 50%;
+  border-radius: 20px;
   transition: top 0.4s , right 0.4s; 
   z-index: 10;
 

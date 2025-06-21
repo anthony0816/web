@@ -568,7 +568,7 @@ let estado = autenticar("Bb", "kjkszpj");
 if (estado == false) {
   document.getElementsByTagName('body')[0].innerHTML=""
 } else {
-  await iniciarApp(2);
+  await iniciarApp(0);
 }
 
 // Cargar la imagen en la base de datos
