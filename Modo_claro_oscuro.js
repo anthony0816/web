@@ -28,8 +28,8 @@ function getCSSCustomProperties() {
 }
 
 function CambiarColor(){
-    return
-    const variablesCss = getCSSCustomProperties()
+    const cssVariables = getCSSCustomProperties()
+    console.log("cssVariables", cssVariables)
     const body = document.getElementsByTagName('body')[0]
     console.log("color",body.style.backgroundColor)
     if (body.style.backgroundColor === "rgb(249, 249, 249)"){
