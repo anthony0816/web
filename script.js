@@ -494,7 +494,7 @@ export function setTitulo(nombre) {
   titulo.textContent = nombre;
 }
 
-function autenticar(usuario, contraseña) {
+export function autenticar(usuario, contraseña) {
   if (
     localStorage.getItem("user") != usuario ||
     localStorage.getItem("pas") != contraseña
@@ -509,7 +509,7 @@ function autenticar(usuario, contraseña) {
   return true;
 }
 
- async function iniciarApp(cantidad) {
+ export async function iniciarApp(cantidad) {
   await mostrarAlbums();
   const CantFotos = cantidad; // cantidad de fotos al inicio
   setTimeout(() => {
@@ -545,7 +545,25 @@ function autenticar(usuario, contraseña) {
   };
 }
 
+export function CargarTema(){
+  const body = document.getElementsByTagName('body')[0]
+  const tema = localStorage.getItem("tema")
+  const botonCambiarTema = document.getElementById("ajustes")
+  if (!(tema)){
+    body.classList.remove("modoClaro")
+    botonCambiarTema.click()
+    localStorage.setItem("tema","claro")
+    return
+  }
+  if(tema == "claro"){
+    body.classList.remove("modoClaro")
+    botonCambiarTema.click()
+  }
+  if(tema == "oscuro"){
+    botonCambiarTema.click()
+  }
 
+}
 
 
 
@@ -564,12 +582,12 @@ function autenticar(usuario, contraseña) {
 
 
 // iniciar la app
-let estado = autenticar("Bb", "kjkszpj");
-if (estado == false) {
-  document.getElementsByTagName('body')[0].innerHTML=""
-} else {
-  await iniciarApp(0);
-}
+// let estado = autenticar("Bb", "kjkszpj");
+// if (estado == false) {
+//   document.getElementsByTagName('body')[0].innerHTML=""
+// } else {
+//   await iniciarApp(0);
+// }
 
 // Cargar la imagen en la base de datos
 const GuardarImagen = document.getElementById("GuardarImagen");

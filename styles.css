@@ -2,7 +2,7 @@
   /* Colores originales */
   --fondo: red;
   --bodyColor: #f9f9f9;
-  --text_color: white;
+  --text_color: #ddd;
   --headerColor:inherit;
   --header_textColor: #222;
   --navColor: #fff;
@@ -11,6 +11,9 @@
   --titleColor:inherit;
   --galeriaColor: inherit;
   --cargarMasColor:#aaaaaa8f;
+  --barrainferiorColor:rgba(248, 248, 248, 0.874);
+  --barrainferior_textColor: #555 ;
+  --modal_menu_album_Color : rgba(248, 248, 248, 0.874);
 
   /* Para el modo oscuro  */
   --dark_fondo: red;
@@ -24,7 +27,9 @@
   --dark_titleColor:inherit;
   --dark_galeriaColor: inherit;
   --dark_cargarMasColor:#aaaaaa8f;
-
+  --dark_barrainferiorColor:rgba(24, 24, 24, 0.91) ;
+  --dark_barrainferior_textColor: #aaa ;
+  --dark_modal_menu_album_Color: rgba(41, 41, 41, 0.874);
 }
 
 body {
@@ -344,6 +349,7 @@ width: 100%;
 }
 .modal_expandirImagen_contenedor{
   background-color: #aaa;
+  color: #222;
   display: none;
   justify-content: space-around;
   height: 50px;

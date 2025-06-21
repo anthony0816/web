@@ -56,7 +56,7 @@ display: none !important;
         height: 60%;
         bottom: -600px;
         z-index: 10;
-        background-color: rgba(248, 248, 248, 0.874);
+        background-color: var(--modal_menu_album_Color);
         transition: bottom 0.5s;
         overflow-x: hidden;
     }

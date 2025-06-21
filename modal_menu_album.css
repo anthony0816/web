@@ -106,7 +106,8 @@ text-align: center;
 }
 
 .barraInferior{
-    background-color:rgba(248, 248, 248, 0.874) ;
+    background-color:var(--barrainferiorColor) ;
+    color: var(--barrainferior_textColor);
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -120,7 +121,7 @@ text-align: center;
 
 .album-icon {
   font-size: 1.5rem;
-  color: #555;
+  color: inherit;
   cursor: pointer;
   transition: color 0.3s;
 }
