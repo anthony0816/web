@@ -12,5 +12,5 @@ if (estado == false) {
   document.getElementsByTagName('body')[0].innerHTML=""
 } else {
     CargarTema() 
-  await iniciarApp(0);
+  await iniciarApp(20);
 }
