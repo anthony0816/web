@@ -1,4 +1,5 @@
 :root{
+  /* Colores originales */
   --fondo: red;
   --bodyColor: #f9f9f9;
   --headerColor:inherit;
@@ -7,6 +8,17 @@
   --titleColor:inherit;
   --galeriaColor: inherit;
   --cargarMasColor:#aaaaaa8f;
+
+  /* Para el modo oscuro  */
+  --dark_fondo: red;
+  --dark_bodyColor: #2e2121;
+  --dark_headerColor:inherit;
+  --dark_navColor: rgb(133, 27, 27);
+  --dark_botonAjustesColor: inherit;
+  --dark_titleColor:inherit;
+  --dark_galeriaColor: inherit;
+  --dark_cargarMasColor:#aaaaaa8f;
+
 }
 
 body {
