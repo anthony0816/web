@@ -1,20 +1,44 @@
-function getCSSCustomProperties(rootElement = document.documentElement) {
-  const styles = getComputedStyle(rootElement);
+function getCSSCustomProperties() {
   const cssVariables = {};
+  const sheets = document.styleSheets;
 
-  // Método compatible con todos los navegadores
-  for (let i = 0; i < styles.length; i++) {
-    const prop = styles[i];
-    if (prop.startsWith('--')) {
-      cssVariables[prop] = styles.getPropertyValue(prop).trim();
+  // Recorrer todas las hojas de estilo
+  Array.from(sheets).forEach(sheet => {
+    try {
+      // Recorrer todas las reglas CSS
+      Array.from(sheet.cssRules || []).forEach(rule => {
+        if (rule.selectorText === ':root') {
+          // Extraer el contenido de :root
+          const cssText = rule.style.cssText;
+          // Buscar variables CSS (--nombre)
+          cssText.split(';').forEach(prop => {
+            const [name, value] = prop.split(':');
+            if (name?.trim().startsWith('--')) {
+              cssVariables[name.trim()] = value?.trim();
+            }
+          });
+        }
+      });
+    } catch (e) {
+      // Ignorar errores de CORS (hojas de estilo externas sin permisos)
     }
-  }
+  });
 
   return cssVariables;
 }
 
-// Uso con timeout para asegurar carga (solo para pruebas)
-setTimeout(() => {
-  const cssVars = getCSSCustomProperties();
-  console.log('Variables encontradas:', cssVars);
-}, 100);
+function CambiarColor(){
+    return
+    const variablesCss = getCSSCustomProperties()
+    const body = document.getElementsByTagName('body')[0]
+    console.log("color",body.style.backgroundColor)
+    if (body.style.backgroundColor === "rgb(249, 249, 249)"){
+        body.style.backgroundColor = "red"
+    }
+
+}
+
+const  ajustes = document.getElementById("ajustes")
+    ajustes.onclick = ()=>{
+        CambiarColor()
+    }
