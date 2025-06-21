@@ -5,6 +5,7 @@
   --text_color: #ddd;
   --headerColor:inherit;
   --header_textColor: #222;
+  --nav_continer_color: rgba(248, 248, 248, 0.874);
   --navColor: #fff;
   --nav_textColor: #222 ;
   --botonAjustesColor: #fff;
@@ -19,8 +20,9 @@
   --dark_fondo: red;
   --dark_bodyColor: #222;
   --dark_text_color: #222;
-  --dark_headerColor:#333;
+  --dark_headerColor:#222;
   --dark_header_textColor: white;
+  --dark_nav_continer_color: rgba(24, 24, 24, 0.91) ;
   --dark_navColor: #ddd;
   --dark_nav_textColor: #222 ;
   --dark_botonAjustesColor: #ddd;
@@ -103,6 +105,14 @@ p {
 }
 .hidetext{
   display: none;
+}
+.nav_continer{
+  position: fixed;
+  top: 0;
+  height: 80px;
+  width: 100%;
+  background-color: var(--nav_continer_color);
+  z-index: 10
 }
 .nav{
   display: flex;

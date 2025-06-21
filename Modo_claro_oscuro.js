@@ -38,6 +38,7 @@ function CambiarColor(){
     console.log("cssVariables", cssVariables)
     const body = document.getElementsByTagName('body')[0]
     const header = document.getElementsByTagName("header")[0]
+    const nav_continer = document.getElementsByClassName("nav_continer")[0]
     const nav = document.getElementsByTagName("nav")[0]
     const barraInferior = document.getElementsByClassName("barraInferior")[0]
     const modal_menu_album = document.getElementsByClassName("modal_menu_album")[0]
@@ -51,6 +52,7 @@ function CambiarColor(){
       body.style.color = cssVariables["--text_color"]
       header.style.backgroundColor = cssVariables["--dark_headerColor"]
       header.style.color = cssVariables["--dark_header_textColor"]
+      nav_continer.style.backgroundColor = cssVariables["--dark_nav_continer_color"]
       nav.style.backgroundColor = cssVariables["--dark_navColor"]
       nav.style.color = cssVariables["--dark_nav_textColor"]
       barraInferior.style.backgroundColor = cssVariables["--dark_barrainferiorColor"]
@@ -66,6 +68,7 @@ function CambiarColor(){
       body.style.color = cssVariables["--dark_text_color"]
       header.style.backgroundColor = cssVariables["--headerColor"]
       header.style.color = cssVariables["--header_textColor"]
+      nav_continer.style.backgroundColor = cssVariables["--nav_continer_color"]
       nav.style.backgroundColor = cssVariables["--navColor"]
       nav.style.color = cssVariables["--nav_textColor"]
       barraInferior.style.backgroundColor = cssVariables["--barrainferiorColor"]

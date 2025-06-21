@@ -15,6 +15,9 @@
     .ajustes{
         display: none;
     }
+    .nav_continer{
+        background-color: transparent !important;
+    }
 }
 
 
