@@ -124,6 +124,7 @@ text-align: center;
   color: inherit;
   cursor: pointer;
   transition: color 0.3s;
+  padding: 10px 30px;
 }
 
 .album-icon:hover {
