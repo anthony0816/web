@@ -305,8 +305,7 @@ export async function ObtenerIds(n) {
     } else {
       console.log("¡Conexión exitosa! Datos:", data);
     }
-    const info = "Cargar mas";
-    CargarImagenes(data, info);
+    CargarImagenes(data, "Cargar mas");
   } catch (err) {
     console.error("Error inesperado:", err);
   }
@@ -359,7 +358,12 @@ export async function CargarImagenes(data, info,StringAlbum) {
 
   try {
     for (const element of data) {
-     
+      const imgEnRAM = IMGRAM.find((img) => img.id == element.id);
+      if ((imgEnRAM)&& (info == "Cargar mas")) {
+        Galeria.appendChild(imgEnRAM.div);
+        ImagenesCargadas++
+        continue;
+      }
       const { data: imgData, error } = await supabase
         .from("Imagenes")
         .select("datalow")
@@ -392,8 +396,10 @@ export async function CargarImagenes(data, info,StringAlbum) {
         IMGRAM.push({ div: divImg, id: extraerNumeros(divImg.id) });
       } else {
         Galeria.appendChild(divImg);
-        // Guardar la iamgen en RAM
+        if(info == "Cargar mas"){
+          // Guardar la iamgen en RAM
         IMGRAM.push({ div: divImg, id: extraerNumeros(divImg.id) });
+        }
       }
       ImagenesCargadas++;
 
@@ -508,9 +514,9 @@ export function autenticar(usuario, contraseña) {
       Galeria.classList.add("active");
     }
 
-    // const limpiarImagenes = document.getElementById("gallery");
-    // limpiarImagenes.innerHTML = "";
-    // ImagenesCargadas = 0;
+    const limpiarImagenes = document.getElementById("gallery");
+    limpiarImagenes.innerHTML = "";
+    ImagenesCargadas = 0;
 
     // poner el titulo
     setTitulo("Galeria");
