@@ -259,7 +259,7 @@ export function añadirFuncionesDeNavegacion(modal,album){
 function pasarImagen(direccion,modal,album){
     const modal_id = extraerNumeros(modal.id) 
     console.log("modal", modal_id)
-    const galeria = document.getElementById("gallery")
+    const galeria = document.getElementsByClassName("onDisplay")[0]
     const galeriaHijos= Array.from(galeria.children)
     const idsArray = []
     galeriaHijos.forEach((gh)=>{

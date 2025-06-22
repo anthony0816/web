@@ -187,8 +187,13 @@ p {
   white-space: normal;
   word-wrap: break-word; 
 }
-
-#gallery {
+.gallery_pages_continer{
+  background-color: transparent;
+}
+#gallery{
+  background-color: var(--galeriaColor);
+}
+.gallery_page {
   background-color: var(--galeriaColor);
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));

@@ -346,26 +346,11 @@ function detectImageFormatFromBase64(base64Data) {
   return "unknown";
 }
 
-// Cargar las imágenes desde la base de datos
-let deboDetener = false; // bandera para interrumpir lalmadas anteriores a la funcion
-var forzarDetener = false;
-export async function CargarImagenes(data, info) {
-  // Este codigo es para eliminar el problema de tocar repetidamente el boton hasta buguear la funcion
-  if (forzarDetener) {
-    console.log("Detenido por: forzarDetener");
-    return;
-  }
-  forzarDetener = true;
-  setTimeout(() => {
-    forzarDetener = false;
-  }, 1000);
 
-  // por 1 segundo expone true por lo que cualquier llamada anterior se cancela en ese segundo
-  deboDetener = true;
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  deboDetener = false;
-
-  const Galeria = document.getElementById("gallery");
+export async function CargarImagenes(data, info,StringAlbum) {
+ 
+  const Galeria = await DisplayFromAlbum(StringAlbum)
+  if( Galeria == "ready")return
 
   if (info != "Cargada por el usuario" && info != "Cargar mas") {
     Galeria.innerHTML = "";
@@ -374,20 +359,7 @@ export async function CargarImagenes(data, info) {
 
   try {
     for (const element of data) {
-      if (deboDetener) {
-        console.log("se ha detenido debido a la bandera");
-        return;
-      }
-      // VAlidar si ya se cargó en ram
-      const imgEnRAM = IMGRAM.find((img) => img.id == element.id);
-      if (imgEnRAM) {
-        Galeria.appendChild(imgEnRAM.div);
-        // una pequeña espera para hacerlo mas dinamico
-        await new Promise((resolve) => setTimeout(resolve, 50));
-        ImagenesCargadas++;
-        continue;
-      }
-      RecopilarIds(element, info);
+     
       const { data: imgData, error } = await supabase
         .from("Imagenes")
         .select("datalow")
@@ -536,9 +508,9 @@ export function autenticar(usuario, contraseña) {
       Galeria.classList.add("active");
     }
 
-    const limpiarImagenes = document.getElementById("gallery");
-    limpiarImagenes.innerHTML = "";
-    ImagenesCargadas = 0;
+    // const limpiarImagenes = document.getElementById("gallery");
+    // limpiarImagenes.innerHTML = "";
+    // ImagenesCargadas = 0;
 
     // poner el titulo
     setTitulo("Galeria");
