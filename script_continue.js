@@ -72,7 +72,7 @@ export function Seleccionar(CheckbosHidden , modalNotificaciones , nav, info){
     modalNotificaciones.style.display ="none"
     nav.style.top = "15px" 
 
-    const galeria = document.getElementById("gallery")
+    const galeria = document.getElementsByClassName("onDisplay")[0]
     const galeriaHijos= Array.from(galeria.children)
     const idsArray = []
     galeriaHijos.forEach((gh)=>{
