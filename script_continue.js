@@ -68,7 +68,14 @@ export function RecopilarIds(data,info){
     console.log("ids activos", idsActivos)
 }
 // Función para seleccionar las fotos 1x1
-export function Seleccionar(CheckbosHidden , modalNotificaciones , nav, info){
+export function Seleccionar(info){
+    
+    const CheckbosHidden = document.getElementById("seleccionarEstado");
+    const modalNotificaciones = document.getElementsByClassName(
+          "modalNotificaciones2"
+        )[0];
+    const nav = document.getElementsByTagName("nav")[0];
+    
     modalNotificaciones.style.display ="none"
     nav.style.top = "15px" 
 

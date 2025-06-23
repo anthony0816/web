@@ -362,6 +362,12 @@ export async function CargarImagenes(data, info,StringAlbum) {
       if ((imgEnRAM)&& (info == "Cargar mas")) {
         Galeria.appendChild(imgEnRAM.div);
         ImagenesCargadas++
+
+        if (document.getElementById("seleccionarEstado").checked) {
+        //console.log("vamo a ver si pincha")
+        Seleccionar("fromCargarImagenes");
+        }
+
         continue;
       }
       const { data: imgData, error } = await supabase
@@ -410,16 +416,7 @@ export async function CargarImagenes(data, info,StringAlbum) {
 
       if (document.getElementById("seleccionarEstado").checked) {
         //console.log("vamo a ver si pincha")
-        const nav = document.getElementsByTagName("nav")[0];
-        const modalNotificaciones = document.getElementsByClassName(
-          "modalNotificaciones2"
-        )[0];
-        Seleccionar(
-          document.getElementById("seleccionarEstado"),
-          modalNotificaciones,
-          nav,
-          "fromCargarImagenes"
-        );
+        Seleccionar("fromCargarImagenes");
       }
     }
   } catch (error) {
