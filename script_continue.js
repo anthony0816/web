@@ -235,6 +235,7 @@ export async function DeleteImg(elements, nav){
                 }
             }
     }
+    cambiarEstadoCheckbox()
     param1.textContent = "1"
     param2.textContent = "0"
     modalNotificaciones.style.display = "none"
