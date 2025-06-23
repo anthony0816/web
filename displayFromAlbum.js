@@ -47,6 +47,9 @@ export async function DisplayFromAlbum(StringAlbum) {
 }
 
 function asingDisplayClassOnlySelf(element){
+
+  // Esta funcion es para avisarle al metodo de Pasar imagenes una a una por cual galeria tiene que recorrer ya que se van cambiando 
+
   const onDisplayObjects = Array.from(document.getElementsByClassName("onDisplay"))
   if(!(onDisplayObjects)){
     element.classList.add("onDisplay")
