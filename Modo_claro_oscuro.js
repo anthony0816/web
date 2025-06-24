@@ -42,7 +42,8 @@ function CambiarColor(){
     const nav = document.getElementsByTagName("nav")[0]
     const barraInferior = document.getElementsByClassName("barraInferior")[0]
     const modal_menu_album = document.getElementsByClassName("modal_menu_album")[0]
-    
+    const selector_counter = document.getElementsByClassName("selector_counter")[0]
+
     if (body.classList.contains("modoClaro")){
 
       localStorage.setItem("tema", "oscuro") // guardar el tema 
@@ -58,7 +59,8 @@ function CambiarColor(){
       barraInferior.style.backgroundColor = cssVariables["--dark_barrainferiorColor"]
       barraInferior.style.color = cssVariables["--dark_barrainferior_textColor"]
       modal_menu_album.style.backgroundColor = cssVariables["--dark_modal_menu_album_Color"]
-
+      selector_counter.style.backgroundColor = cssVariables["--dark_selector_counterColor"]
+      selector_counter.style.color = cssVariables["--dark_selector_counter_textColor"]
     }else{
 
       localStorage.setItem("tema", "claro") // guardar el tema 
@@ -74,6 +76,8 @@ function CambiarColor(){
       barraInferior.style.backgroundColor = cssVariables["--barrainferiorColor"]
       barraInferior.style.color = cssVariables["--barrainferior_textColor"]
       modal_menu_album.style.backgroundColor = cssVariables["--modal_menu_album_Color"]
+      selector_counter.style.backgroundColor = cssVariables["--selector_counterColor"]
+      selector_counter.style.color = cssVariables["--selector_counter_textColor"]
     }
 
 }

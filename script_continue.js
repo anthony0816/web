@@ -98,11 +98,13 @@ export function Seleccionar(info){
                             this.style.scale = "1"
                             this.classList.remove("singleIMG_onSelect")
                             this.classList.remove("selected")
+                            RemoveMarkSelected(imgDiv)
                         }
                         else{
                             this.style.scale = "0.9"
                             this.classList.add("singleIMG_onSelect")
                             this.classList.add("selected")
+                            AddMarkSelected(imgDiv)
                         }   
                     }
                             
@@ -123,11 +125,13 @@ export function Seleccionar(info){
                             this.style.scale = "1"
                             this.classList.remove("singleIMG_onSelect")
                             this.classList.remove("selected")
+                            RemoveMarkSelected(imgDiv)
                         }
                         else{
                             this.style.scale = "0.9"
                             this.classList.add("singleIMG_onSelect")
                             this.classList.add("selected")
+                            AddMarkSelected(imgDiv)
                         }   
                     }
                             
@@ -158,6 +162,7 @@ export function Seleccionar(info){
                     imgDiv.style.scale = "1"
                     imgDiv.classList.remove("singleIMG_onSelect")
                     imgDiv.classList.remove("selected")
+                    RemoveMarkSelected(imgDiv)
                     imgDiv.onclick = function(){
                         return
                     };
@@ -348,3 +353,33 @@ export async function Descargar(ids , info){
     }
     
 }
+
+function AddMarkSelected(imgdiv){
+ const id = extraerNumeros(imgdiv.id)
+ const imgContiner = document.getElementById("divImg"+id)
+ const div = document.createElement('div')
+ const counter =  document.getElementsByClassName("selector_counter")[0]
+ div.classList.add("singleIMG_count")
+ div.textContent = "✔"
+ imgContiner.appendChild(div)
+ counter.style.display = "block"
+ counter.children[0].textContent =" "+ Array.from(document.getElementsByClassName("selected")).length
+}
+function RemoveMarkSelected(imgdiv){
+const id = extraerNumeros(imgdiv.id)
+const imgContiner = document.getElementById("divImg"+id)
+const div = imgContiner.querySelector('.singleIMG_count'); 
+const counter =  document.getElementsByClassName("selector_counter")[0]
+if (Array.from(document.getElementsByClassName("selected")).length == 0){
+    counter.style.display = "none"
+}else{
+    counter.children[0].textContent = " "+ Array.from(document.getElementsByClassName("selected")).length
+}
+if(div)div.remove()
+
+}
+
+// singleIMG_count
+//divImg + id 
+//<i class="fa-solid fa-check "></i> 
+//Array.from(document.getElementsByClassName("selected")).length

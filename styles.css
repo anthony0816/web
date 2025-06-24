@@ -15,6 +15,10 @@
   --barrainferiorColor:rgba(248, 248, 248, 0.874);
   --barrainferior_textColor: #555 ;
   --modal_menu_album_Color : rgba(248, 248, 248, 0.874);
+  --selectedColor : #d81b60;
+  --selector_counterColor :#252525;
+  --selector_counter_textColor:#ddd;
+  
 
   /* Para el modo oscuro  */
   --dark_fondo: red;
@@ -32,6 +36,9 @@
   --dark_barrainferiorColor:rgba(24, 24, 24, 0.91) ;
   --dark_barrainferior_textColor: #aaa ;
   --dark_modal_menu_album_Color: rgba(41, 41, 41, 0.874);
+    /*Una variable que no tienen contraparte oscura*/
+  --dark_selector_counterColor :#ddd;
+  --dark_selector_counter_textColor:#211c1c;
 }
 
 body {
@@ -246,6 +253,39 @@ box-shadow: 1px 1px 3px 2px rgba(0, 0, 0, 0.5);
 .singleIMG_onSelect{
   background-color: rgba(255, 0, 0);
   mix-blend-mode: multiply;
+}
+/* Esta es la clase que tiene los estilos del contador que sale en las fotos seleccionadas  */
+.singleIMG_count{
+position: absolute;
+display: flex;
+height: 27px;
+width:  27px;
+border-radius: 50%;
+right: 3px;
+bottom: 3px;
+background-color: var(--selectedColor);
+color: #ddd;
+z-index: 30;
+align-items: center;
+justify-content: center;
+font-weight: 600;
+}
+.selector_counter{
+  display: none;
+  position: fixed;
+  transform: translate(-50%,-50%);
+  top: 110px;
+  left: 50%;
+  background-color: var(--selector_counterColor);
+  color: var(--selector_counter_textColor);
+  border-radius: 13px;
+  font-family: sans-serif;
+  padding: 12px 20px;
+}
+.selector_counter_text{
+  font-weight: 800;
+  font-size: 20px;
+  color: var(--selectedColor);
 }
 
 .photo-card {
