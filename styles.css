@@ -234,7 +234,7 @@ transition: scale 0.15s;
 width: 100%;
 cursor: pointer;
 scale: 1;
-background-color: #444;
+background-color: #666;
 height: 120px;
 overflow: hidden;
 object-fit: fill;
@@ -251,7 +251,8 @@ box-shadow: 1px 1px 3px 2px rgba(0, 0, 0, 0.5);
   max-width: 100px;
 }
 .singleIMG_onSelect{
-  scale: 0.9;
+  background-color: rgba(255, 0, 0);
+  mix-blend-mode: multiply;
 }
 /* Esta es la clase que tiene los estilos del contador que sale en las fotos seleccionadas  */
 .singleIMG_count{

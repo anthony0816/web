@@ -95,13 +95,13 @@ export function Seleccionar(info){
                     imgDiv.classList.add("transition")
                     imgDiv.onclick = function(){
                         if(this.classList.contains("selected")){
-                            
+                            this.style.scale = "1"
                             this.classList.remove("singleIMG_onSelect")
                             this.classList.remove("selected")
                             RemoveMarkSelected(imgDiv)
                         }
                         else{
-                            
+                            this.style.scale = "0.9"
                             this.classList.add("singleIMG_onSelect")
                             this.classList.add("selected")
                             AddMarkSelected(imgDiv)
@@ -122,13 +122,13 @@ export function Seleccionar(info){
                     imgDiv.classList.add("transition")
                     imgDiv.onclick = function(){
                         if(this.classList.contains("selected")){
-                            
+                            this.style.scale = "1"
                             this.classList.remove("singleIMG_onSelect")
                             this.classList.remove("selected")
                             RemoveMarkSelected(imgDiv)
                         }
                         else{
-                            
+                            this.style.scale = "0.9"
                             this.classList.add("singleIMG_onSelect")
                             this.classList.add("selected")
                             AddMarkSelected(imgDiv)
