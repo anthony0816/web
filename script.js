@@ -47,6 +47,7 @@ export function CargarMasElementos() {
 }
 
 export async function ExpandirImagen(id, src, id_original, info, album) {
+  console.log("IMAGEN id:", id)
   const CheckbosHidden = document.getElementById("seleccionarEstado");
   if (CheckbosHidden.checked) {
     return;
