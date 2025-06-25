@@ -1,0 +1,25 @@
+function AddMarkSelected(imgdiv){
+    const id = extraerNumeros(imgdiv.id)
+    const imgContiner = document.getElementById("divImg"+id)
+    const div = document.createElement('div')
+    const counter =  document.getElementsByClassName("selector_counter")[0]
+    div.classList.add("singleIMG_count")
+    div.textContent = "✔"
+    imgContiner.appendChild(div)
+    counter.style.display = "block"
+    counter.children[0].textContent =" "+ Array.from(document.getElementsByClassName("selected")).length
+}
+
+function RemoveMarkSelected(imgdiv){
+    const id = extraerNumeros(imgdiv.id)
+    const imgContiner = document.getElementById("divImg"+id)
+    const div = imgContiner.querySelector('.singleIMG_count'); 
+    const counter =  document.getElementsByClassName("selector_counter")[0]
+    if (Array.from(document.getElementsByClassName("selected")).length == 0){
+        counter.style.display = "none"
+    }else{
+        counter.children[0].textContent = " "+ Array.from(document.getElementsByClassName("selected")).length
+    }
+    if(div)div.remove()
+
+}

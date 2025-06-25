@@ -69,31 +69,17 @@ export function RecopilarIds(data,info){
 }
 // Función para seleccionar las fotos 1x1
 export function Seleccionar(info){
-    
     const CheckbosHidden = document.getElementById("seleccionarEstado");
-    const modalNotificaciones = document.getElementsByClassName(
-          "modalNotificaciones2"
-        )[0];
-    const nav = document.getElementsByTagName("nav")[0];
-    
-    modalNotificaciones.style.display ="none"
-    nav.style.top = "15px" 
-
     const galeria = document.getElementsByClassName("onDisplay")[0]
     const galeriaHijos= Array.from(galeria.children)
-    const idsArray = []
-    galeriaHijos.forEach((gh)=>{
-        idsArray.push(extraerNumeros(gh.id))
-    })
-
-    //console.log("disponibles", idsArray)
     
     if (info == "fromCargarImagenes"){ 
-        idsArray.forEach((element=>{
-            if((element == NaN)||!(element))return
-                const imgDiv = document.getElementById("img"+element)
-                    imgDiv.classList.add("transition")
-                    imgDiv.onclick = function(){
+        console.log("galeriaHijos:",galeriaHijos)
+        
+        galeriaHijos.forEach((imgDiv=>{
+                const img = imgDiv.children[0]
+                    img.classList.add("transition")
+                    img.onclick = function(){
                         if(this.classList.contains("selected")){
                             this.style.scale = "1"
                             this.classList.remove("singleIMG_onSelect")
@@ -113,14 +99,11 @@ export function Seleccionar(info){
     }
 
 
-
-    try{
         if(!(CheckbosHidden.checked)){
-            idsArray.forEach((element=>{
-                if((element == NaN)||!(element))return
-                const imgDiv = document.getElementById("img"+element)
-                    imgDiv.classList.add("transition")
-                    imgDiv.onclick = function(){
+            galeriaHijos.forEach((imgDiv=>{
+                const img = imgDiv.children[0]
+                    img.classList.add("transition")
+                    img.onclick = function(){
                         if(this.classList.contains("selected")){
                             this.style.scale = "1"
                             this.classList.remove("singleIMG_onSelect")
@@ -135,7 +118,7 @@ export function Seleccionar(info){
                         }   
                     }
                             
-            }))
+        }))
     
         // Ejecutar logica relacionada con los albunes para seleccionarlos  
             const albums = Array.from(document.getElementsByClassName("album_item"))
@@ -156,14 +139,13 @@ export function Seleccionar(info){
     }
 
     else if(CheckbosHidden.checked){
-            idsArray.forEach((element=>{
-                if((element == NaN)||!(element))return
-                const imgDiv = document.getElementById("img"+element)
-                    imgDiv.style.scale = "1"
-                    imgDiv.classList.remove("singleIMG_onSelect")
-                    imgDiv.classList.remove("selected")
+            galeriaHijos.forEach((imgDiv=>{
+                const img = imgDiv.children[0]
+                    img.style.scale = "1"
+                    img.classList.remove("singleIMG_onSelect")
+                    img.classList.remove("selected")
                     RemoveMarkSelected(imgDiv)
-                    imgDiv.onclick = function(){
+                    img.onclick = function(){
                         return
                     };
             }))
@@ -177,29 +159,29 @@ export function Seleccionar(info){
                 }
             })
     }
-    }catch(error){
-        console.log("Debe esperar a que carguen las fotos ")
-        modalNotificaciones.style.display="block"
-        modalNotificaciones.textContent = "(inválido)Esperar a cargar fotos..."
-        nav.style.top = "32px"
-            idsArray.forEach((element)=>{
-                const imgDiv = document.getElementById("img"+element)
-                    try{
-                        imgDiv.onclick= function(){
-                        return
-                        }
-                    }
-                    catch(error){
-                        console.log("el arreglo esta vacío")
-                    }
-                    finally{
-                        try{imgDiv.classList.remove("selected")}
-                        catch(error){console.log("No existe clase que remover")}
-                    }
-            })
+   
+}
+
+function AddMarkSelected(imgdiv){
+    const div = document.createElement('div')
+    const counter =  document.getElementsByClassName("selector_counter")[0]
+    div.classList.add("singleIMG_count")
+    div.textContent = "✔"
+    imgdiv.appendChild(div)
+    counter.style.display = "block"
+    counter.children[0].textContent =" "+ Array.from(document.getElementsByClassName("selected")).length
+}
+
+function RemoveMarkSelected(imgdiv){
+    const div = imgdiv.querySelector('.singleIMG_count'); 
+    const counter =  document.getElementsByClassName("selector_counter")[0]
+    if (Array.from(document.getElementsByClassName("selected")).length == 0){
+        counter.style.display = "none"
+    }else{
+        counter.children[0].textContent = " "+ Array.from(document.getElementsByClassName("selected")).length
     }
-    
-    
+    if(div)div.remove()
+
 }
 
 export async function DeleteImg(elements, nav){
@@ -354,30 +336,8 @@ export async function Descargar(ids , info){
     
 }
 
-function AddMarkSelected(imgdiv){
- const id = extraerNumeros(imgdiv.id)
- const imgContiner = document.getElementById("divImg"+id)
- const div = document.createElement('div')
- const counter =  document.getElementsByClassName("selector_counter")[0]
- div.classList.add("singleIMG_count")
- div.textContent = "✔"
- imgContiner.appendChild(div)
- counter.style.display = "block"
- counter.children[0].textContent =" "+ Array.from(document.getElementsByClassName("selected")).length
-}
-function RemoveMarkSelected(imgdiv){
-const id = extraerNumeros(imgdiv.id)
-const imgContiner = document.getElementById("divImg"+id)
-const div = imgContiner.querySelector('.singleIMG_count'); 
-const counter =  document.getElementsByClassName("selector_counter")[0]
-if (Array.from(document.getElementsByClassName("selected")).length == 0){
-    counter.style.display = "none"
-}else{
-    counter.children[0].textContent = " "+ Array.from(document.getElementsByClassName("selected")).length
-}
-if(div)div.remove()
 
-}
+
 
 // singleIMG_count
 //divImg + id 

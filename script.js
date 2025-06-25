@@ -387,11 +387,16 @@ export async function CargarImagenes(data, info,StringAlbum) {
       const imgFormat = detectImageFormatFromBase64(imgData.datalow);
       const img = displayBase64Image(imgData.datalow, imgFormat);
       const id = element.id;
-      img.classList = "singleIMG";
-      img.id = "img" + id;
-
       const divImg = document.createElement("div");
-      divImg.id = "divImg" + id;
+      
+      if(StringAlbum){
+        img.id = StringAlbum+"img"+ id
+        divImg.id = StringAlbum + "divImg" + id;
+      }else{
+        img.id = "img" + id;
+        divImg.id = "divImg" + id;
+      }
+      img.classList = "singleIMG";
       divImg.classList = "singleIMG-continer";
       divImg.appendChild(img);
 
