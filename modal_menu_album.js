@@ -1,4 +1,4 @@
-import { supabase } from "./script.js";
+import { desmarcarCheckbox, supabase } from "./script.js";
 import { extraerNumeros } from "./script.js";
 import { CargarImagenes } from "./script.js";
 import { OcultarAlbumMoviles } from "./MenuAlbumsMoviles.js";
@@ -59,6 +59,14 @@ export async function EliminarAlbum(albumName) {
 }
 async function SelectFromTabla(tableName) {
   const { data, error } = await supabase.from(tableName).select("*");
+  if (error) {
+    console.log("error", error);
+    return;
+  }
+  return data;
+}
+export async function DeleteFromTabla(tableName, id){
+  const { data, error } = await supabase.from(tableName).delete().eq("imgsids", id);
   if (error) {
     console.log("error", error);
     return;
@@ -232,6 +240,11 @@ async function CrearAlbum() {
     console.log("esta vacío el campo");
     return;
   }
+  const detener = VerificarNombresDuplicados(inputNombre.value)
+  if (detener == true){
+    console.log("El nombre del album ya existe")
+    return
+  }
 
   // usar la query especializada para dispositivos moviles
   if (esDispositivoMovil() == true) {
@@ -247,6 +260,7 @@ async function CrearAlbum() {
       cuerpoConsulta
     );
     Cerrar_modal_nombre_album();
+    desmarcarCheckbox()
     mostrarAlbums();
     return;
   }
@@ -273,7 +287,18 @@ async function CrearAlbum() {
   }
 
   Cerrar_modal_nombre_album();
+  desmarcarCheckbox()
   mostrarAlbums();
+}
+function VerificarNombresDuplicados(nombre){
+  let detener = false
+  const albums = Array.from(document.getElementsByClassName("album_item"))
+  albums.forEach((album)=>{
+    if(album.textContent == limpiarTextoCompleto(nombre)){
+      detener = true
+    }
+  })
+  return detener
 }
 
 async function abrirAlbum(elemento) {
@@ -379,8 +404,10 @@ BotonCrearAlbum.onclick = () => {
 // boton de aceptar del Modal nombre album para crear album
 const aceptarCrearAlbum =
   document.getElementsByClassName("aceptarCrearAlbum")[0];
-aceptarCrearAlbum.onclick = () => {
-  CrearAlbum();
+aceptarCrearAlbum.onclick = async () => {
+  await CrearAlbum();
+  const inputNombre = document.getElementsByClassName("nombre_album_input")[0];
+  inputNombre.value = ""
 };
 
 const cancelarCrearAlbum_ = document.getElementsByClassName(

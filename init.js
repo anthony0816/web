@@ -6,7 +6,7 @@ import { CargarTema } from "./script.js";
 
 
 
-let estado = autenticar("Bb", "kjkszpj");
+let estado = autenticar("Bb", "1234");
 
 if (estado == false) {
   document.getElementsByTagName('body')[0].innerHTML=""

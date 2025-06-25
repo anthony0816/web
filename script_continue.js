@@ -8,6 +8,7 @@ import { desmarcarCheckbox } from "./script.js";
 import { albumOnClick } from "./modal_menu_album.js";
 import { EliminarAlbum } from "./modal_menu_album.js";
 import { limpiarTextoCompleto } from "./modal_menu_album.js";
+import { DeleteFromTabla } from "./modal_menu_album.js";
 
 export var idsActivos = [];
 
@@ -185,12 +186,16 @@ export async function DeleteImg(elements, nav) {
   for (const element of elements) {
     // logica para eliminar los albums
     if (element.classList.contains("album_item")) {
-      // --------IMPORTANTE
-      // por implementar
       const nombreAlbum = limpiarTextoCompleto(element.textContent);
       await EliminarAlbum(nombreAlbum);
       continue;
     }
+    // si la peticion de eliminar proviene de un album
+    //  entonces la maneja DeleteFromAlbum() 
+    // y salta a al siguiente elemento
+    const detener = await DeleteFromAlbum(element.id)
+    if(detener == true)continue
+
     param2.textContent = elements.length;
     const id = extraerNumeros(element.id);
     const { data, error } = await supabase
@@ -211,12 +216,27 @@ export async function DeleteImg(elements, nav) {
       }
     }
   }
-  cambiarEstadoCheckbox();
+  desmarcarCheckbox();
   param1.textContent = "1";
   param2.textContent = "0";
   modalNotificaciones.style.display = "none";
   nav.style.top = "15px";
   console.log("ids activos despues de eliminar", idsActivos);
+}
+async function DeleteFromAlbum(id){
+  const pagina = document.getElementsByClassName("onDisplay")[0]
+  if(pagina.id == "gallery"){
+    return false
+  }else{
+    console.log("pagina on display", pagina)
+    console.log("id del elemento que se desea elmiminar", id)
+    await DeleteFromTabla(pagina.id,extraerNumeros(id))
+    const imgDiv = document.getElementById(pagina.id + "divImg"+extraerNumeros(id))
+    // Para sacarlo de la interfaz
+    imgDiv.remove()
+    return true
+  }
+  
 }
 
 export function añadirFuncionesDeNavegacion(modal, album) {
@@ -321,7 +341,7 @@ export async function Descargar(ids, info) {
     }
   }
   if (info == "many") {
-    cambiarEstadoCheckbox();
+    desmarcarCheckbox();
   }
 }
 
