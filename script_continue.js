@@ -3,7 +3,6 @@ import { supabase } from "./script.js";
 import { ExpandirImagen } from "./script.js";
 import { CerrarExpandirImg } from "./script.js";
 import { CargarMasElementos } from "./script.js";
-import { cambiarEstadoCheckbox } from "./script.js";
 import { desmarcarCheckbox } from "./script.js";
 import { albumOnClick } from "./modal_menu_album.js";
 import { EliminarAlbum } from "./modal_menu_album.js";
