@@ -292,7 +292,7 @@ function VerificarNombresDuplicados(nombre){
   let detener = false
   const albums = Array.from(document.getElementsByClassName("album_item"))
   albums.forEach((album)=>{
-    if(album.textContent == limpiarTextoCompleto(nombre)){
+    if(limpiarTextoCompleto(album.textContent) == limpiarTextoCompleto(nombre)){
       detener = true
     }
   })
