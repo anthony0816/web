@@ -215,8 +215,6 @@ export function albumOnClick(div) {
   
   // prevenir el span de click inecesarios puede sobrecargar el servidor
   if (div.classList.contains("active")) return;
-// quitar todas las fotos de la galeria 
-  document.getElementById("gallery").innerHTML = ""
 
   // agregar la funcionalidad de estilos para color cuando este señalado
   const active = Array.from(document.getElementsByClassName("active"));
